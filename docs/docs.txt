@@ -1,0 +1,11 @@
+Notas documentación:
+
+De momento, ontología.
+
+ONTOLOGÍA
+
+-Explicar iteraciones (+gráficos)
+-Explicar metodología
+-Explicar que hemos escogido "proponer y aplicar" y por qué.
+-Explicar top down vs bottom up
+-Explicar por qué algunos elementos son clases y otros solo atributos/enums

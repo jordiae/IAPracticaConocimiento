@@ -1,0 +1,61 @@
+nombre interés coste ciudad(ref ciudades)
+Camp Nou; deportivo; 100; Barcelona
+Sagrada Família; cultural; 50; Barcelona
+Palau de la Música; musical; 100; Barcelona
+Torre Eiffel; romántico; 50; París
+Louvre; cultural; 75; París
+Parque de Belleville; naturaleza; 0; París
+Coliseo; histórico; 100; Roma
+Roma subterránea; aventura; 50; Roma
+Centro Roma; romántico; 0; Roma
+Estadio Santiago Bernabéu; deportivo; 100; Madrid
+Museo El Prado; cultural; 80; Madrid
+Teleférico de Madrid; infantil; 40; Madrid
+Tranvía; infantil; 10; Lisboa
+Castillo de San Jorge; histórico; 40; Lisboa
+Barrio Alto; relax; 0; Lisboa
+Museo al Holocausto; histórico; 30; Berlín
+Puerta de Brandeburgo; histórico; 0; Berlín
+Bus turístico de Berlín; relax; 30; Berlín
+Museo Británico; cultural; 100; Londres
+London Eye; romántico; 40; Londres
+Puente de la Torre; cultural; 60; Londres
+Jardín Inglés de Múnich; naturaleza; 20; Múnich;
+Marienplatz (centro); histórico; 0; Múnich
+Cervecería Hofbrauhaus; relax; 70; Múnich
+Gamla Stan (Casco histórico); histórico; 0; Estocolmo
+Museo marítimo Vasa; cultural; 70; Estocolmo
+Museo de ABBA; musical; 90; Estocolmo
+Trans-siberian adventure; aventura; 60; Moscú
+Catedral de San Basilio; cultural; 40; Moscú
+Plaza Roja; relax; 0; Moscú
+Paseo en barco por el Río Nevá; 20; relax; San Petersburgo
+Hermitage; cultural; 60; San Petersburgo
+Teatro Mariinski; musical; 100; San Petersburgo
+Partenón; histórico; 40; Atenas
+Estadio baloncesto del Panathinaikos; 50; Atenas
+Museo de la Acrópolis; cultural; 30; Atenas
+Basílica de Santa Sofía: cultural; 20; Estambul
+Hipódromo; histórico; 10; Estambul
+Museo de las Artes Turcas e Islámicas; 30; Estambul
+Parque de atracciones Odaiba; aventura; 140; Tokyo
+Torre Tokyo Skytree; tecnológico; 90; Tokyo
+Tokyo DisneySea; infantil; 180; Tokyo
+China Zun Tower; tecnológico; 40; Pequín
+Sede de CCTV; tecnológico; 0; Pequín
+Estadio Olímpico de Pequín; deportivo; 60; Pequín
+Shanghai World Financial Center; tecnológico; 0; Shangái
+Jardín Yuyuan; cultural; 60; Shangái
+Torre Perla Oriental; tecnológico; 50; Shangái
+Hong Kong Disneyland; infantil, 150; Hong Kong
+Ocean Park de Hong Kong; infantil; 80; Hong Kong
+Cumbre Victoria; aventura; 0; Hong Kong
+Estadio Olímpico de Seúl; deportivo; 50; Seúl
+Palacio de Gyeongbokgung; cultural; 80; Seúl
+N Seoul Tower; romántico; 50; Seúl
+Monumento a Jan Sobieski III; histórico; 0; Gdansk
+Universidad Tecnológica de Gdansk; tecnológico; 0; Gdansk
+Park Oliwski; naturaleza; 30; Gdansk
+Rascacielos Burj Khalifa; relax; 60; Dubái
+Dubai Mall; relax; 0; Dubái
+Kite Beach; deportivo; Dubái

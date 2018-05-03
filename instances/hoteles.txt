@@ -1,0 +1,61 @@
+nombre calidad spa apto_ninos instalaciones_deporte costexdia ciudad(ref ciudades)
+Golden Paradise Resort; 2; False; True; False; 100; Barcelona
+Exalted Square Hotel & Spa; 3; True; False; False; 150; Barcelona
+Olive Heritage Resort; 3; False; True; True; 150; Paris
+Riverside Wolf Hotel; 1; False; False; True; 50; Roma
+Bronze Cave Hotel; 2; False; True; False; 100; Madrid
+Twin Sierra Hotel; 4; False; False; False; 200; Lisboa
+Lunar Hotel; 1; False; True; True; 50; Berlín
+Coffee Hotel & Spa; 5; True; False; True; 250; Paris
+Yesteryear Hotel; 5; False; True; False; 250; Londres
+Blizzard Hotel; 5; False; False; False; 250; Múnich
+Atlantis Temple Resort; 3; False; True; True; 150; Estocolmo
+Ancient Vista Resort & Spa; 1; False; False; True; 50; Moscú
+Western Grove Hotel; 4; False; True; False; 200; San Petersburgo
+Pacific Lake Hotel; 3; False; False; False; 150; Atenas
+Aquamarine Park Resort; 2; False; True; True; 100; Estambul
+Parallel Brook Hotel; 4; False; False; True; 200; Tokyo
+Copper Hotel & Spa; 5; True; True; False; 250; Roma
+Ranch Hotel; 1; False; False; False; 50; Pequín
+Travel Resort & Spa; 2; True; True; True; 100; Madrid
+Fairyland Hotel & Spa; 5; True; False; True; 250; Lisboa
+Snowy Memorial Resort; 4; False; True; False; 200; Shangái
+Sunset Pastures Hotel; 2; False; False; False; 100; Hong Kong
+Mellow Gorge Hotel & Spa; 3; True; True; True; 150; Berlín
+Silver Emperor Resort; 2; False; False; True; 100; Seúl
+Sunrise Cove Resort & Spa; 2; True; True; False; 100; Londres
+Lord's Raven Hotel & Spa; 4; True; False; False; 200; Múnich
+Elegant Hotel & Spa; 2; True; True; True; 100; Estocolmo
+Stardust Resort; 3; False; False; True; 150; Gdansk
+Cozy Resort; 3; False; True; False; 150; Dubái
+Repose Hotel; 4; False; False; False; 200; Barcelona
+Snowy Memorial Resort; 4; False; True; True; 200; París
+Sunset Pastures Hotel; 1; False; False; True; 50; Roma
+Mellow Gorge Hotel & Spa; 5; True; True; False; 250; Moscú
+Silver Emperor Resort; 3; False; False; False; 150; Madrid
+Sunrise Cove Resort & Spa; 2; True; True; True; 100; San Petersburgo
+Lord's Raven Hotel & Spa; 4; True; False; True; 200; Atenas
+Elegant Hotel & Spa; 2; True; True; False; 100; Estambul
+Stardust Resort; 5; False; False; False; 250; Lisboa
+Cozy Resort; 3; False; True; True; 150; Berlín
+Repose Hotel; 5; False; False; True; 250; Londres
+Antique Maple Hotel; 1; False; True; False; 50; Múnich
+Grandiose Peak Hotel; 5; False; False; False; 250; Estocolmo
+Antique Cove Resort; 4; False; True; True; 200; Moscú
+Malachite Emperor Resort & Spa; 2; True; False; True; 100; Tokyo
+Malachite Creek Resort; 2; False; True; False; 100; San Petersburgo
+Remote Jewel Resort & Spa; 5; True; False; False; 250; Pequín
+Troposphere Resort & Spa; 1; True; True; True; 50; Shangái
+Recreation Resort; 3; False; True; True; 150; Atenas
+Prism Hotel; 1; False; False; False; 50; Estambul
+Leisure Hotel & Spa; 4; True; True; False; 200; Hong Kong
+Antique Maple Hotel; 2; False; False; True; 100; Tokyio
+Grandiose Peak Hotel; 3; False; True; True; 150; Pequín
+Antique Cove Resort; 4; False; False; False; 200; Shangái
+Malachite Emperor Resort & Spa; 1; True; False; True; 50; Seúl
+Malachite Creek Resort; 3; False; True; True; 150; Hong Kong
+Remote Jewel Resort & Spa; 5; True; False; False; 250; Gdansk
+Troposphere Resort & Spa; 4; True; True; False; 200; Dubái
+Recreation Resort; 3; False; False; True; 150; Seúl
+Prism Hotel; 3; False; True; True; 150; Gdansk
+Leisure Hotel & Spa; 4; True; False; True; 200; Dubái
