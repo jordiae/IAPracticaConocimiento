@@ -11,6 +11,7 @@
 ;;; Module for city/stay punctuation from Characterisation
 (defmodule processing
 	(import MAIN ?ALL)
+	(import characterisation ?ALL)
 	(export ?ALL)
 )
 ;;; Module for solution construction
@@ -36,7 +37,6 @@
 )
 (deffunction MAIN::multioption (?question $?allowed-values)
    (format t "%s "?question)
-   (printout t (length$ ?allowed-values))
    (progn$ (?curr-value $?allowed-values)
 		(format t "(%s)" ?curr-value)
 	)
@@ -176,7 +176,6 @@
 	(assert (kids (yes-no-question "¿Viajaran con niños?")))
 )
 (defrule characterisation::Objective "Ask for the objective of the travel"
-	(declare (salience 10))
 	(not (objective ?))
 	=>
 	(bind $?objectives (find-all-instances ((?o Interest)) TRUE))
@@ -186,8 +185,42 @@
 		(bind ?curr-name (send ?curr-obj get-Kind))
 		(bind $?name-kinds(insert$ $?name-kinds (+ (length$ $?name-kinds) 1) ?curr-name))
 	)
-	(assert (objective (multioption "¿Cual es el interes del viaje?" ?name-kinds)))
+	(assert (objective (multioption "¿Cual es el interes principal del viaje?" ?name-kinds)))
 )
+(defrule characterisation::transportpreferences "Asks for all transport preferences"
+	(declare (salience 10))
+	(not (transportPreferencesSet))
+	=>
+	(bind $?listatransportes (find-all-instances ((?o Transport)) TRUE))
+	(bind $?transportTypes (create$ ))
+	(loop-for-count (?i 1 (length$ $?listatransportes)) do
+		(bind ?curr-obj (nth$ ?i ?listatransportes))
+		(bind ?curr-name (send ?curr-obj get-TransportName))
+		(bind $?transportTypes(insert$ $?transportTypes (+ (length$ $?transportTypes) 1) ?curr-name))
+	)
+	(if (yes-no-question "¿Tiene alguna preferencia sobre transportes a evitar?")
+		then 
+		(bind ?done FALSE)
+		(while (not ?done) do
+			(bind ?avoid (multioption "Inserte transporte a evitar:" ?transportTypes))
+			(assert (avoidtransport ?avoid))
+			(bind ?done (not (yes-no-question "¿Alguno mas?")))
+		)
+	)
+	(if (yes-no-question "¿Tiene alguna preferencia sobre transportes a tomar?")
+		then 
+		(bind ?done FALSE)
+		(while (not ?done) do
+			(bind ?prefered (multioption "Inserte transporte preferido:" ?transportTypes))
+			(assert (prefertransport ?prefered))
+			(bind ?done (not (yes-no-question "¿Alguno mas?")))
+		)
+	)
+	(assert (transportPreferencesSet))
+)
+
+; TODO: tipo ciudad, 
+
 ;num-question
 ;yes-no-question
 ;multioption
