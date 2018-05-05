@@ -1,4 +1,3 @@
-
 ;;; Victor parte de Clips. No tocar! Solo copiar
 
 ;;; Preliminary Modules, by subproblem detection:
@@ -37,6 +36,7 @@
 )
 (deffunction MAIN::multioption (?question $?allowed-values)
    (format t "%s "?question)
+   (printout t (length$ ?allowed-values))
    (progn$ (?curr-value $?allowed-values)
 		(format t "(%s)" ?curr-value)
 	)
@@ -120,7 +120,7 @@
 	(assert (minnumcities ?min))
 	(assert (maxnumcities ?max))
 )
-(defrule characterisation::numberofdaysincities "Asks for number of cities to visit"
+(defrule characterisation::numberofdaysincities "Asks for restriction of number of days in cities"
 	(not (mindaysincities ?))
 	(not (maxdaysincities ?))
 	=>
@@ -134,34 +134,63 @@
 	(assert (mindaysincities ?min))
 	(assert (maxdaysincities ?max))
 )
-(defrule characterisation::transportpreferences "Asks for all transport preferences"
-	(not (transportPreferencesSet))
-	=>
-	(bind ?listatransportes ????);;; TODO: ADD FROM ONTHOLOGY, GET ALL INSTANCES OF TRANSPORT
-	(if (yes-no-question "¿Tiene alguna preferencia sobre transportes a evitar?")
-		then 
-		(bind ?done FALSE)
-		(while (not (done)) do
-			(bind ?avoid (multioption "Inserte transporte a evitar:" ?listaTransportes))
-			(assert (avoidtransport ?avoid))
-			(bind ?done (yes-no-question "¿Alguno mas?"))
-		)
-	)
-	(if (yes-no-question "¿Tiene alguna preferencia sobre transportes a tomar?")
-		then 
-		(bind ?done FALSE)
-		(while (not (done)) do
-			(bind ?avoid (multioption "Inserte transporte preferido:" ?listaTransportes))
-			(assert (avoidtransport ?avoid))
-			(bind ?done (yes-no-question "¿Alguno mas?"))
-		)
-	)
-	(assert transportPreferencesSet)
-)
 (defrule characterisation::minHotelQuality "Asks for the quality of the hotel"
 	(not (minhotelquality ?))
 	=>
 	(assert (minhotelquality (num-question "¿Cual es el numero minimo de estrellas de los hoteles en que alojarse?" 0 5)))
 )
+(defrule characterisation::visitRare "Checks if user wants to visit rare sights"
+	(not (visitrare ?))
+	=>
+	(assert (visitrare (yes-no-question "¿Quiere visitar lugares menos conocidos?")))
+)
+(defrule characterisation::sacrificeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
+	(not (sacrificetimeforbudget ?))
+	(mindays ?)
+	(budget ?)
+	(minhotelquality ?)
+	=>
+	(assert (sacrificetimeforbudget (yes-no-question "¿Está dispuesto a pasar menos o más días de los especificados con tal de adecuarse al presupuesto?")))
+	(assert (sacrificequalityforbudget (yes-no-question "¿Está dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
+) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
+;; Ignoring should mean punishing those solutions but not discard them
+
+
+;; Restrictions set above, now further characterisation
+
+(defrule characterisation::age "Ask for user's age"
+	(not (age ?))
+	=>
+	(assert (age (num-question "¿Que edad tiene?" 1 110)))
+)
+
+;(defrule characterisation::culturalLevel "Ask for cultural level"
+;	(not (culture ?))
+;	=>
+;	(assert (culture (num-question "¿?")))
+;) I'd rather avoid this question. 
+
+(defrule characterisation::kids "Ask if kids are coming"
+	(not (kids ?))
+	=>
+	(assert (kids (yes-no-question "¿Viajaran con niños?")))
+)
+(defrule characterisation::Objective "Ask for the objective of the travel"
+	(declare (salience 10))
+	(not (objective ?))
+	=>
+	(bind $?objectives (find-all-instances ((?o Interest)) TRUE))
+	(bind $?name-kinds (create$ ))
+	(loop-for-count (?i 1 (length$ $?objectives)) do
+		(bind ?curr-obj (nth$ ?i ?objectives))
+		(bind ?curr-name (send ?curr-obj get-Kind))
+		(bind $?name-kinds(insert$ $?name-kinds (+ (length$ $?name-kinds) 1) ?curr-name))
+	)
+	(assert (objective (multioption "¿Cual es el interes del viaje?" ?name-kinds)))
+)
+;num-question
+;yes-no-question
+;multioption
+
 ;; TODO: could add rule here to check constraints on number of days in city, cities to visit and days in travel.
-;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality
+;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??,
