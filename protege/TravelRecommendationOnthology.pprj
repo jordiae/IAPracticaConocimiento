@@ -1,4 +1,4 @@
-; Sat May 05 11:57:44 CEST 2018
+; Sat May 05 15:06:41 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -12,6 +12,7 @@
 	(height 100)
 	(is_hidden FALSE)
 	(name ":ANNOTATION-TEXT")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10155])
 	(widget_class_name "edu.stanford.smi.protege.widget.YellowStickyWidget")
 	(width 200)
 	(x 0)
@@ -20,9 +21,14 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[TravelRecommendationOnthology_ProjectKB_Class80]
-		[TravelRecommendationOnthology_ProjectKB_Class81]
-		[TravelRecommendationOnthology_ProjectKB_Class82]))
+		[TravelRecommendationOnthology_ProjectKB_Class10273]
+		[TravelRecommendationOnthology_ProjectKB_Class10274]
+		[TravelRecommendationOnthology_ProjectKB_Class10275]
+		[TravelRecommendationOnthology_ProjectKB_Class10276]
+		[TravelRecommendationOnthology_ProjectKB_Class10277]
+		[TravelRecommendationOnthology_ProjectKB_Class10278]
+		[TravelRecommendationOnthology_ProjectKB_Class10279]
+		[TravelRecommendationOnthology_ProjectKB_Class10280]))
 
 ([CLSES_TAB] of  Widget
 
@@ -57,14 +63,12 @@
 		[ANNOTATED_INSTANCE_WIDGET]
 		[CREATOR_WIDGET]
 		[CREATION_TIMESTAMP_WIDGET]
-		[ANNOTATION_TEXT_WIDGET]))
+		[ANNOTATION_TEXT_WIDGET]
+		[TravelRecommendationOnthology_ProjectKB_Class10154]))
 
 ([INSTANCES_TAB] of  Widget
 
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
-
-([KB_187395_Class0] of  Map
-)
 
 ([KB_535572_Class0] of  String
 
@@ -72,7 +76,9 @@
 	(string_value "edu.stanford.smi.protege.storage.clips.ClipsKnowledgeBaseFactory"))
 
 ([KB_535572_Class1] of  Map
-)
+
+	(entries [TravelRecommendationOnthology_ProjectKB_Class10282])
+	(referenced_maps [TravelRecommendationOnthology_ProjectKB_Class10281]))
 
 ([KB_535572_Class100] of  String
 
@@ -166,6 +172,9 @@
 	(name "classes_file_name")
 	(string_value "TravelRecommendationOnthology.pont"))
 
+([KB_575612_Class0] of  Map
+)
+
 ([LAYOUT_PROPERTIES] of  Property_List
 
 	(name "layout properties")
@@ -254,10 +263,10 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_CLASS_FORM_WIDGET]
-		[STANDARD_SLOT_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
-		[PAL_FORM_WIDGET])
+		[STANDARD_SLOT_FORM_WIDGET]
+		[PAL_FORM_WIDGET]
+		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
 	(default_facet_metaclass ":STANDARD-FACET")
 	(default_instance_widget_class_name "edu.stanford.smi.protege.widget.FormWidget")
@@ -597,7 +606,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class2])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.OWLFormsTab"))
+	(widget_class_name "se.liu.ida.JessTab.JessTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class10] of  Property_List
 )
@@ -606,11 +615,217 @@
 
 	(name "SearchTab_Query"))
 
+([TravelRecommendationOnthology_ProjectKB_Class10128] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "inverse_of_cityTypeCity")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10129])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([TravelRecommendationOnthology_ProjectKB_Class10129] of  Property_List
+
+	(properties
+		[TravelRecommendationOnthology_ProjectKB_Class10130]
+		[TravelRecommendationOnthology_ProjectKB_Class10131]))
+
+([TravelRecommendationOnthology_ProjectKB_Class10130] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10131] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10132] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "inverse_of_cityTypeCity")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10133])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceListWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([TravelRecommendationOnthology_ProjectKB_Class10133] of  Property_List
+
+	(properties
+		[TravelRecommendationOnthology_ProjectKB_Class10134]
+		[TravelRecommendationOnthology_ProjectKB_Class10135]))
+
+([TravelRecommendationOnthology_ProjectKB_Class10134] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10135] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10136] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "TravelRecommendationOnthology_Class7")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10137])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 360))
+
+([TravelRecommendationOnthology_ProjectKB_Class10137] of  Property_List
+)
+
+([TravelRecommendationOnthology_ProjectKB_Class10138] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "CityTypes")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10139])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
+	(width 200)
+	(x 0)
+	(y 360))
+
+([TravelRecommendationOnthology_ProjectKB_Class10139] of  Property_List
+
+	(properties
+		[TravelRecommendationOnthology_ProjectKB_Class10140]
+		[TravelRecommendationOnthology_ProjectKB_Class10141]))
+
+([TravelRecommendationOnthology_ProjectKB_Class10140] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10141] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10142] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "CityTypes")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10143])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceListWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([TravelRecommendationOnthology_ProjectKB_Class10143] of  Property_List
+
+	(properties
+		[TravelRecommendationOnthology_ProjectKB_Class10144]
+		[TravelRecommendationOnthology_ProjectKB_Class10145]))
+
+([TravelRecommendationOnthology_ProjectKB_Class10144] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10145] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10146] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "inverse_of_CityTypeCities")
+	(property_list [TravelRecommendationOnthology_ProjectKB_Class10147])
+	(widget_class_name "edu.stanford.smi.protege.widget.InstanceFieldWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([TravelRecommendationOnthology_ProjectKB_Class10147] of  Property_List
+
+	(properties
+		[TravelRecommendationOnthology_ProjectKB_Class10148]
+		[TravelRecommendationOnthology_ProjectKB_Class10149]))
+
+([TravelRecommendationOnthology_ProjectKB_Class10148] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-View References to Value"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10149] of  Boolean
+
+	(boolean_value FALSE)
+	(name "ButtonDisplayed-Delete Instance"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10154] of  Property_List
+
+	(name "layout properties"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10155] of  Property_List
+)
+
+([TravelRecommendationOnthology_ProjectKB_Class10273] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10274] of  String
+
+	(name "Hotel")
+	(string_value "HotelName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10275] of  String
+
+	(name "Sight")
+	(string_value "SightName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10276] of  String
+
+	(name "City")
+	(string_value "CityName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10277] of  String
+
+	(name "Interest")
+	(string_value "Kind"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10278] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10279] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10280] of  String
+
+	(name "CityType")
+	(string_value "TypeName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10281] of  Map
+)
+
+([TravelRecommendationOnthology_ProjectKB_Class10282] of  Map_Entry
+
+	(key "InstanceDisplay.yellow_stickies")
+	(key_class "java.lang.String")
+	(value "TravelRecommendationOnthology_ProjectKB_Class10281")
+	(value_class "java.util.Map"))
+
 ([TravelRecommendationOnthology_ProjectKB_Class11] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class12])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.cls.OWLClassesTab"))
+	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class12] of  Property_List
 )
@@ -619,7 +834,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class14])
-	(widget_class_name "edu.stanford.smi.protegex.server_changes.prompt.UsersTab"))
+	(widget_class_name "ezpal.EZPalTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class14] of  Property_List
 )
@@ -628,7 +843,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class16])
-	(widget_class_name "edu.stanford.smi.protege.query.LuceneQueryPlugin"))
+	(widget_class_name "edu.stanford.smi.protegex.server_changes.prompt.UsersTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class16] of  Property_List
 )
@@ -637,7 +852,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class18])
-	(widget_class_name "edu.stanford.smi.protege.widget.ClsesAndInstancesTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class18] of  Property_List
 )
@@ -646,7 +861,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class20])
-	(widget_class_name "edu.stanford.smi.protege.widget.KAToolTab"))
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class2] of  Property_List
 )
@@ -658,7 +873,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class22])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
+	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class22] of  Property_List
 )
@@ -667,7 +882,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class24])
-	(widget_class_name "edu.stanford.smi.protege.keywordsearch.StringSearch"))
+	(widget_class_name "edu.stanford.smi.protege.widget.ClsesAndInstancesTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class24] of  Property_List
 )
@@ -676,7 +891,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class26])
-	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
+	(widget_class_name "edu.stanford.smi.protegex.evaluation.MetaAnalysis"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class26] of  Property_List
 )
@@ -685,7 +900,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class28])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalConstraintsTab"))
+	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class28] of  Property_List
 )
@@ -694,13 +909,13 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class30])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.metadatatab.OWLMetadataTab"))
+	(widget_class_name "edu.stanford.smi.protege.query.LuceneQueryPlugin"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class3] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class4])
-	(widget_class_name "org.protege.owl.mm.portability.protege3.MappingMasterTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.metadatatab.OWLMetadataTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class30] of  Property_List
 )
@@ -709,7 +924,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class32])
-	(widget_class_name "edu.stanford.smi.protegex.owl.swrl.ui.tab.SWRLTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.cls.OWLClassesTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class32] of  Property_List
 )
@@ -727,7 +942,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class36])
-	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
+	(widget_class_name "org.protege.owl.mm.portability.protege3.MappingMasterTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class36] of  Property_List
 )
@@ -736,7 +951,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class38])
-	(widget_class_name "ca.uvic.csr.shrimp.jambalaya.JambalayaTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changeanalysis.ChangeAnalysisTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class38] of  Property_List
 )
@@ -745,7 +960,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class40])
-	(widget_class_name "edu.stanford.smi.protegex.changes.ChangesTab"))
+	(widget_class_name "TGViztab.TGVizTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class4] of  Property_List
 )
@@ -757,7 +972,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class42])
-	(widget_class_name "org.protege.owl.axiome.ui.AxiomeTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changes.changesKBViewTab.ChangesKBViewTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class42] of  Property_List
 )
@@ -766,7 +981,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class44])
-	(widget_class_name "TGViztab.TGVizTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.KAToolTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class44] of  Property_List
 )
@@ -775,7 +990,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class46])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab"))
+	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class46] of  Property_List
 )
@@ -784,7 +999,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class48])
-	(widget_class_name "uk.ac.man.ac.mig.coode.individuals.ui.OWLDLIndividualsTab"))
+	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class48] of  Property_List
 )
@@ -793,13 +1008,13 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class50])
-	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.InstanceTreeTab"))
+	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class5] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class6])
-	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.properties.OWLPropertiesTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class50] of  Property_List
 )
@@ -808,7 +1023,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class52])
-	(widget_class_name "edu.stanford.smi.protegex.evaluation.MetaAnalysis"))
+	(widget_class_name "org.protege.owl.axiome.ui.AxiomeTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class52] of  Property_List
 )
@@ -817,7 +1032,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class54])
-	(widget_class_name "edu.stanford.smi.protegex.changes.changesKBViewTab.ChangesKBViewTab"))
+	(widget_class_name "edu.stanford.smi.protege.keywordsearch.StringSearch"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class54] of  Property_List
 )
@@ -826,7 +1041,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class56])
-	(widget_class_name "se.liu.ida.JessTab.JessTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.OWLFormsTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class56] of  Property_List
 )
@@ -835,7 +1050,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class58])
-	(widget_class_name "edu.stanford.smi.protegex.changeanalysis.ChangeAnalysisTab"))
+	(widget_class_name "script.ProtegeScriptTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class58] of  Property_List
 )
@@ -844,7 +1059,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class60])
-	(widget_class_name "uk.ac.man.cs.mig.coode.owlviz.ui.OWLVizTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changes.ChangesTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class6] of  Property_List
 )
@@ -856,7 +1071,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class62])
-	(widget_class_name "edu.stanford.smi.protegex.changes.stats.ChangeStatisticsTab"))
+	(widget_class_name "edu.stanford.smi.protegex.owl.swrl.ui.tab.SWRLTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class62] of  Property_List
 )
@@ -865,7 +1080,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class64])
-	(widget_class_name "script.ProtegeScriptTab"))
+	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class64] of  Property_List
 )
@@ -874,7 +1089,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class66])
-	(widget_class_name "edu.stanford.smi.protegex.chatPlugin.ChatTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.instance_tree.KnowledgeTreeTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class66] of  Property_List
 )
@@ -883,7 +1098,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class68])
-	(widget_class_name "edu.stanford.smi.protegex.fctab.FacetConstraintsTab"))
+	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class68] of  Property_List
 )
@@ -892,13 +1107,13 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class70])
-	(widget_class_name "edu.stanford.smi.protegex.xml.tab.XMLTab"))
+	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class7] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class8])
-	(widget_class_name "edu.stanford.smi.protegex.widget.pal.PalQueriesTab"))
+	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class70] of  Property_List
 )
@@ -907,7 +1122,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class72])
-	(widget_class_name "edu.stanford.smi.protegex.datamaster.DataMasterTab"))
+	(widget_class_name "edu.stanford.smi.protegex.changes.stats.ChangeStatisticsTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class72] of  Property_List
 )
@@ -916,7 +1131,7 @@
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class74])
-	(widget_class_name "ezpal.EZPalTab"))
+	(widget_class_name "edu.stanford.smi.protegex.prompt.PromptTab"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class74] of  Property_List
 )
@@ -940,26 +1155,11 @@
 ([TravelRecommendationOnthology_ProjectKB_Class8] of  Property_List
 )
 
-([TravelRecommendationOnthology_ProjectKB_Class80] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([TravelRecommendationOnthology_ProjectKB_Class81] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([TravelRecommendationOnthology_ProjectKB_Class82] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
 ([TravelRecommendationOnthology_ProjectKB_Class9] of  Widget
 
 	(is_hidden TRUE)
 	(property_list [TravelRecommendationOnthology_ProjectKB_Class10])
-	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
+	(widget_class_name "uk.ac.man.cs.mig.coode.debugger.test.DebuggerTestTab"))
 
 ([VERTICAL_STRETCHER] of  String
 

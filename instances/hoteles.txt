@@ -29,16 +29,16 @@ Elegant Hotel & Spa; 2; True; True; True; 100; Estocolmo
 Stardust Resort; 3; False; False; True; 150; Gdansk
 Cozy Resort; 3; False; True; False; 150; Dubái
 Repose Hotel; 4; False; False; False; 200; Barcelona
-Snowy Memorial Resort; 4; False; True; True; 200; París
-Sunset Pastures Hotel; 1; False; False; True; 50; Roma
-Mellow Gorge Hotel & Spa; 5; True; True; False; 250; Moscú
-Silver Emperor Resort; 3; False; False; False; 150; Madrid
-Sunrise Cove Resort & Spa; 2; True; True; True; 100; San Petersburgo
-Lord's Raven Hotel & Spa; 4; True; False; True; 200; Atenas
-Elegant Hotel & Spa; 2; True; True; False; 100; Estambul
+City Memorial Resort; 4; False; True; True; 200; París
+Green Sunset Hotel; 1; False; False; True; 50; Roma
+Mellow Saint Hotel & Spa; 5; True; True; False; 250; Moscú
+Silver King Resort; 3; False; False; False; 150; Madrid
+Moon Resort & Spa; 2; True; True; True; 100; San Petersburgo
+Lord Knight Hotel & Spa; 4; True; False; True; 200; Atenas
+Classy Hotel & Spa; 2; True; True; False; 100; Estambul
 Stardust Resort; 5; False; False; False; 250; Lisboa
-Cozy Resort; 3; False; True; True; 150; Berlín
-Repose Hotel; 5; False; False; True; 250; Londres
+Kingdom Resort; 3; False; True; True; 150; Berlín
+May Hotel; 5; False; False; True; 250; Londres
 Antique Maple Hotel; 1; False; True; False; 50; Múnich
 Grandiose Peak Hotel; 5; False; False; False; 250; Estocolmo
 Antique Cove Resort; 4; False; True; True; 200; Moscú
@@ -49,13 +49,13 @@ Troposphere Resort & Spa; 1; True; True; True; 50; Shangái
 Recreation Resort; 3; False; True; True; 150; Atenas
 Prism Hotel; 1; False; False; False; 50; Estambul
 Leisure Hotel & Spa; 4; True; True; False; 200; Hong Kong
-Antique Maple Hotel; 2; False; False; True; 100; Tokyio
-Grandiose Peak Hotel; 3; False; True; True; 150; Pequín
-Antique Cove Resort; 4; False; False; False; 200; Shangái
-Malachite Emperor Resort & Spa; 1; True; False; True; 50; Seúl
-Malachite Creek Resort; 3; False; True; True; 150; Hong Kong
+Pyramid Hotel; 2; False; False; True; 100; Tokyio
+Grandiose Rise Hotel; 3; False; True; True; 150; Pequín
+Empire Resort; 4; False; False; False; 200; Shangái
+Forest Resort & Spa; 1; True; False; True; 50; Seúl
+Diamond Resort; 3; False; True; True; 150; Hong Kong
 Remote Jewel Resort & Spa; 5; True; False; False; 250; Gdansk
-Troposphere Resort & Spa; 4; True; True; False; 200; Dubái
-Recreation Resort; 3; False; False; True; 150; Seúl
-Prism Hotel; 3; False; True; True; 150; Gdansk
-Leisure Hotel & Spa; 4; True; False; True; 200; Dubái
+Stratosphere Resort & Spa; 4; True; True; False; 200; Dubái
+Genius Resort; 3; False; False; True; 150; Seúl
+Circle Hotel; 3; False; True; True; 150; Gdansk
+Enterprise Hotel & Spa; 4; True; False; True; 200; Dubái

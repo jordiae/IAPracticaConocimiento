@@ -9,13 +9,13 @@ Londres [nórdica, superpoblada, con_casco_histórico] (52,0) 100
 Múnich [verde, nórdica, con_casco_histórico] (48,12) 80
 Estocolmo [nórdica, fría, con_casco_histórico, marítima] (59,18) 80
 Moscú [fría, con_casco_histórico, superpoblada] (56,8) 40
-San Petersburgo [fría, con_casco_histórico] (60,30) 40
+San Petersburgo [fría, con_casco_histórico, marítima] (60,30) 40
 Atenas [con_casco_histórico, mediterránea] (24,38) 30
-Estambul [con_casco_histórico, superpoblada, mediterránea] (41,29) 20
-Tokyo [asiática, superpoblada, industrial] (36,140) 80
-Pequín [asiática, superpoblada, rascacielos] (40,116) 40
+Estambul [con_casco_histórico, superpoblada, mediterránea, marítima] (41,29) 20
+Tokyo [asiática, superpoblada, rascacielos, marítima] (36,140) 80
+Pequín [asiática, superpoblada, rascacielos, industrial] (40,116) 40
 Shangái [marítima, asiática, superpoblada, industrial] (31,122) 30
-Hong Kong [asiática, superpoblada, rascacielos, marítima] (22,114)
+Hong Kong [asiática, superpoblada, rascacielos, marítima] (22,114) 80
 Seúl [asiática, superpoblada, rascacielos] (38,127) 60
 Gdansk [marítima, con_casco_histórico, verde] (54,19) 50
 Dubái [rascacielos, superpoblada, marítima] (25,55) 100
