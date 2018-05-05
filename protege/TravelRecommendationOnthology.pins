@@ -1,11 +1,7 @@
-; Sat May 05 16:33:24 CEST 2018
+; Sat May 05 16:39:16 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
-
-([Hotel] of  %3ASTANDARD-CLASS
-
-	(%3ASLOT-CONSTRAINTS [TravelRecommendationOnthology_Class15]))
 
 ([TravelRecommendationOnthology_Class10] of  Interest
 
@@ -1643,7 +1639,3 @@
 		[TravelRecommendationOnthology_Class10105]
 		[TravelRecommendationOnthology_Class10106])
 	(Kind infantil))
-
-([TravelRecommendationOnthology_Class15] of  %3APAL-CONSTRAINT
-
-	(%3APAL-STATEMENT "(and (> ?Stars 1) (<  ?Stars 5))"))
