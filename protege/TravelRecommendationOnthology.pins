@@ -1,4 +1,4 @@
-; Sat May 05 16:39:16 CEST 2018
+; Sat May 05 17:06:14 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -1639,3 +1639,23 @@
 		[TravelRecommendationOnthology_Class10105]
 		[TravelRecommendationOnthology_Class10106])
 	(Kind infantil))
+
+([TravelRecommendationOnthology_Class3] of  Transport
+
+	(Distance corta)
+	(TransportName coche))
+
+([TravelRecommendationOnthology_Class4] of  Transport
+
+	(Distance media)
+	(TransportName tren))
+
+([TravelRecommendationOnthology_Class5] of  Transport
+
+	(Distance larga)
+	(TransportName avion))
+
+([TravelRecommendationOnthology_Class6] of  Transport
+
+	(Distance larga)
+	(TransportName barco))
