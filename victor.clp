@@ -97,12 +97,71 @@
 	(not (maxdays ?))
 	=>
 	(bind ?min (num-question "¿Cual es el requisito de minimo de dias del viaje?" 0 30))
-	(bind ?max (num-question "¿Cual es el requisito de máximo de dias del viaje? (-1 indica no hay máximo)" -1 30)) ;; TODO:Check this, could be troublesome
+	(bind ?max (num-question "¿Cual es el requisito de maximo de dias del viaje? (-1 indica no hay máximo)" -1 30)) ;; TODO:Check this, could be troublesome
 	(while (and (> ?min ?max) (not (eq ?max -1))) do
 		(printout t "El maximo debe ser mayor que el minimo o -1" crlf)
 		(bind ?min (num-question "¿Cual es el requisito de minimo de dias del viaje?" 0 30))
-		(bind ?max (num-question "¿Cual es el requisito de máximo de dias del viaje? (-1 indica no hay máximo)" -1 30)) ;; TODO:Check this, could be troublesome
+		(bind ?max (num-question "¿Cual es el requisito de maximo de dias del viaje? (-1 indica no hay máximo)" -1 30)) ;; TODO:Check this, could be troublesome
 	)
-	(assert (mindays ?min)) ;; TODO: change random values
-	(assert (maxdays ?max)) ;; TODO: change random values
+	(assert (mindays ?min))
+	(assert (maxdays ?max))
 )
+(defrule characterisation::numberofcities "Asks for number of cities to visit"
+	(not (minnumcities ?))
+	(not (maxnumcities ?))
+	=>
+	(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 0 10))
+	(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 0 10))
+	(while (> ?min ?max) do
+		(printout t "El maximo debe ser mayor que el minimo o -1" crlf)
+		(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 0 10))
+		(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 0 10))
+	)
+	(assert (minnumcities ?min))
+	(assert (maxnumcities ?max))
+)
+(defrule characterisation::numberofdaysincities "Asks for number of cities to visit"
+	(not (mindaysincities ?))
+	(not (maxdaysincities ?))
+	=>
+	(bind ?min (num-question "¿Cual es el numero minimo de dias a pasar en una ciudad?" 0 10))
+	(bind ?max (num-question "¿Cual es el numero maximo de dias a pasar en una ciudad?" 0 10))
+	(while (> ?min ?max) do
+		(printout t "El maximo debe ser mayor que el minimo o -1" crlf)
+		(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 0 10))
+		(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 0 10))
+	)
+	(assert (mindaysincities ?min))
+	(assert (maxdaysincities ?max))
+)
+(defrule characterisation::transportpreferences "Asks for all transport preferences"
+	(not (transportPreferencesSet))
+	=>
+	(bind ?listatransportes ????);;; TODO: ADD FROM ONTHOLOGY, GET ALL INSTANCES OF TRANSPORT
+	(if (yes-no-question "¿Tiene alguna preferencia sobre transportes a evitar?")
+		then 
+		(bind ?done FALSE)
+		(while (not (done)) do
+			(bind ?avoid (multioption "Inserte transporte a evitar:" ?listaTransportes))
+			(assert (avoidtransport ?avoid))
+			(bind ?done (yes-no-question "¿Alguno mas?"))
+		)
+	)
+	(if (yes-no-question "¿Tiene alguna preferencia sobre transportes a tomar?")
+		then 
+		(bind ?done FALSE)
+		(while (not (done)) do
+			(bind ?avoid (multioption "Inserte transporte preferido:" ?listaTransportes))
+			(assert (avoidtransport ?avoid))
+			(bind ?done (yes-no-question "¿Alguno mas?"))
+		)
+	)
+	(assert transportPreferencesSet)
+)
+(defrule characterisation::minHotelQuality "Asks for the quality of the hotel"
+	(not (minhotelquality ?))
+	=>
+	(assert (minhotelquality (num-question "¿Cual es el numero minimo de estrellas de los hoteles en que alojarse?" 0 5)))
+)
+;; TODO: could add rule here to check constraints on number of days in city, cities to visit and days in travel.
+;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality
