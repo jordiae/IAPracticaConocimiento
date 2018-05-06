@@ -7,4 +7,5 @@ viaje de aniversario de niño => infantil
 escapada de desconexión => relax
 ruta natural => naturaleza
 viaje de estudiantes de la UPC => tecnologico
-escapada melómana => musical 
+escapada melómana => musical
+salida de deportistas => deportivo
