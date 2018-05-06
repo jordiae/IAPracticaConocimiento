@@ -1,4 +1,4 @@
-; Sat May 05 17:06:14 CEST 2018
+; Sun May 06 18:14:21 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -751,6 +751,7 @@
 ([TravelRecommendationOnthology_Class10067] of  Sight
 
 	(Importance 2)
+	(SightInterest [TravelRecommendationOnthology_Class14])
 	(SightName "Tranvia de Lisboa")
 	(SightSituatedIn [TravelRecommendationOnthology_Class10039])
 	(VisitCost 10.0))
@@ -1637,7 +1638,8 @@
 		[TravelRecommendationOnthology_Class10066]
 		[TravelRecommendationOnthology_Class10097]
 		[TravelRecommendationOnthology_Class10105]
-		[TravelRecommendationOnthology_Class10106])
+		[TravelRecommendationOnthology_Class10106]
+		[TravelRecommendationOnthology_Class10067])
 	(Kind infantil))
 
 ([TravelRecommendationOnthology_Class3] of  Transport

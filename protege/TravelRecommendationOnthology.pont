@@ -1,4 +1,4 @@
-; Sat May 05 17:06:14 CEST 2018
+; Sun May 06 18:14:21 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -132,6 +132,10 @@
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(single-slot Score
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(multislot CityCityType
 		(type INSTANCE)
 ;+		(allowed-classes City)
@@ -191,6 +195,10 @@
 	(multislot HasHotel
 		(type INSTANCE)
 ;+		(allowed-classes Hotel)
+		(create-accessor read-write))
+	(single-slot Score
+		(type INTEGER)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass Hotel
@@ -211,6 +219,10 @@
 		(create-accessor read-write))
 	(single-slot CostByNight
 		(type FLOAT)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot Score
+		(type INTEGER)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
@@ -238,6 +250,10 @@
 		(type INSTANCE)
 ;+		(allowed-classes Interest)
 		(cardinality 1 5)
+		(create-accessor read-write))
+	(single-slot Score
+		(type INTEGER)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass CityType
