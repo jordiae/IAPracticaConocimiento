@@ -1,0 +1,10 @@
+evento => interes_asociado
+luna de miel => romantico
+viaje fin de curso => cultural
+viaje de grupo de amigos => aventura
+viaje de imserso => historico
+viaje de aniversario de niño => infantil
+escapada de desconexión => relax
+ruta natural => naturaleza
+viaje de estudiantes de la UPC => tecnologico
+escapada melómana => musical 
