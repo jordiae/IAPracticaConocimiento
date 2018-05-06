@@ -83,7 +83,7 @@
     (printout t crlf crlf)
 	(printout t "Travel Recommendation System")
     (printout t crlf crlf)
-	(printout t "Por favor, responda a las siguientes preguntas:")
+	(printout t "Por favor, responda a las siguientes preguntas:" crlf)
 	(focus characterisation)
 )
 
@@ -137,20 +137,33 @@
 (defrule characterisation::minHotelQuality "Asks for the quality of the hotel"
 	(not (minhotelquality ?))
 	=>
-	(assert (minhotelquality (num-question "¿Cual es el numero minimo de estrellas de los hoteles en que alojarse?" 0 5)))
+	(assert (minhotelquality (num-question "¿Cual es el numero minimo de estrellas de los hoteles en que alojarse?" 1 5)))
 )
 (defrule characterisation::visitRare "Checks if user wants to visit rare sights"
 	(not (visitrare ?))
 	=>
 	(assert (visitrare (yes-no-question "¿Quiere visitar lugares menos conocidos?")))
 )
-(defrule characterisation::sacrificeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
+(defrule characterisation::sacrificeTimeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
 	(not (sacrificetimeforbudget ?))
 	(mindays ?)
 	(budget ?)
-	(minhotelquality ?)
 	=>
 	(assert (sacrificetimeforbudget (yes-no-question "¿Está dispuesto a pasar menos o más días de los especificados con tal de adecuarse al presupuesto?")))
+) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
+;; Ignoring should mean punishing those solutions but not discard them
+(defrule characterisation::sacrificeQualityForBudgetAuto ""
+	(declare (salience 10))
+	(not (sacrificequalityforbudget ?))
+	(minhotelquality 1)
+	=>
+	(assert (sacrificequalityforbudget FALSE))
+)
+(defrule characterisation::sacrificeQualityForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
+	(not (sacrificequalityforbudget ?))
+	(budget ?)
+	(minhotelquality ?)
+	=>
 	(assert (sacrificequalityforbudget (yes-no-question "¿Está dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
 ) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
 ;; Ignoring should mean punishing those solutions but not discard them
@@ -175,6 +188,79 @@
 	=>
 	(assert (kids (yes-no-question "¿Viajaran con niños?")))
 )
+(defrule characterisation::kids "Ask number of travelers"
+	(not (travelers ?))
+	=>
+	(assert (travelers (num-question "¿Numero de viajeros?" 1 10)))
+)
+(defrule characterisation::Event "Asks if the travel is of a certain event"
+	(declare (salience 3))
+	(not (event ?))
+	=>
+	(assert (event (multioption "El viaje se debe a algun tipo de evento concreto?" bodas fin-de-curso amigos imserso aniversario-de-niño escapada ruta-natural estudiantes-Upc melomania deportista otro)))
+)
+(defrule characterisation::eventBodas "Si son bodas, viaje romantico"
+	(declare (salience 10))
+	(event bodas)
+	=>
+	(assert (objective romantico))
+)
+(defrule characterisation::eventFDC "Si son fin-de-curso, viaje cultural"
+	(declare (salience 10))
+	(event fin-de-curso)
+	=>
+	(assert (objective cultural))
+)
+(defrule characterisation::eventAmigos "Si son amigos, aventura"
+	(declare (salience 10))
+	(event amigos)
+	=>
+	(assert (objective aventura))
+)
+(defrule characterisation::eventImserso "Si son imserso, viaje historico"
+	(declare (salience 10))
+	(event imserso)
+	=>
+	(assert (objective historico))
+)
+(defrule characterisation::eventADN "Si son aniversario-de-niño, viaje infantil"
+	(declare (salience 10))
+	(event aniversario-de-niño)
+	=>
+	(assert (objective infantil))
+)
+(defrule characterisation::eventEscapada "Si son escapada, viaje relax"
+	(declare (salience 10))
+	(event escapada)
+	=>
+	(assert (objective relax))
+)
+(defrule characterisation::eventRuta "Si son ruta-natural, viaje naturaleza"
+	(declare (salience 10))
+	(event ruta-natural)
+	=>
+	(assert (objective naturaleza))
+)
+(defrule characterisation::eventUPC "Si son estudiantes-Upc, viaje tecnologico"
+	(declare (salience 10))
+	(event estudiantes-Upc)
+	=>
+	(assert (objective tecnologico))
+)
+(defrule characterisation::eventMelomania "Si son melomania, viaje musical"
+	(declare (salience 10))
+	(event melomania)
+	=>
+	(assert (objective musical))
+)
+(defrule characterisation::eventDeportista "Si son deportista, viaje deportivo"
+	(declare (salience 10))
+	(event deportista)
+	=>
+	(assert (objective deportivo))
+)
+
+
 (defrule characterisation::Objective "Ask for the objective of the travel"
 	(not (objective ?))
 	=>
@@ -188,7 +274,6 @@
 	(assert (objective (multioption "¿Cual es el interes principal del viaje?" ?name-kinds)))
 )
 (defrule characterisation::transportpreferences "Asks for all transport preferences"
-	(declare (salience 10))
 	(not (transportPreferencesSet))
 	=>
 	(bind $?listatransportes (find-all-instances ((?o Transport)) TRUE))
@@ -219,11 +304,13 @@
 	(assert (transportPreferencesSet))
 )
 
-; TODO: tipo ciudad, 
+
+
+; TODO: tipo ciudad
 
 ;num-question
 ;yes-no-question
 ;multioption
 
 ;; TODO: could add rule here to check constraints on number of days in city, cities to visit and days in travel.
-;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??,
+;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??, kids, travelers, event, objective
