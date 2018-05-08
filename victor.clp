@@ -29,6 +29,8 @@
 ;;; Module for printing solution
 (defmodule printmod
 	(import MAIN ?ALL)
+	(import construction ?ALL)
+	(import characterisation ?ALL)
 	(export ?ALL)
 )
 ;; TODO: ERASE THIS!
@@ -378,43 +380,153 @@
 	)
 	?element
 )
-
+(deftemplate construction::visited 
+	(slot city (type INSTANCE))
+)
 (defrule construction::Start "Initializes the solution with minimum requirements"
 	(not (travelRecomendation ?))
-	(minnumcities ?d)
+	(not (BadTravel))
+	(minnumcities ?mc)
 	(mindaysincities ?dc)
+	(maxdaysincities ?maxdc)
+	(mindays ?mtd)
 	=>
-	;(bind ?d 1)
-	;(bind ?dc 1)
-	(printout t "HEEEY I'M GETTING HERE!")
+	;(printout t "TEST2")
+	(bind ?good TRUE)
 	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
+	(bind $?VisitFilter (create$ ))
+	(do-for-all-facts ((?f visited)) TRUE 
+		;(printout t ?f)
+		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
+	)
 	(bind $?result (create$ ))
-	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?d))  do ;; pairing it with comment below, should get more cities!
+	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?mc))  do ;; pairing it with comment below, should get more cities!
 		(bind ?curr-rec (maximum-score $?Unorderedlist))
 		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-rec))
 		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
 	)
-	(if (< (length$ $?result) ?d)
-		then
-		(printout t "Impossible travel" crlf)
-		else
-			(loop-for-count (?i 1 (length$ $?result)) do
-				(bind ?curr-obj (nth$ ?i ?result))
-				(assert (visited (send ?curr-obj get-CityName))) ;; before doing this, in final, check if it's within acceptable range!
-				(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj))
-				;Add it to the travel
-				(printout t "Will visit city: ")
-				(format t "%s " (send ?curr-obj get-CityName))
-				(printout t crlf)
-				; find cheapest hotel with positive score? (avoid <stars), give it to instance
-				; add prev-location for travels, maybe later on
+	(if (< (length$ $?result) ?mc)
+	then
+		(printout t "Impossible travel: Not enough good cities" crlf)
+		(bind ?good FALSE)
+	else
+		(bind $?stays (create$ ))
+		(loop-for-count (?i 1 (length$ $?result)) do
+			(bind ?curr-obj (nth$ ?i ?result))
+			(assert (visited (city ?curr-obj))) ;; before doing this, in final, check if it's within acceptable range!
+			;Add it to the travel
+			;(printout t "Will visit city: ")		;TODO: comment these lines
+			;(format t "%s " (send ?curr-obj get-CityName)) ; this too
+			;(printout t crlf)
+			(bind $?hotelList (send ?curr-obj get-HasHotel))
+			; filter by score, stars or whatever? done below, in if
+			(bind ?minPrice 10000)
+			(bind ?finalHotel nil)
+			(loop-for-count (?i 1 (length$ $?hotelList)) do ; find cheapest hotel with positive score? (avoid <stars), give it to instance
+				(bind ?curr-jbo (nth$ ?i ?hotelList))
+				(bind ?curr-sc (send ?curr-jbo get-Score))
+				(bind ?curr-pr (send ?curr-jbo get-CostByNight))
+				(if (and (< ?curr-pr ?minPrice) (>= ?curr-sc 0)) ; assuming score <0 if stars < minstars
+					then
+					(bind ?finalHotel ?curr-jbo)
+					(bind ?minPrice ?curr-pr)
+				)
+				;(printout t crlf)
 			)
-			; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities
-			; for now no sights ?
+			(if (eq ?finalHotel nil)
+			then
+				(printout t "Impossible travel: Could not find a Hotel in ")
+				(format t "%s " (send ?curr-obj get-CityName))
+				(bind ?good FALSE)
+			else
+				(bind $?stays (insert$ $?stays (+ (length$ $?stays) 1)  
+					(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj) (StayHotel ?finalHotel))  
+				));push new instance!
+				
+				; Note: no sights yet!
+			)
+			; add prev-location for travels, maybe later on
+		)
+		; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities
+		; for now no sights ?
+		(bind ?leftmindays (- ?mtd (* ?mc ?dc)))
+		(bind ?i 1)
+		(bind ?maximumAddition (- ?maxdc ?dc))
+		(while (and (< ?i (length$ $?stays)) (> ?leftmindays 0)) do
+			(bind ?curr-obj (nth$ ?i ?stays))
+			(if (< ?leftmindays ?maximumAddition)
+			then
+				(send ?curr-obj put-Days ?leftmindays)
+				(bind ?leftmindays 0)
+			else
+				(send ?curr-obj put-Days ?maxdc)
+				;(bind ?curr-obj:)
+				(bind ?leftmindays (- ?leftmindays ?maximumAddition))
+			)
+		)
+		(if (> ?leftmindays 0)
+		then
+			(printout t "Impossible travel: Day restrictions make it impossible" crlf)
+			(bind ?good FALSE)
+		)
+		; TODO: check budget!
+		(if ?good
+		then
+			(assert (travelRecomendation (make-instance (gensym) of Travel (Stays ?stays))))
+			;(printout t "Test3")
+		else
+			(assert (BadTravel))
+		)
 	)
+)
+(deffunction printmod::Myprint (?travel ?travelers)
+	(printout t "Travel:" crlf)
+	(printout t "Cities: ")
+	(bind $?stays (send ?travel get-Stays))
+	(loop-for-count (?i 1 (length$ $?stays)) do
+		(if (neq ?i 1)
+			then (printout t ", ")
+		)
+		(bind ?curr-stay (nth$ ?i $?stays))
+		(bind ?city (send ?curr-stay get-StayCity))
+		;(printout t ?city)
+		(printout t (send ?city get-CityName) "(" (send ?curr-stay get-Days) "days)")
+	)
+	(printout t crlf "Hotels: ")
+	(loop-for-count (?i 1 (length$ $?stays)) do
+		(if (neq ?i 1)
+			then (printout t ", ")
+		)
+		(bind ?city (send (nth$ ?i ?stays) get-StayCity))
+		(bind ?hotel (send (nth$ ?i ?stays) get-StayHotel))
+		(format t "%s" (send ?hotel get-HotelName))
+		(format t "(%s)" (send ?city get-CityName))
+		(printout t "[" (send ?hotel get-HotelStars) "-stars, " (* (send ?hotel get-CostByNight) (* (send (nth$ ?i ?stays) get-Days) ?travelers)) "$" "]" )
+	)
+	(printout t crlf "Sights and transport not implemented yet, sorry" crlf)
 )
 
 
+(defrule printmod::printer ""
+	?f<-(travelRecomendation ?x)
+	(travelers ?t)
+	(not (oneDone))
+	=>
+	;(printout t "TEst") ; DEBUG
+	(assert (oneDone))
+	(Myprint ?x ?t)
+	(printout t crlf "Building travel 2..." crlf)
+	(retract ?f)
+	(focus construction)
+)
+
+(defrule printmod::printer2 ""
+	?f<-(travelRecomendation ?x)
+	(travelers ?t)
+	(oneDone)
+	=>
+	(Myprint ?x ?t)
+)
 
 
 ;num-question
