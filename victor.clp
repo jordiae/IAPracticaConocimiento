@@ -387,7 +387,7 @@
 	;(bind ?d 1)
 	;(bind ?dc 1)
 	(printout t "HEEEY I'M GETTING HERE!")
-	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
+	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
 	(bind $?result (create$ ))
 	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?d))  do ;; pairing it with comment below, should get more cities!
 		(bind ?curr-rec (maximum-score $?Unorderedlist))
