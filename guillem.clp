@@ -127,6 +127,19 @@
 	)
 )
 
+(defrule processing::scoreCitiesByTheirSights "What would you know, people go places to see things"
+    ?scoredsights <- (SightsScored) ;; we need to know that this has been done to score the cities better
+    ?fact <- (cityList (cities $?list))
+    =>
+    (progn$ (?curr-city $?list)
+        (bind $?list2 (send ?curr-city get-HasSights))
+        (progn$ (?curr-sight $?list2)
+            (send ?curr-city put-Score (+ (send ?curr-city get-Score) (send ?curr-sight get-Score)))
+        )
+	)
+    (retract ?scoredsights) ;; to mark that it's done
+)
+
 (defrule processing::scoreSights "modify the score of each sight"
     (declare (salience 9)) ;putting this here because this rule sets the initial score
     (objective ?obj)
@@ -153,6 +166,7 @@
         (send ?curr-sight put-Score (+ (send ?curr-sight get-Score) (* (send ?curr-sight get-Importance) 10) ))
         ;; just regular scoring
 	)
+    (assert (SightsScored)) ;; we need to know that this has been done to score the cities better
 )
 
 (defrule processing::scoreSightsRare "The user doesn't like to see people when visiting things, may I recommend VR?"
@@ -163,6 +177,7 @@
         (send ?curr-sight put-Score (+ (send ?curr-sight get-Score) (* (- 6 (send ?curr-sight get-Importance) ) 10) ))
         ;; just inverse scoring
 	)
+    (assert (SightsScored)) ;; we need to know that this has been done to score the cities better
 )
 
 (defrule processing::scoreHotel "modify the score of each hotel"
@@ -238,4 +253,3 @@
 ;		(printout t (send ?curr-hot get-HotelName) crlf)
 ;	)
 ;)
-
