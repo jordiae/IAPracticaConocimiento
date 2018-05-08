@@ -1,11 +1,6 @@
 
 ; processing a bit less temporal
 
-(defrule characterisation::TempFocusChange
-    (objective ?)
-    =>
-    (focus processing)
-)
 
 (defrule characterisation::TempTestFunc
     (declare (salience 20))

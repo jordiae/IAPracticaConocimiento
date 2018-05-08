@@ -1,4 +1,4 @@
-; Tue May 08 11:40:45 CEST 2018
+; Tue May 08 12:10:13 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -137,7 +137,7 @@
 	(single-slot StayHotel
 		(type INSTANCE)
 ;+		(allowed-classes Hotel)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot CityName
 		(type STRING)
@@ -327,7 +327,7 @@
 	(single-slot StayHotel
 		(type INSTANCE)
 ;+		(allowed-classes Hotel)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot StayCity
 		(type INSTANCE)

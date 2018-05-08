@@ -304,9 +304,81 @@
 	(assert (transportPreferencesSet))
 )
 
-
-
 ; TODO: tipo ciudad
+
+(defrule characterisation::toProcessing "Switches focus to processing after nothing else to do"
+	(declare(salience -20))
+	=>
+	(printout t "Processing..." crlf)
+	(focus processing)
+)
+
+
+
+
+
+
+
+
+
+
+(defrule processing::toConstruction "Switches to construction"
+	(declare (salience -20))
+	=>
+	(printout t "Building travel 1..." crlf)
+	(focus processing)
+)
+(defrule processing::toPrint "Switches to printing"
+	(declare (salience -20))
+	=>
+	(focus printmod)
+)
+; printmod should print solution, printout building travel 2, delete the assertion? and then re-switch to construction?
+
+(deffunction MAIN::maximum-score ($?lista)
+	(bind ?maximum -1)
+	(bind ?element nil)
+	(progn$ (?curr-element $?lista)
+		(bind ?curr-sc (send ?curr-element get-Score))
+		(if (> ?curr-sc ?maximum)
+			then 
+			(bind ?maximum ?curr-sc)
+			(bind ?element ?curr-element)
+		)
+	)
+	?element
+)
+
+
+(defrule construction::Start "Initializes the solution with minimum requirements"
+	(not (travel ?))
+	(minnumcities ?d)
+	(mindaysincities ?dc)
+	=>
+	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:score 0)))
+	(bind $?result (create$ ))
+	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?d))  do
+		(bind ?curr-rec (maximum-score $?Unorderedlist))
+		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-rec))
+		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
+	)
+	(if (< (length$ $?result) ?d)
+		then
+		(printout t "Impossible travel" crlf)
+		else
+			(loop-for-count (?i 1 (length$ $?result)) do
+				(bind ?curr-obj (nth$ ?i ?result))
+				(assert (visited (send ?curr-obj get-CityName)))
+				(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj))
+				(printout t "Will visit city: ")
+				(format t "%s " (send ?curr-obj get-CityName))
+				(printout t crlf)
+			)
+	)
+)
+
+
+
 
 ;num-question
 ;yes-no-question
