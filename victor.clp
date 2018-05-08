@@ -1,4 +1,9 @@
 ;;; Victor parte de Clips. No tocar! Solo copiar
+;;;
+
+
+
+
 
 ;;; Preliminary Modules, by subproblem detection:
 
@@ -17,6 +22,8 @@
 ;;; Module for solution construction
 (defmodule construction
 	(import MAIN ?ALL)
+	(import characterisation ?ALL)
+	(import processing ?ALL)
 	(export ?ALL)
 )
 ;;; Module for printing solution
@@ -24,6 +31,28 @@
 	(import MAIN ?ALL)
 	(export ?ALL)
 )
+;; TODO: ERASE THIS!
+(deffacts characterisation::hechos-iniciales "Fake data"
+ (event bodas)
+    (objective romantico)
+    (budget 6000)
+    (mindays 6)
+    (maxdays 7)
+    (sacrificetimeforbudget TRUE)
+    (minnumcities 5)
+    (maxnumcities 6)
+    (mindaysincities 3)
+    (maxdaysincities 4)
+    (minhotelquality 4)
+    (sacrificequalityforbudget FALSE)
+    (visitrare TRUE)
+    (age 95)
+    (travelers 2)
+    (prefertransport coche)
+    (transportPreferencesSet)
+)
+
+
 
 ;;; Useful functions for characterisation:
 (deffunction MAIN::general-question (?question)
@@ -326,11 +355,12 @@
 	(declare (salience -20))
 	=>
 	(printout t "Building travel 1..." crlf)
-	(focus processing)
+	(focus construction)
 )
-(defrule processing::toPrint "Switches to printing"
+(defrule construction::toPrint "Switches to printing"
 	(declare (salience -20))
 	=>
+	(printout t "Printing..." crlf)
 	(focus printmod)
 )
 ; printmod should print solution, printout building travel 2, delete the assertion? and then re-switch to construction?
@@ -349,15 +379,17 @@
 	?element
 )
 
-
 (defrule construction::Start "Initializes the solution with minimum requirements"
-	(not (travel ?))
+	(not (travelRecomendation ?))
 	(minnumcities ?d)
 	(mindaysincities ?dc)
 	=>
-	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:score 0)))
+	;(bind ?d 1)
+	;(bind ?dc 1)
+	(printout t "HEEEY I'M GETTING HERE!")
+	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
 	(bind $?result (create$ ))
-	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?d))  do
+	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?d))  do ;; pairing it with comment below, should get more cities!
 		(bind ?curr-rec (maximum-score $?Unorderedlist))
 		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-rec))
 		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
@@ -368,12 +400,17 @@
 		else
 			(loop-for-count (?i 1 (length$ $?result)) do
 				(bind ?curr-obj (nth$ ?i ?result))
-				(assert (visited (send ?curr-obj get-CityName)))
+				(assert (visited (send ?curr-obj get-CityName))) ;; before doing this, in final, check if it's within acceptable range!
 				(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj))
+				;Add it to the travel
 				(printout t "Will visit city: ")
 				(format t "%s " (send ?curr-obj get-CityName))
 				(printout t crlf)
+				; find cheapest hotel with positive score? (avoid <stars), give it to instance
+				; add prev-location for travels, maybe later on
 			)
+			; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities
+			; for now no sights ?
 	)
 )
 
