@@ -82,6 +82,7 @@
 	=>
 	(bind $?list (insert$ $?list (+ (length$ $?list) 1) ?hot))
 	(modify ?fact (hotels $?list))
+    (send ?hot put-Score 0)
 )
 
 (defrule processing::addCities "Add all cities, score afterwards"
@@ -92,6 +93,7 @@
 	=>
 	(bind $?list (insert$ $?list (+ (length$ $?list) 1) ?hot))
 	(modify ?fact (cities $?list))
+    (send ?hot put-Score 0)
 )
 
 (defrule processing::addSights "Add all hotels, score afterwards"
@@ -102,6 +104,7 @@
 	=>
 	(bind $?list (insert$ $?list (+ (length$ $?list) 1) ?hot))
 	(modify ?fact (sights $?list))
+    (send ?hot put-Score 0)
 )
 
 (defrule processing::scoreCities "modify the score of each city"
