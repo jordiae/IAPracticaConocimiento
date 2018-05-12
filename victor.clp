@@ -34,25 +34,7 @@
 	(export ?ALL)
 )
 ;; TODO: ERASE THIS!
-(deffacts characterisation::hechos-iniciales "Fake data"
- (event bodas)
-    (objective romantico)
-    (budget 6000)
-    (mindays 6)
-    (maxdays 7)
-    (sacrificetimeforbudget TRUE)
-    (minnumcities 5)
-    (maxnumcities 6)
-    (mindaysincities 3)
-    (maxdaysincities 4)
-    (minhotelquality 4)
-    (sacrificequalityforbudget FALSE)
-    (visitrare TRUE)
-    (age 95)
-    (travelers 2)
-    (prefertransport coche)
-    (transportPreferencesSet)
-)
+
 
 
 
@@ -180,7 +162,7 @@
 	(mindays ?)
 	(budget ?)
 	=>
-	(assert (sacrificetimeforbudget (yes-no-question "¿Está dispuesto a pasar menos o más días de los especificados con tal de adecuarse al presupuesto?")))
+	(assert (sacrificetimeforbudget (yes-no-question "¿Esta dispuesto a pasar menos o mas dias de los especificados con tal de adecuarse al presupuesto?")))
 ) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
 ;; Ignoring should mean punishing those solutions but not discard them
 (defrule characterisation::sacrificeQualityForBudgetAuto ""
@@ -195,7 +177,7 @@
 	(budget ?)
 	(minhotelquality ?)
 	=>
-	(assert (sacrificequalityforbudget (yes-no-question "¿Está dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
+	(assert (sacrificequalityforbudget (yes-no-question "¿Esta dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
 ) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
 ;; Ignoring should mean punishing those solutions but not discard them
 
@@ -464,7 +446,7 @@
 				(bind ?leftmindays (- ?leftmindays ?maximumAddition))
 			)
 		)
-		(if (> ?leftmindays 0)
+		(if (> ?leftmindays 0) ; TODO: check for > maxdays too!
 		then
 			(printout t "Impossible travel: Day restrictions make it impossible" crlf)
 			(bind ?good FALSE)
