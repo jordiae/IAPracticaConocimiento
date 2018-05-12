@@ -215,14 +215,14 @@
 	)
 )
 
-(defrule processing::printCityScore "testforScoring"
-    (declare (salience -10))
-    ?fact <- (cityList (cities $?list))
-    =>
-    (progn$ (?curr-city $?list)
-		(printout t (send ?curr-city get-CityName) "    " (send ?curr-city get-Score) crlf)
-	)
-)
+;(defrule processing::printCityScore "testforScoring"
+;    (declare (salience -10))
+;    ?fact <- (cityList (cities $?list))
+;    =>
+;    (progn$ (?curr-city $?list)
+;		(printout t (send ?curr-city get-CityName) "    " (send ?curr-city get-Score) crlf)
+;	)
+;)
 
 
 ;(defrule processing::removeHotelsByStars "Remove hotels with less stars than asked for"

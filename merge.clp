@@ -1,4 +1,4 @@
-; Sat May 05 17:06:14 CEST 2018
+; Tue May 08 12:10:13 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -7,17 +7,21 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
-	(single-slot DailyCost
-		(type FLOAT)
+	(single-slot Days
+		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(multislot inverse_of_cityTypeCity
+	(multislot Stays
 		(type INSTANCE)
-;+		(allowed-classes CityType)
+;+		(allowed-classes Stay)
 		(create-accessor read-write))
-	(single-slot Distance
-		(type SYMBOL)
-		(allowed-values corta media larga)
+	(single-slot YCoord
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot StayCity
+		(type INSTANCE)
+;+		(allowed-classes City)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot CityInterests
@@ -26,13 +30,17 @@
 		(cardinality 1 5)
 ;+		(inverse-slot InterestCity)
 		(create-accessor read-write))
-	(single-slot SightName
-		(type STRING)
+	(multislot CityCityType
+		(type INSTANCE)
+;+		(allowed-classes City)
+;+		(inverse-slot CityTypes)
+		(create-accessor read-write))
+	(single-slot DailyCost
+		(type FLOAT)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot TransportName
-		(type SYMBOL)
-		(allowed-values avion barco tren coche)
+	(single-slot HotelStars
+		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot HasSights
@@ -40,8 +48,27 @@
 ;+		(allowed-classes Sight)
 ;+		(inverse-slot SightSituatedIn)
 		(create-accessor read-write))
-	(single-slot CityName
-		(type STRING)
+	(multislot InterestSight
+		(type INSTANCE)
+;+		(allowed-classes Sight)
+;+		(inverse-slot SightInterest)
+		(create-accessor read-write))
+	(single-slot TypeName
+		(type SYMBOL)
+		(allowed-values mediterranea rascacielos nordica superpoblada industrial maritima fria con_casco_historico asiatica verde)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot inverse_of_cityTypeCity
+		(type INSTANCE)
+;+		(allowed-classes CityType)
+		(create-accessor read-write))
+	(single-slot XCoord
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot TransportName
+		(type SYMBOL)
+		(allowed-values avion barco tren coche)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot SightSituatedIn
@@ -50,12 +77,27 @@
 ;+		(cardinality 1 1)
 ;+		(inverse-slot HasSights)
 		(create-accessor read-write))
+	(multislot CityTypes
+		(type INSTANCE)
+;+		(allowed-classes CityType)
+		(cardinality 1 5)
+;+		(inverse-slot CityCityType)
+		(create-accessor read-write))
+	(single-slot Distance
+		(type SYMBOL)
+		(allowed-values corta media larga)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot CostByNight
 		(type FLOAT)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(single-slot HotelName
-		(type STRING)
+	(single-slot VisitCost
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Importance
+		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot CityTypeCities
@@ -63,126 +105,39 @@
 ;+		(allowed-classes City)
 ;+		(inverse-slot TypeOfCity)
 		(create-accessor read-write))
-	(multislot TypeOfCity
-		(type INSTANCE)
-;+		(allowed-classes CityType)
-		(cardinality 1 5)
-;+		(inverse-slot CityTypeCities)
-		(create-accessor read-write))
-	(single-slot XCoord
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot HotelSituatedIn
 		(type INSTANCE)
 ;+		(allowed-classes City)
 ;+		(cardinality 1 1)
 ;+		(inverse-slot HasHotel)
 		(create-accessor read-write))
-	(multislot InterestCity
-		(type INSTANCE)
-;+		(allowed-classes City)
-;+		(inverse-slot CityInterests)
-		(create-accessor read-write))
-	(single-slot VisitCost
-		(type FLOAT)
+	(single-slot HotelName
+		(type STRING)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot HasHotel
-		(type INSTANCE)
-;+		(allowed-classes Hotel)
-;+		(inverse-slot HotelSituatedIn)
-		(create-accessor read-write))
-	(multislot SightInterest
-		(type INSTANCE)
-;+		(allowed-classes Interest)
-		(cardinality 1 5)
-;+		(inverse-slot InterestSight)
-		(create-accessor read-write))
-	(multislot CityTypes
-		(type INSTANCE)
-;+		(allowed-classes CityType)
-		(cardinality 1 5)
-;+		(inverse-slot CityCityType)
-		(create-accessor read-write))
-	(single-slot YCoord
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot HotelStars
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot Kind
-		(type SYMBOL)
-		(allowed-values romantico cultural deportivo musical historico infantil naturaleza relax aventura tecnologico)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot TypeName
-		(type SYMBOL)
-		(allowed-values mediterranea rascacielos nordica superpoblada industrial maritima fria con_casco_historico asiatica verde)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot InterestSight
-		(type INSTANCE)
-;+		(allowed-classes Sight)
-;+		(inverse-slot SightInterest)
-		(create-accessor read-write))
-	(single-slot Importance
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot CityCityType
-		(type INSTANCE)
-;+		(allowed-classes City)
-;+		(inverse-slot CityTypes)
-		(create-accessor read-write)))
-
-(defclass Interest
-	(is-a USER)
-	(role concrete)
-	(single-slot Kind
-		(type SYMBOL)
-		(allowed-values romantico cultural deportivo musical historico infantil naturaleza relax aventura tecnologico)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot InterestSight
-		(type INSTANCE)
-;+		(allowed-classes Sight)
-		(create-accessor read-write))
-	(multislot InterestCity
-		(type INSTANCE)
-;+		(allowed-classes City)
-		(create-accessor read-write)))
-
-(defclass City
-	(is-a USER)
-	(role concrete)
-	(single-slot DailyCost
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot YCoord
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot CityInterests
-		(type INSTANCE)
-;+		(allowed-classes Interest)
-		(cardinality 1 5)
-		(create-accessor read-write))
-	(multislot HasSights
-		(type INSTANCE)
-;+		(allowed-classes Sight)
 		(create-accessor read-write))
 	(multislot TypeOfCity
 		(type INSTANCE)
 ;+		(allowed-classes CityType)
 		(cardinality 1 5)
+;+		(inverse-slot CityTypeCities)
 		(create-accessor read-write))
-	(single-slot XCoord
+	(single-slot Score
 		(type INTEGER)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot StaySights
+		(type INSTANCE)
+;+		(allowed-classes Sight)
+		(create-accessor read-write))
+	(multislot InterestCity
+		(type INSTANCE)
+;+		(allowed-classes City)
+;+		(inverse-slot CityInterests)
+		(create-accessor read-write))
+	(single-slot StayHotel
+		(type INSTANCE)
+;+		(allowed-classes Hotel)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot CityName
 		(type STRING)
@@ -191,6 +146,81 @@
 	(multislot HasHotel
 		(type INSTANCE)
 ;+		(allowed-classes Hotel)
+;+		(inverse-slot HotelSituatedIn)
+		(create-accessor read-write))
+	(single-slot Kind
+		(type SYMBOL)
+		(allowed-values romantico cultural deportivo musical historico infantil naturaleza relax aventura tecnologico)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot SightName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot SightInterest
+		(type INSTANCE)
+;+		(allowed-classes Interest)
+		(cardinality 1 5)
+;+		(inverse-slot InterestSight)
+		(create-accessor read-write)))
+
+(defclass Interest
+	(is-a USER)
+	(role concrete)
+	(multislot InterestCity
+		(type INSTANCE)
+;+		(allowed-classes City)
+		(create-accessor read-write))
+	(multislot InterestSight
+		(type INSTANCE)
+;+		(allowed-classes Sight)
+		(create-accessor read-write))
+	(single-slot Kind
+		(type SYMBOL)
+		(allowed-values romantico cultural deportivo musical historico infantil naturaleza relax aventura tecnologico)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass City
+	(is-a USER)
+	(role concrete)
+	(multislot TypeOfCity
+		(type INSTANCE)
+;+		(allowed-classes CityType)
+		(cardinality 1 5)
+		(create-accessor read-write))
+	(single-slot DailyCost
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot HasSights
+		(type INSTANCE)
+;+		(allowed-classes Sight)
+		(create-accessor read-write))
+	(single-slot YCoord
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot XCoord
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Score
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot CityName
+		(type STRING)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot HasHotel
+		(type INSTANCE)
+;+		(allowed-classes Hotel)
+		(create-accessor read-write))
+	(multislot CityInterests
+		(type INSTANCE)
+;+		(allowed-classes Interest)
+		(cardinality 1 5)
 		(create-accessor read-write)))
 
 (defclass Hotel
@@ -200,18 +230,22 @@
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot HotelName
-		(type STRING)
-;+		(cardinality 1 1)
+	(single-slot CostByNight
+		(type FLOAT)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot HotelSituatedIn
 		(type INSTANCE)
 ;+		(allowed-classes City)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot CostByNight
-		(type FLOAT)
+	(single-slot Score
+		(type INTEGER)
 ;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot HotelName
+		(type STRING)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Sight
@@ -221,10 +255,6 @@
 		(type FLOAT)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot SightName
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(single-slot Importance
 		(type INTEGER)
 ;+		(cardinality 1 1)
@@ -232,6 +262,14 @@
 	(single-slot SightSituatedIn
 		(type INSTANCE)
 ;+		(allowed-classes City)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Score
+		(type INTEGER)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot SightName
+		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot SightInterest
@@ -243,33 +281,63 @@
 (defclass CityType
 	(is-a USER)
 	(role concrete)
+	(multislot CityTypeCities
+		(type INSTANCE)
+;+		(allowed-classes City)
+		(create-accessor read-write))
 	(single-slot TypeName
 		(type SYMBOL)
 		(allowed-values mediterranea rascacielos nordica superpoblada industrial maritima fria con_casco_historico asiatica verde)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot CityTypeCities
-		(type INSTANCE)
-;+		(allowed-classes City)
 		(create-accessor read-write)))
 
 (defclass Transport
 	(is-a USER)
 	(role concrete)
+	(single-slot Distance
+		(type SYMBOL)
+		(allowed-values corta media larga)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
 	(single-slot TransportName
 		(type SYMBOL)
 		(allowed-values avion barco tren coche)
 ;+		(cardinality 1 1)
+		(create-accessor read-write)))
+
+(defclass Travel
+	(is-a USER)
+	(role concrete)
+	(multislot Stays
+		(type INSTANCE)
+;+		(allowed-classes Stay)
+		(create-accessor read-write)))
+
+(defclass Stay
+	(is-a USER)
+	(role concrete)
+	(single-slot Days
+		(type INTEGER)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Distance
-		(type SYMBOL)
-		(allowed-values corta media larga)
+	(multislot StaySights
+		(type INSTANCE)
+;+		(allowed-classes Sight)
+		(create-accessor read-write))
+	(single-slot StayHotel
+		(type INSTANCE)
+;+		(allowed-classes Hotel)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot StayCity
+		(type INSTANCE)
+;+		(allowed-classes City)
 ;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 
 (definstances instances
-; Sat May 05 17:06:14 CEST 2018
+; Tue May 08 12:10:13 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -1022,6 +1090,7 @@
 ([TravelRecommendationOnthology_Class10067] of  Sight
 
 	(Importance 2)
+	(SightInterest [TravelRecommendationOnthology_Class14])
 	(SightName "Tranvia de Lisboa")
 	(SightSituatedIn [TravelRecommendationOnthology_Class10039])
 	(VisitCost 10.0))
@@ -1908,7 +1977,8 @@
 		[TravelRecommendationOnthology_Class10066]
 		[TravelRecommendationOnthology_Class10097]
 		[TravelRecommendationOnthology_Class10105]
-		[TravelRecommendationOnthology_Class10106])
+		[TravelRecommendationOnthology_Class10106]
+		[TravelRecommendationOnthology_Class10067])
 	(Kind infantil))
 
 ([TravelRecommendationOnthology_Class3] of  Transport
@@ -1986,6 +2056,11 @@
 
 
 ;;; Victor parte de Clips. No tocar! Solo copiar
+;;;
+
+
+
+
 
 ;;; Preliminary Modules, by subproblem detection:
 
@@ -1998,18 +2073,27 @@
 ;;; Module for city/stay punctuation from Characterisation
 (defmodule processing
 	(import MAIN ?ALL)
+	(import characterisation ?ALL)
 	(export ?ALL)
 )
 ;;; Module for solution construction
 (defmodule construction
 	(import MAIN ?ALL)
+	(import characterisation ?ALL)
+	(import processing ?ALL)
 	(export ?ALL)
 )
 ;;; Module for printing solution
 (defmodule printmod
 	(import MAIN ?ALL)
+	(import construction ?ALL)
+	(import characterisation ?ALL)
 	(export ?ALL)
 )
+;; TODO: ERASE THIS!
+
+
+
 
 ;;; Useful functions for characterisation:
 (deffunction MAIN::general-question (?question)
@@ -2069,7 +2153,7 @@
     (printout t crlf crlf)
 	(printout t "Travel Recommendation System")
     (printout t crlf crlf)
-	(printout t "Por favor, responda a las siguientes preguntas:")
+	(printout t "Por favor, responda a las siguientes preguntas:" crlf)
 	(focus characterisation)
 )
 
@@ -2123,21 +2207,34 @@
 (defrule characterisation::minHotelQuality "Asks for the quality of the hotel"
 	(not (minhotelquality ?))
 	=>
-	(assert (minhotelquality (num-question "¿Cual es el numero minimo de estrellas de los hoteles en que alojarse?" 0 5)))
+	(assert (minhotelquality (num-question "¿Cual es el numero minimo de estrellas de los hoteles en que alojarse?" 1 5)))
 )
 (defrule characterisation::visitRare "Checks if user wants to visit rare sights"
 	(not (visitrare ?))
 	=>
 	(assert (visitrare (yes-no-question "¿Quiere visitar lugares menos conocidos?")))
 )
-(defrule characterisation::sacrificeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
+(defrule characterisation::sacrificeTimeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
 	(not (sacrificetimeforbudget ?))
 	(mindays ?)
 	(budget ?)
+	=>
+	(assert (sacrificetimeforbudget (yes-no-question "¿Esta dispuesto a pasar menos o mas dias de los especificados con tal de adecuarse al presupuesto?")))
+) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
+;; Ignoring should mean punishing those solutions but not discard them
+(defrule characterisation::sacrificeQualityForBudgetAuto ""
+	(declare (salience 10))
+	(not (sacrificequalityforbudget ?))
+	(minhotelquality 1)
+	=>
+	(assert (sacrificequalityforbudget FALSE))
+)
+(defrule characterisation::sacrificeQualityForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
+	(not (sacrificequalityforbudget ?))
+	(budget ?)
 	(minhotelquality ?)
 	=>
-	(assert (sacrificetimeforbudget (yes-no-question "¿Está dispuesto a pasar menos o más días de los especificados con tal de adecuarse al presupuesto?")))
-	(assert (sacrificequalityforbudget (yes-no-question "¿Está dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
+	(assert (sacrificequalityforbudget (yes-no-question "¿Esta dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
 ) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
 ;; Ignoring should mean punishing those solutions but not discard them
 
@@ -2161,6 +2258,79 @@
 	=>
 	(assert (kids (yes-no-question "¿Viajaran con niños?")))
 )
+(defrule characterisation::kids "Ask number of travelers"
+	(not (travelers ?))
+	=>
+	(assert (travelers (num-question "¿Numero de viajeros?" 1 10)))
+)
+(defrule characterisation::Event "Asks if the travel is of a certain event"
+	(declare (salience 3))
+	(not (event ?))
+	=>
+	(assert (event (multioption "El viaje se debe a algun tipo de evento concreto?" bodas fin-de-curso amigos imserso aniversario-de-niño escapada ruta-natural estudiantes-Upc melomania deportista otro)))
+)
+(defrule characterisation::eventBodas "Si son bodas, viaje romantico"
+	(declare (salience 10))
+	(event bodas)
+	=>
+	(assert (objective romantico))
+)
+(defrule characterisation::eventFDC "Si son fin-de-curso, viaje cultural"
+	(declare (salience 10))
+	(event fin-de-curso)
+	=>
+	(assert (objective cultural))
+)
+(defrule characterisation::eventAmigos "Si son amigos, aventura"
+	(declare (salience 10))
+	(event amigos)
+	=>
+	(assert (objective aventura))
+)
+(defrule characterisation::eventImserso "Si son imserso, viaje historico"
+	(declare (salience 10))
+	(event imserso)
+	=>
+	(assert (objective historico))
+)
+(defrule characterisation::eventADN "Si son aniversario-de-niño, viaje infantil"
+	(declare (salience 10))
+	(event aniversario-de-niño)
+	=>
+	(assert (objective infantil))
+)
+(defrule characterisation::eventEscapada "Si son escapada, viaje relax"
+	(declare (salience 10))
+	(event escapada)
+	=>
+	(assert (objective relax))
+)
+(defrule characterisation::eventRuta "Si son ruta-natural, viaje naturaleza"
+	(declare (salience 10))
+	(event ruta-natural)
+	=>
+	(assert (objective naturaleza))
+)
+(defrule characterisation::eventUPC "Si son estudiantes-Upc, viaje tecnologico"
+	(declare (salience 10))
+	(event estudiantes-Upc)
+	=>
+	(assert (objective tecnologico))
+)
+(defrule characterisation::eventMelomania "Si son melomania, viaje musical"
+	(declare (salience 10))
+	(event melomania)
+	=>
+	(assert (objective musical))
+)
+(defrule characterisation::eventDeportista "Si son deportista, viaje deportivo"
+	(declare (salience 10))
+	(event deportista)
+	=>
+	(assert (objective deportivo))
+)
+
+
 (defrule characterisation::Objective "Ask for the objective of the travel"
 	(not (objective ?))
 	=>
@@ -2174,7 +2344,6 @@
 	(assert (objective (multioption "¿Cual es el interes principal del viaje?" ?name-kinds)))
 )
 (defrule characterisation::transportpreferences "Asks for all transport preferences"
-	(declare (salience 10))
 	(not (transportPreferencesSet))
 	=>
 	(bind $?listatransportes (find-all-instances ((?o Transport)) TRUE))
@@ -2205,11 +2374,456 @@
 	(assert (transportPreferencesSet))
 )
 
-; TODO: tipo ciudad, 
+; TODO: tipo ciudad
+
+(defrule characterisation::toProcessing "Switches focus to processing after nothing else to do"
+	(declare(salience -20))
+	=>
+	(printout t "Processing..." crlf)
+	(focus processing)
+)
+
+
+
+
+
+
+
+
+
+
+(defrule processing::toConstruction "Switches to construction"
+	(declare (salience -20))
+	=>
+	(printout t "Building travel 1..." crlf)
+	(focus construction)
+)
+(defrule construction::toPrint "Switches to printing"
+	(declare (salience -20))
+	=>
+	(printout t "Printing..." crlf)
+	(focus printmod)
+)
+; printmod should print solution, printout building travel 2, delete the assertion? and then re-switch to construction?
+
+(deffunction MAIN::maximum-score ($?lista)
+	(bind ?maximum -1)
+	(bind ?element nil)
+	(progn$ (?curr-element $?lista)
+		(bind ?curr-sc (send ?curr-element get-Score))
+		(if (> ?curr-sc ?maximum)
+			then 
+			(bind ?maximum ?curr-sc)
+			(bind ?element ?curr-element)
+		)
+	)
+	?element
+)
+(deftemplate construction::visited 
+	(slot city (type INSTANCE))
+)
+(defrule construction::Start "Initializes the solution with minimum requirements"
+	(not (travelRecomendation ?))
+	(not (BadTravel))
+	(minnumcities ?mc)
+	(mindaysincities ?dc)
+	(maxdaysincities ?maxdc)
+	(mindays ?mtd)
+	=>
+	;(printout t "TEST2")
+	(bind ?good TRUE)
+	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
+	(bind $?VisitFilter (create$ ))
+	(do-for-all-facts ((?f visited)) TRUE 
+		;(printout t ?f)
+		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
+	)
+	(bind $?result (create$ ))
+	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?mc))  do ;; pairing it with comment below, should get more cities!
+		(bind ?curr-rec (maximum-score $?Unorderedlist))
+		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-rec))
+		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
+	)
+	(if (< (length$ $?result) ?mc)
+	then
+		(printout t "Impossible travel: Not enough good cities" crlf)
+		(bind ?good FALSE)
+	else
+		(bind $?stays (create$ ))
+		(loop-for-count (?i 1 (length$ $?result)) do
+			(bind ?curr-obj (nth$ ?i ?result))
+			(assert (visited (city ?curr-obj))) ;; before doing this, in final, check if it's within acceptable range!
+			;Add it to the travel
+			;(printout t "Will visit city: ")		;TODO: comment these lines
+			;(format t "%s " (send ?curr-obj get-CityName)) ; this too
+			;(printout t crlf)
+			(bind $?hotelList (send ?curr-obj get-HasHotel))
+			; filter by score, stars or whatever? done below, in if
+			(bind ?minPrice 10000)
+			(bind ?finalHotel nil)
+			(loop-for-count (?i 1 (length$ $?hotelList)) do ; find cheapest hotel with positive score? (avoid <stars), give it to instance
+				(bind ?curr-jbo (nth$ ?i ?hotelList))
+				(bind ?curr-sc (send ?curr-jbo get-Score))
+				(bind ?curr-pr (send ?curr-jbo get-CostByNight))
+				(if (and (< ?curr-pr ?minPrice) (>= ?curr-sc 0)) ; assuming score <0 if stars < minstars
+					then
+					(bind ?finalHotel ?curr-jbo)
+					(bind ?minPrice ?curr-pr)
+				)
+				;(printout t crlf)
+			)
+			(if (eq ?finalHotel nil)
+			then
+				(printout t "Impossible travel: Could not find a Hotel in ")
+				(format t "%s " (send ?curr-obj get-CityName))
+				(bind ?good FALSE)
+			else
+				(bind $?stays (insert$ $?stays (+ (length$ $?stays) 1)  
+					(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj) (StayHotel ?finalHotel))  
+				));push new instance!
+				
+				; Note: no sights yet!
+			)
+			; add prev-location for travels, maybe later on
+		)
+		; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities
+		; for now no sights ?
+		(bind ?leftmindays (- ?mtd (* ?mc ?dc)))
+		(bind ?i 1)
+		(bind ?maximumAddition (- ?maxdc ?dc))
+		(while (and (< ?i (length$ $?stays)) (> ?leftmindays 0)) do
+			(bind ?curr-obj (nth$ ?i ?stays))
+			(if (< ?leftmindays ?maximumAddition)
+			then
+				(send ?curr-obj put-Days ?leftmindays)
+				(bind ?leftmindays 0)
+			else
+				(send ?curr-obj put-Days ?maxdc)
+				;(bind ?curr-obj:)
+				(bind ?leftmindays (- ?leftmindays ?maximumAddition))
+			)
+		)
+		(if (> ?leftmindays 0) ; TODO: check for > maxdays too!
+		then
+			(printout t "Impossible travel: Day restrictions make it impossible" crlf)
+			(bind ?good FALSE)
+		)
+		; TODO: check budget!
+		(if ?good
+		then
+			(assert (travelRecomendation (make-instance (gensym) of Travel (Stays ?stays))))
+			;(printout t "Test3")
+		else
+			(assert (BadTravel))
+		)
+	)
+)
+(deffunction printmod::Myprint (?travel ?travelers)
+	(printout t "Travel:" crlf)
+	(printout t "Cities: ")
+	(bind $?stays (send ?travel get-Stays))
+	(loop-for-count (?i 1 (length$ $?stays)) do
+		(if (neq ?i 1)
+			then (printout t ", ")
+		)
+		(bind ?curr-stay (nth$ ?i $?stays))
+		(bind ?city (send ?curr-stay get-StayCity))
+		;(printout t ?city)
+		(printout t (send ?city get-CityName) "(" (send ?curr-stay get-Days) "days)")
+	)
+	(printout t crlf "Hotels: ")
+	(loop-for-count (?i 1 (length$ $?stays)) do
+		(if (neq ?i 1)
+			then (printout t ", ")
+		)
+		(bind ?city (send (nth$ ?i ?stays) get-StayCity))
+		(bind ?hotel (send (nth$ ?i ?stays) get-StayHotel))
+		(format t "%s" (send ?hotel get-HotelName))
+		(format t "(%s)" (send ?city get-CityName))
+		(printout t "[" (send ?hotel get-HotelStars) "-stars, " (* (send ?hotel get-CostByNight) (* (send (nth$ ?i ?stays) get-Days) ?travelers)) "$" "]" )
+	)
+	(printout t crlf "Sights and transport not implemented yet, sorry" crlf)
+)
+
+
+(defrule printmod::printer ""
+	?f<-(travelRecomendation ?x)
+	(travelers ?t)
+	(not (oneDone))
+	=>
+	;(printout t "TEst") ; DEBUG
+	(assert (oneDone))
+	(Myprint ?x ?t)
+	(printout t crlf "Building travel 2..." crlf)
+	(retract ?f)
+	(focus construction)
+)
+
+(defrule printmod::printer2 ""
+	?f<-(travelRecomendation ?x)
+	(travelers ?t)
+	(oneDone)
+	=>
+	(Myprint ?x ?t)
+)
+
 
 ;num-question
 ;yes-no-question
 ;multioption
 
 ;; TODO: could add rule here to check constraints on number of days in city, cities to visit and days in travel.
-;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??,
+;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??, kids, travelers, event, objective
+; processing a bit less temporal
+
+
+(defrule characterisation::TempTestFunc
+    (declare (salience 20))
+    (impossible fact)
+    =>
+    (bind ?instances (find-all-instances ( (?i Hotel)) TRUE))
+    ;(bind ?instances (sort id-sort ?instances))
+    ;(progn$ (?i ?instances)
+    ;    (printout t (send ?i get-id) " " (send ?i get-full-name) crlf)))
+    (progn$ (?curr-hot ?instances)
+		(printout t (send ?curr-hot get-HotelName) crlf)
+	)
+)
+
+(deftemplate processing::hotelList
+	(multislot hotels (type INSTANCE))
+)
+
+(deftemplate processing::cityList
+	(multislot cities (type INSTANCE))
+)
+
+(deftemplate processing::sightList
+	(multislot sights (type INSTANCE))
+)
+
+;(deftemplate processing::hotelListFiltered
+;	(multislot hotelsFiltered (type INSTANCE))
+;)
+
+;(defclass processing::cityRecommendation ;;;template or class? will leave as class for now
+;    (multislot hotels  
+;        (type INSTANCE)
+;        (create-accessor read-write)
+;    )  
+;)
+
+;(defclass processing::trip ;;;template or class? will leave as class for now
+;    (multislot cityRecommendations  ;;;all cityRecommendations with the objective from the user
+;        (type INSTANCE)
+;        (create-accessor read-write)
+;    )  
+;)
+
+
+
+;(defclass stay ;;; might not use it, very temp
+;	(is-a USER)
+;	(role concrete)
+;	(multislot recomendaciones
+;		(type INSTANCE)
+;		(create-accessor read-write))
+;    (slot hotel
+;		(type INSTANCE)
+;		(create-accessor read-write))
+;    (slot days
+;        (type INTEGER)
+;        (create-accessor read-write))
+;	(multislot sights    ;;; either all the sights for the stay (filtered) or all the possible sights in that city
+;		(type INSTANCE)
+;		(create-accessor read-write))
+;)
+
+(defrule processing::initial-asserts "Just for testing"
+    (declare (salience 20))
+    (not (hotelList))
+    =>
+    (assert (hotelList))
+    (assert (cityList))
+    (assert (sightList))
+    ;(assert (hotelListFiltered))
+)
+
+(defrule processing::addHotels "Add all hotels, score afterwards"
+    (declare (salience 10))
+    ?hot <- (object (is-a Hotel))
+	?fact <- (hotelList (hotels $?list))
+	(test (not (member$ ?hot $?list)))
+	=>
+	(bind $?list (insert$ $?list (+ (length$ $?list) 1) ?hot))
+	(modify ?fact (hotels $?list))
+    (send ?hot put-Score 0)
+)
+
+(defrule processing::addCities "Add all cities, score afterwards"
+    (declare (salience 10))
+    ?hot <- (object (is-a City))
+	?fact <- (cityList (cities $?list))
+	(test (not (member$ ?hot $?list)))
+	=>
+	(bind $?list (insert$ $?list (+ (length$ $?list) 1) ?hot))
+	(modify ?fact (cities $?list))
+    (send ?hot put-Score 0)
+)
+
+(defrule processing::addSights "Add all hotels, score afterwards"
+    (declare (salience 10))
+    ?hot <- (object (is-a Sight))
+	?fact <- (sightList (sights $?list))
+	(test (not (member$ ?hot $?list)))
+	=>
+	(bind $?list (insert$ $?list (+ (length$ $?list) 1) ?hot))
+	(modify ?fact (sights $?list))
+    (send ?hot put-Score 0)
+)
+
+(defrule processing::scoreCities "modify the score of each city"
+    (declare (salience 9)) ;putting this here because this rule sets the initial score
+    (objective ?obj)
+    ?fact <- (cityList (cities $?list))
+    =>
+    (progn$ (?curr-city $?list)
+        (bind $?list2 (send ?curr-city get-CityInterests))
+        (progn$ (?curr-interest $?list2)
+            (if (eq (send ?curr-interest get-Kind) ?obj)
+                then
+                ;(send ?curr-city put-Score (+ (send ?curr-city get-Score) 100))
+                (send ?curr-city put-Score 100)  ;;;have to do it like this because the instances have no score
+                ;; might want to change later the 100 for a function that gives a score depending on the combination of user obj + city interest
+            )
+        )
+	)
+)
+
+(defrule processing::scoreCitiesByTheirSights "What would you know, people go places to see things"
+    ?scoredsights <- (SightsScored) ;; we need to know that this has been done to score the cities better
+    ?fact <- (cityList (cities $?list))
+    =>
+    (progn$ (?curr-city $?list)
+        (bind $?list2 (send ?curr-city get-HasSights))
+        (progn$ (?curr-sight $?list2)
+            (send ?curr-city put-Score (+ (send ?curr-city get-Score) (send ?curr-sight get-Score)))
+        )
+	)
+    (retract ?scoredsights) ;; to mark that it's done
+)
+
+(defrule processing::scoreSights "modify the score of each sight"
+    (declare (salience 9)) ;putting this here because this rule sets the initial score
+    (objective ?obj)
+    ?fact <- (sightList (sights $?list))
+    =>
+    (progn$ (?curr-sight $?list)
+        (bind $?list2 (send ?curr-sight get-SightInterest))
+        (progn$ (?curr-interest $?list2)
+            (if (eq (send ?curr-interest get-Kind) ?obj)
+                then
+                ;(send ?curr-sight put-Score (+ (send ?curr-sight get-Score) 100))
+                (send ?curr-sight put-Score 100)  ;;;have to do it like this because the instances have no score
+                ;; might want to change later the 100 for a function that gives a score depending on the combination of user obj + city interest
+            )
+        )
+	)
+)
+
+(defrule processing::scoreSightsNotRare "The user likes not being able to see what he is visiting and bumping into selfie sticks"
+    (visitrare FALSE)
+    ?fact <- (sightList (sights $?list))
+    =>
+    (progn$ (?curr-sight $?list)
+        (send ?curr-sight put-Score (+ (send ?curr-sight get-Score) (* (send ?curr-sight get-Importance) 10) ))
+        ;; just regular scoring
+	)
+    (assert (SightsScored)) ;; we need to know that this has been done to score the cities better
+)
+
+(defrule processing::scoreSightsRare "The user doesn't like to see people when visiting things, may I recommend VR?"
+    (visitrare TRUE)
+    ?fact <- (sightList (sights $?list))
+    =>
+    (progn$ (?curr-sight $?list)
+        (send ?curr-sight put-Score (+ (send ?curr-sight get-Score) (* (- 6 (send ?curr-sight get-Importance) ) 10) ))
+        ;; just inverse scoring
+	)
+    (assert (SightsScored)) ;; we need to know that this has been done to score the cities better
+)
+
+(defrule processing::scoreHotel "modify the score of each hotel"
+    (declare (salience 9)) ;putting this here because this rule sets the initial score
+    ?fact <- (hotelList (hotels $?list))
+    =>
+    (progn$ (?curr-hot $?list)
+        (send ?curr-hot put-Score (* (send ?curr-hot get-HotelStars) 10))
+	)
+)
+
+(defrule processing::scoreHotelSacrifice "modify the score of each hotel if the user is willing to sacrifice comfort"
+    (sacrificequalityforbudget TRUE)
+    (minhotelquality ?quality)
+    ?fact <- (hotelList (hotels $?list))
+    =>
+    (progn$ (?curr-hot $?list)
+        (if (< (send ?curr-hot get-HotelStars) ?quality)
+            then
+            (send ?curr-hot put-Score (- (send ?curr-hot get-Score) (* (- ?quality (send ?curr-hot get-HotelStars)) 5)))
+            ; only half the punishment
+        )
+	)
+)
+
+(defrule processing::scoreHotelNoSacrifice "modify the score of each hotel if the user is not willing to sacrifice comfort"
+    (sacrificequalityforbudget FALSE)
+    (minhotelquality ?quality)
+    ?fact <- (hotelList (hotels $?list))
+    =>
+    (progn$ (?curr-hot $?list)
+        (if (< (send ?curr-hot get-HotelStars) ?quality)
+            then
+            (send ?curr-hot put-Score (- (send ?curr-hot get-Score) (* (- ?quality (send ?curr-hot get-HotelStars)) 10)))
+            ; full punishment
+        )
+	)
+)
+
+;(defrule processing::printCityScore "testforScoring"
+;    (declare (salience -10))
+;    ?fact <- (cityList (cities $?list))
+;    =>
+;    (progn$ (?curr-city $?list)
+;		(printout t (send ?curr-city get-CityName) "    " (send ?curr-city get-Score) crlf)
+;	)
+;)
+
+
+;(defrule processing::removeHotelsByStars "Remove hotels with less stars than asked for"
+;    (declare (salience 5))
+;    (not (hotelsAreFiltered))
+;    ?factTMP <- (minhotelquality ?quality)
+;	?fact1 <- (hotelList (hotels $?list))
+;    ?fact2 <- (hotelListFiltered (hotelsFiltered $?list2))
+;    ;?h2 <- (sacrificequalityforbudget FALSE)
+;	=>
+;    (progn$ (?curr-hot $?list)
+;        (if (>= (send ?curr-hot get-HotelStars) ?quality)
+;            then 
+;            (bind $?list2 (insert$ $?list2 (+ (length$ $?list2) 1) ?curr-hot))
+;        )
+;	)
+;	(modify ?fact2 (hotelsFiltered $?list2))
+;    (assert (hotelsAreFiltered))
+;)
+
+;(defrule processing::printSavedHotels "print saved hotels in list"
+;    (declare (salience -10))
+;    ?fact <- (hotelListFiltered (hotelsFiltered $?list))
+;    =>
+;    (progn$ (?curr-hot $?list)
+;		(printout t (send ?curr-hot get-HotelName) crlf)
+;	)
+;)
+
