@@ -1,0 +1,29 @@
+###############################################################################
+#########                         EXPLICACIÓN                        ##########
+###############################################################################
+
+Actualmente este prototipo de SBC realiza las siguientes tareas:
+
+- Realiza una serie de preguntas al usuario para determinar restricciones y preferencias sobre el viaje y sus componentes.
+  Actualmente no toda la información es usada por el programa, como por ejemplo las preferencias de métodos de transporte y
+  el presupuesto.
+- Posteriormente puntúa todas las ciudades, hoteles y monumentos en base a las preferencias, restricciones y cualidades inherentes 
+  de éstos.
+- Seguidamente, en base a estas puntuaciones, el programa construye dos soluciones parciales:
+  Estas soluciones son dos conjuntos disjuntos de [nº mínimo ciudades] ciudades con mejor puntuación
+  (las n mejores y las n siguientes) pasando mínimo [nº mínimo días por ciudad] y máximo [nº máximo días por ciudad]
+  días cada ciudad hasta cubrir [nº mínimo de días de viaje en total]. No comprueba el nº máximo de días de viaje en total (todavía).
+  También selecciona el hotel más barato que cumpla unos requisitos mínimos (puede salir un hotel con menos estrellas de las requeridas
+  siempre que el resto de cualidades lo rediman).
+- Por último se escribe por pantalla cada una de las soluciones con los costes y días asociados a cada estancia individualmente.
+
+###############################################################################
+#########                          EJECUCIÓN                         ##########
+###############################################################################
+
+Para ejecutar el programa recomendamos cargar el fichero init.bat adjunto en clips y luego ejecutar (run).
+Alternativamente se puede ejecutar en clips las siguientes instrucciones:
+1- Ejecutar (clear)
+2- Cargar el fichero merge.clp
+3- Ejecutar (reset)
+4- Ejecutar (run)
