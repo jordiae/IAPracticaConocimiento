@@ -201,11 +201,12 @@
 	=>
 	(assert (kids (yes-no-question "¿Viajaran con niños?")))
 )
-(defrule characterisation::kids "Ask number of travelers"
+(defrule characterisation::NumTravelers "Ask number of travelers"
 	(not (travelers ?))
 	=>
 	(assert (travelers (num-question "¿Numero de viajeros?" 1 10)))
 )
+
 (defrule characterisation::Event "Asks if the travel is of a certain event"
 	(declare (salience 3))
 	(not (event ?))
@@ -272,7 +273,17 @@
 	=>
 	(assert (objective deportivo))
 )
+(defrule characterisation::relaxImpliesNotManySights "Ask number of travelers"
+	(objective relax)
+	=>
+	(assert (monumentsPerDay 1))
+)
 
+(defrule characterisation::NumTravelers "Ask number of sights a day"
+	(not (monumentsPerDay ?))
+	=>
+	(assert (monumentsPerDay (num-question "¿Maximo de monumentos a visitar por dia?" 1 10)))
+)
 
 (defrule characterisation::Objective "Ask for the objective of the travel"
 	(not (objective ?))
@@ -286,6 +297,15 @@
 	)
 	(assert (objective (multioption "¿Cual es el interes principal del viaje?" ?name-kinds)))
 )
+
+(deftemplate characterisation::prefertransport 
+	(slot trans (type SYMBOL))
+)
+
+(deftemplate characterisation::avoidtransport 
+	(slot trans (type SYMBOL))
+)
+
 (defrule characterisation::transportpreferences "Asks for all transport preferences"
 	(not (transportPreferencesSet))
 	=>
@@ -301,7 +321,7 @@
 		(bind ?done FALSE)
 		(while (not ?done) do
 			(bind ?avoid (multioption "Inserte transporte a evitar:" ?transportTypes))
-			(assert (avoidtransport ?avoid))
+			(assert (avoidtransport (trans ?avoid)))
 			(bind ?done (not (yes-no-question "¿Alguno mas?")))
 		)
 	)
@@ -310,7 +330,7 @@
 		(bind ?done FALSE)
 		(while (not ?done) do
 			(bind ?prefered (multioption "Inserte transporte preferido:" ?transportTypes))
-			(assert (prefertransport ?prefered))
+			(assert (prefertransport (trans ?prefered)))
 			(bind ?done (not (yes-no-question "¿Alguno mas?")))
 		)
 	)
@@ -372,6 +392,7 @@
 	(mindaysincities ?dc)
 	(maxdaysincities ?maxdc)
 	(mindays ?mtd)
+	(monumentsPerDay ?mpd)
 	=>
 	;(printout t "TEST2")
 	(bind ?good TRUE)
@@ -401,8 +422,9 @@
 			;(format t "%s " (send ?curr-obj get-CityName)) ; this too
 			;(printout t crlf)
 			(bind $?hotelList (send ?curr-obj get-HasHotel))
-			; filter by score, stars or whatever? done below, in if
-			(bind ?minPrice 10000)
+
+			; Now we get the cheapest hotel with positive score.
+			(bind ?minPrice 10000) ; Consider this number +infinity, there's no hotel that pricey
 			(bind ?finalHotel nil)
 			(loop-for-count (?i 1 (length$ $?hotelList)) do ; find cheapest hotel with positive score? (avoid <stars), give it to instance
 				(bind ?curr-jbo (nth$ ?i ?hotelList))
@@ -424,9 +446,9 @@
 				(bind $?stays (insert$ $?stays (+ (length$ $?stays) 1)  
 					(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj) (StayHotel ?finalHotel))  
 				));push new instance!
-				
-				; Note: no sights yet!
 			)
+
+			
 			; add prev-location for travels, maybe later on
 		)
 		; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities
@@ -434,7 +456,7 @@
 		(bind ?leftmindays (- ?mtd (* ?mc ?dc)))
 		(bind ?i 1)
 		(bind ?maximumAddition (- ?maxdc ?dc))
-		(while (and (< ?i (length$ $?stays)) (> ?leftmindays 0)) do
+		(while (and (<= ?i (length$ $?stays)) (> ?leftmindays 0)) do
 			(bind ?curr-obj (nth$ ?i ?stays))
 			(if (< ?leftmindays ?maximumAddition)
 			then
@@ -445,12 +467,38 @@
 				;(bind ?curr-obj:)
 				(bind ?leftmindays (- ?leftmindays ?maximumAddition))
 			)
+			(bind ?i (+ ?i 1))
 		)
 		(if (> ?leftmindays 0) ; TODO: check for > maxdays too!
 		then
 			(printout t "Impossible travel: Day restrictions make it impossible" crlf)
 			(bind ?good FALSE)
 		)
+
+
+		; Here we will add the sights to the travel. We will add as many sights as possible.
+		(bind ?i 1)
+		(while (<= ?i (length$ $?stays))
+			(bind ?curr-stay (nth$ ?i ?stays))
+			(bind ?curr-days (send ?curr-stay get-Days) )
+			(bind ?totalSights (* ?mpd ?curr-days) )
+			(bind ?curr-city (send ?curr-stay get-StayCity) )
+			(bind ?sightList (send ?curr-city get-HasSights) )
+			(bind $?result (create$ ))
+			(while (and 
+				(not (eq (length$ $?sightList) 0)) 
+				(not (eq ?totalSights 0))) do 
+
+				(bind ?curr-rec (maximum-score $?sightList))
+				(bind ?totalSights (- ?totalSights 1))
+				(bind $?sightList (delete-member$ $?sightList ?curr-rec))
+				(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
+			)
+			(send ?curr-stay put-StaySights ?result)
+			(bind ?i (+ ?i 1))
+		)
+
+
 		; TODO: check budget!
 		(if ?good
 		then
@@ -461,6 +509,30 @@
 		)
 	)
 )
+
+(defrule construction::AssignTransports "Assigns the travel transports"
+	(not (transportsAssigned))
+	(travelRecomendation ?travel)
+	=>
+	(bind ?stays (send ?travel get-Stays))
+	(bind ?city1 (send (nth$ 1 ?stays) get-StayCity))
+	(bind ?result (create$ ))
+	(loop-for-count (?i 2 (length$ $?stays)) do
+		(bind ?city2 (send (nth$ (+ ?i 1) ?stays) get-StayCity))
+		(bind ?transp (recTransport ?city1 ?city2))
+		(bind ?recomended (send (maximum-score ?transp) get-Transport))
+		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
+		(bind ?city1 ?city2)
+	)
+	(send ?travel put-TravelTransports ?result)
+	(assert (transportsAssigned))
+)
+
+
+
+
+
+
 (deffunction printmod::Myprint (?travel ?travelers)
 	(printout t "Travel:" crlf)
 	(printout t "Cities: ")
@@ -485,12 +557,35 @@
 		(format t "(%s)" (send ?city get-CityName))
 		(printout t "[" (send ?hotel get-HotelStars) "-stars, " (* (send ?hotel get-CostByNight) (* (send (nth$ ?i ?stays) get-Days) ?travelers)) "$" "]" )
 	)
-	(printout t crlf "Sights and transport not implemented yet, sorry" crlf)
+	(printout t crlf "Sights: ")
+	(loop-for-count (?i 1 (length$ $?stays)) do
+		(bind ?curr-stay (nth$ ?i $?stays))
+		(bind ?city (send ?curr-stay get-StayCity))
+		(printout t crlf " - " (send ?city get-CityName) )
+
+		(bind ?sights (send ?curr-stay get-StaySights))
+
+		(loop-for-count (?j 1 (length$ $?sights)) do
+			(if (neq ?j 1)
+				then (printout t ", ")
+			)
+			(bind ?sight (nth$ ?j ?sights))
+			(format t "%s" (send ?sight get-SightName))	
+		)
+	)
+	(bind $?transports (send ?travel get-TravelTransports))
+	(loop-for-count (?i 1 (length$ $?transports)) do
+		(bind ?city1 (send (send (nth$ ?i $?stays) get-StayCity) get-CityName ) )
+		(bind ?city2 (send (send (nth$ (+ ?i 1) $?stays) get-StayCity) get-CityName ) )
+		(bind ?curr-transport (send (nth$ ?i $?transports) get-TransportName))
+		(printout t crlf ?city1 " - " ?curr-transport " - " ?city2 )
+	)
 )
 
 
 (defrule printmod::printer ""
 	?f<-(travelRecomendation ?x)
+	?f2<-(transportsAssigned)
 	(travelers ?t)
 	(not (oneDone))
 	=>
@@ -499,6 +594,7 @@
 	(Myprint ?x ?t)
 	(printout t crlf "Building travel 2..." crlf)
 	(retract ?f)
+	(retract ?f2)
 	(focus construction)
 )
 
