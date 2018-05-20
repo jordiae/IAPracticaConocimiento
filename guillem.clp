@@ -252,6 +252,114 @@
 ;	)
 ;)
 
+(defclass transportScoring
+	(is-a USER)
+	(role concrete)
+	(slot Transport
+		(type INSTANCE)
+		(create-accessor read-write))
+	(slot Score
+		(type INTEGER)
+		(create-accessor read-write))
+)
+
+(deffunction construction::recTransport (?city1 ?city2) ;;; given two cities returns the list of transports and their scores
+    
+    (bind $?scoredTransports (create$ ))
+    (bind $?allTransports (find-all-instances ((?inst Transport)) TRUE))
+    
+    (progn$ (?curr $?allTransports)
+        (bind $?scoredTransports 
+            (insert$ $?scoredTransports (+ (length$ $?scoredTransports) 1) 
+                (make-instance (gensym) of transportScoring (Transport ?curr) (Score 0))
+            )
+        )
+    )
+    
+    (do-for-all-facts ((?f (prefertransport ?trans))) TRUE 
+		;(printout t ?f crlf ?trans crlf "-----------")
+        (progn$ (?curr $?scoredTransports)
+            (if
+                (eq ?trans (send (send ?curr get-Transport) get-TransportName) )
+            then
+                (send ?curr put-Score 10)
+            )
+        )
+		;(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
+	)
+    
+    (do-for-all-facts ((?f (avoidtransport ?trans))) TRUE 
+		;(printout t ?f crlf ?trans crlf "-----------")
+        (progn$ (?curr $?scoredTransports)
+            (if
+                (eq ?trans (send (send ?curr get-Transport) get-TransportName) )
+            then
+                (send ?curr put-Score -10)
+            )
+        )
+		;(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
+	)
+    
+    (bind ?xdist (- (send ?city2 get-XCoord) (send ?city1 get-XCoord) ))
+    (bind ?ydist (- (send ?city2 get-YCoord) (send ?city1 get-YCoord) ))
+    (bind ?dist (sqrt (+ (* ?xdist ?xdist) (* ?ydist ?ydist) )))
+    
+    (progn$ (?curr $?scoredTransports)
+        (bind ?tr-type (send (send ?curr get-Transport) get-Distance))
+        (if
+            (eq ?tr-type corta)
+        then
+            (if
+                (<= ?dist 20)
+            then
+                (send ?curr put-Score (+ (send ?curr get-Score) 10))
+            else
+                (send ?curr put-Score (+ (send ?curr get-Score) (- 10 (/ (- ?dist 20) 4))))
+            )
+        )
+        (if
+            (eq ?tr-type media)
+        then
+            (if
+                (and (<= ?dist 50) (> ?dist 20))
+            then
+                (send ?curr put-Score (+ (send ?curr get-Score) 10))
+            else
+                (if 
+                    (<= ?dist 20)
+                then
+                    (send ?curr put-Score (+ (send ?curr get-Score) (- 10 (/ (- 20 ?dist) 4))))
+                else
+                    (send ?curr put-Score (+ (send ?curr get-Score) (- 10 (/ (- ?dist 50) 4))))
+                )
+            )
+        )
+        (if
+            (eq ?tr-type larga)
+        then
+            (if
+                (> ?dist 50)
+            then
+                (send ?curr put-Score (+ (send ?curr get-Score) 10))
+            else
+                (send ?curr put-Score (+ (send ?curr get-Score) (- 10 (/ (- 50 ?dist) 2))))
+            )
+        )
+    )
+    
+    ;(bind $?scoredTransports (insert$ $?scoredTransports 1 $?allTransports))
+    
+    ;(do-for-all-facts ((?f (prefertransport ?trans))) TRUE 
+	;	(printout t ?f crlf ?trans crlf "-----------")
+    ;    (progn$ )
+	;	(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
+	;)
+    
+    (return $?scoredTransports)
+    
+)
+
+
 ;(deffacts testing-data "just a random set of input"
 ;    (event amigos)
 ;    (objective aventura)
