@@ -624,14 +624,14 @@
 	(not (transportsAssigned))
 	(travelRecomendation ?travel)
 	=>
-	(bind ?stays (send ?travel get-Stays))
-	(bind ?city1 (send (nth$ 1 ?stays) get-StayCity))
+	(bind ?stays (send ?travel get-Stays)) 
+	(bind ?city1 (send (nth$ 1 ?stays) get-StayCity)) ; TODO: FIX THIS!
 	(bind ?result (create$ ))
 	(loop-for-count (?i 2 (length$ $?stays)) do
 		(bind ?city2 (send (nth$ (+ ?i 1) ?stays) get-StayCity))
 		(bind ?transp (recTransport ?city1 ?city2))
 		(bind ?recomended (send (maximum-score ?transp) get-Transport))
-		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
+		(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?recomended))
 		(bind ?city1 ?city2)
 	)
 	(send ?travel put-TravelTransports ?result)
