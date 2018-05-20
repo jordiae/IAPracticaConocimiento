@@ -196,7 +196,7 @@
         (if (< (send ?curr-hot get-HotelStars) ?quality)
             then
             (send ?curr-hot put-Score (- (send ?curr-hot get-Score) (* (- ?quality (send ?curr-hot get-HotelStars)) 5)))
-            ; only half the punishment
+            ; small punishment for having less stars than asked
         )
 	)
 )
@@ -209,8 +209,8 @@
     (progn$ (?curr-hot $?list)
         (if (< (send ?curr-hot get-HotelStars) ?quality)
             then
-            (send ?curr-hot put-Score (- (send ?curr-hot get-Score) (* (- ?quality (send ?curr-hot get-HotelStars)) 10)))
-            ; full punishment
+            (send ?curr-hot put-Score (- (send ?curr-hot get-Score) 1000))
+            ; divine smite to the unworthy hotels with below asked stars
         )
 	)
 )
@@ -251,3 +251,25 @@
 ;		(printout t (send ?curr-hot get-HotelName) crlf)
 ;	)
 ;)
+
+(deffacts testing-data "just a random set of input"
+    (event amigos)
+    (objective aventura)
+    (budget 6000)
+    (mindays 1)
+    (maxdays 30)
+    (sacrificetimeforbudget TRUE)
+    (minnumcities 1)
+    (maxnumcities 10)
+    (mindaysincities 1)
+    (maxdaysincities 10)
+    (minhotelquality 4)
+    (sacrificequalityforbudget FALSE)
+    (visitrare TRUE)
+    (age 100)
+    (kids TRUE)
+    (travelers 3)
+    (avoidtransport coche)
+    (prefertransport avion)
+    (transportPreferencesSet)
+)
