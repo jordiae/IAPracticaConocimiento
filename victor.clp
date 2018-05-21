@@ -397,6 +397,22 @@
 		;(printout t ?f)
 		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
 	)
+    (progn$ (?curr-city $?Unorderedlist)
+        (bind $?cityHotels (send ?curr-city get-HasHotel))
+        (bind ?somePositiveHotel FALSE)
+        (progn$ (?curr-hotel $?cityHotels)
+            (if
+                (> (send ?curr-hotel get-Score) 0)
+            then
+                (bind ?somePositiveHotel TRUE)
+            )
+        )
+        (if
+            (eq ?somePositiveHotel FALSE)
+        then
+            (bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-city))
+        )
+    )
 	(bind $?result (create$ ))
 	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?mc))  do ;; pairing it with comment below, should get more cities!
 		(bind ?curr-rec (maximum-score $?Unorderedlist))
@@ -713,6 +729,22 @@
 		(do-for-all-facts ((?f visited)) TRUE 
 			(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
 		)
+        (progn$ (?curr-city $?Unorderedlist)
+            (bind $?cityHotels (send ?curr-city get-HasHotel))
+            (bind ?somePositiveHotel FALSE)
+            (progn$ (?curr-hotel $?cityHotels)
+                (if
+                    (> (send ?curr-hotel get-Score) 0)
+                then
+                    (bind ?somePositiveHotel TRUE)
+                )
+            )
+            (if
+                (eq ?somePositiveHotel FALSE)
+            then
+                (bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-city))
+            )
+        )
 		; UnorderedList has the cities yet to visit
 		(if (not (eq (length$ $?Unorderedlist) 0))
 		then ;Let's try to acquire the best one
@@ -799,6 +831,22 @@
 			(do-for-all-facts ((?f visited)) TRUE 
 				(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
 			)
+            (progn$ (?curr-city $?Unorderedlist)
+                (bind $?cityHotels (send ?curr-city get-HasHotel))
+                (bind ?somePositiveHotel FALSE)
+                (progn$ (?curr-hotel $?cityHotels)
+                    (if
+                        (> (send ?curr-hotel get-Score) 0)
+                    then
+                        (bind ?somePositiveHotel TRUE)
+                    )
+                )
+                (if
+                    (eq ?somePositiveHotel FALSE)
+                then
+                    (bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-city))
+                )
+            )
 			; UnorderedList has the cities yet to visit
 			(if (not (eq (length$ $?Unorderedlist) 0))
 			then
