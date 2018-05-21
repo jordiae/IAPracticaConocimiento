@@ -683,6 +683,7 @@
 			(format t "%s" (send ?sight get-SightName))	
 		)
 	)
+	(printout t crlf "Transport:" crlf)
 	(bind $?transports (send ?travel get-TravelTransports))
 	(loop-for-count (?i 1 (length$ $?transports)) do
 		(bind ?city1 (send (send (nth$ ?i $?stays) get-StayCity) get-CityName ) )
@@ -723,3 +724,42 @@
 
 ;; TODO: could add rule here to check constraints on number of days in city, cities to visit and days in travel.
 ;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??, kids, travelers, event, objective
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(deffacts testing-data "just a random set of input"
+    (event amigos)
+    (objective aventura)
+    (budget 6000)
+    (mindays 1)
+    (maxdays 30)
+    (sacrificetimeforbudget TRUE)
+    (minnumcities 1)
+    (maxnumcities 10)
+    (mindaysincities 1)
+    (maxdaysincities 10)
+    (minhotelquality 4)
+    (sacrificequalityforbudget FALSE)
+    (visitrare TRUE)
+    (age 100)
+    (kids TRUE)
+    (travelers 3)
+    (avoidtransport (trans coche))
+    (prefertransport (trans avion))
+    (transportPreferencesSet)
+)
