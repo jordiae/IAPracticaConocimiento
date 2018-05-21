@@ -54,8 +54,29 @@ Grandiose Rise Hotel; 3; False; True; True; 150; Pequín
 Empire Resort; 4; False; False; False; 200; Shangái
 Forest Resort & Spa; 1; True; False; True; 50; Seúl
 Diamond Resort; 3; False; True; True; 150; Hong Kong
-Remote Jewel Resort & Spa; 5; True; False; False; 250; Gdansk
+Remote Paradise Resort & Spa; 5; True; False; False; 250; Gdansk
 Stratosphere Resort & Spa; 4; True; True; False; 200; Dubái
 Genius Resort; 3; False; False; True; 150; Seúl
 Circle Hotel; 3; False; True; True; 150; Gdansk
 Enterprise Hotel & Spa; 4; True; False; True; 200; Dubái
+
+Fairfield Hotel; 5; False; False; True; 250; Barcelona
+Columbia Resort; 1; False; False; True; 50; París
+Prince Hotel; 2; False; False; True; 100; Roma
+Millenium Residence; 5; False; True; False; 250; Madrid
+Square Hotel; 1; False; False; False; 50; Lisboa
+Immer Hotel; 5; False; True; True; 250; Berlín
+Queen's Resort; 2; False; False; True; 100; Londres
+The Castle Resort; 3; False; True; False; 150; Múnich
+Hilton Hotel; 4; False; True; True; 200; Estocolmo
+Da House; 3; False; False; False; 150; Moscú
+My Hotel; 5; False; True; False; 250; San Petersburgo
+Lampard Resort; 5; False; False; True; 250; Atenas
+Mary Hotel; 5; False; True; True; 250; Estambul
+Heritance Palace Hotel; 5; False; True; False; 250; Tokyo
+Legacy Hotel; 4; False; False; False; 200; Pequín
+Discovery Resort; 5; False; True; True; 250; Shangái
+Lee Resort; 5; False; False; True; 250; Hong Kong
+Dark Paradise Resort; 5; False; True; False; 250; Seúl
+Centre Park Hotel; 4; False; False; False; 200; Gdansk
+Future Resort; 5; False; True; True; 250; Dubái

@@ -1,4 +1,4 @@
-; Sun May 20 19:48:12 CEST 2018
+; Mon May 21 22:28:17 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -34,15 +34,15 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot TransportName
-		(type SYMBOL)
-		(allowed-values avion barco tren coche)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
 	(multislot HasSights
 		(type INSTANCE)
 ;+		(allowed-classes Sight)
 ;+		(inverse-slot SightSituatedIn)
+		(create-accessor read-write))
+	(single-slot TransportName
+		(type SYMBOL)
+		(allowed-values avion barco tren coche)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot CityName
 		(type STRING)
@@ -66,26 +66,26 @@
 		(type STRING)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
+	(multislot CityTypeCities
+		(type INSTANCE)
+;+		(allowed-classes City)
+;+		(inverse-slot TypeOfCity)
+		(create-accessor read-write))
 	(multislot TypeOfCity
 		(type INSTANCE)
 ;+		(allowed-classes CityType)
 		(cardinality 1 5)
 ;+		(inverse-slot CityTypeCities)
 		(create-accessor read-write))
-	(multislot CityTypeCities
-		(type INSTANCE)
-;+		(allowed-classes City)
-;+		(inverse-slot TypeOfCity)
+	(single-slot XCoord
+		(type INTEGER)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot HotelSituatedIn
 		(type INSTANCE)
 ;+		(allowed-classes City)
 ;+		(cardinality 1 1)
 ;+		(inverse-slot HasHotel)
-		(create-accessor read-write))
-	(single-slot XCoord
-		(type INTEGER)
-;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot InterestCity
 		(type INSTANCE)
@@ -116,32 +116,32 @@
 ;+		(allowed-classes Hotel)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
-	(multislot StaySights
-		(type INSTANCE)
-;+		(allowed-classes Sight)
-		(create-accessor read-write))
 	(multislot CityTypes
 		(type INSTANCE)
 ;+		(allowed-classes CityType)
 		(cardinality 1 5)
 ;+		(inverse-slot CityCityType)
 		(create-accessor read-write))
-	(single-slot HotelStars
-		(type INTEGER)
-;+		(cardinality 1 1)
+	(multislot StaySights
+		(type INSTANCE)
+;+		(allowed-classes Sight)
 		(create-accessor read-write))
 	(single-slot YCoord
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot Kind
-		(type SYMBOL)
-		(allowed-values romantico cultural deportivo musical historico infantil naturaleza relax aventura tecnologico)
+	(single-slot HotelStars
+		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot TypeName
 		(type SYMBOL)
 		(allowed-values mediterranea rascacielos nordica superpoblada industrial maritima fria con_casco_historico asiatica verde)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot Kind
+		(type SYMBOL)
+		(allowed-values romantico cultural deportivo musical historico infantil naturaleza relax aventura tecnologico)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(multislot InterestSight
@@ -188,27 +188,27 @@
 (defclass City
 	(is-a USER)
 	(role concrete)
-	(multislot CityInterests
-		(type INSTANCE)
-;+		(allowed-classes Interest)
-		(cardinality 1 5)
+	(single-slot DailyCost
+		(type FLOAT)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot YCoord
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(single-slot DailyCost
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot HasSights
+	(multislot CityInterests
 		(type INSTANCE)
-;+		(allowed-classes Sight)
+;+		(allowed-classes Interest)
+		(cardinality 1 5)
 		(create-accessor read-write))
 	(multislot TypeOfCity
 		(type INSTANCE)
 ;+		(allowed-classes CityType)
 		(cardinality 1 5)
+		(create-accessor read-write))
+	(multislot HasSights
+		(type INSTANCE)
+;+		(allowed-classes Sight)
 		(create-accessor read-write))
 	(single-slot XCoord
 		(type INTEGER)
@@ -267,15 +267,15 @@
 		(type INTEGER)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
-	(multislot SightInterest
-		(type INSTANCE)
-;+		(allowed-classes Interest)
-		(cardinality 1 5)
-		(create-accessor read-write))
 	(single-slot SightSituatedIn
 		(type INSTANCE)
 ;+		(allowed-classes City)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot SightInterest
+		(type INSTANCE)
+;+		(allowed-classes Interest)
+		(cardinality 1 5)
 		(create-accessor read-write))
 	(single-slot Score
 		(type INTEGER)
@@ -285,14 +285,14 @@
 (defclass CityType
 	(is-a USER)
 	(role concrete)
+	(multislot CityTypeCities
+		(type INSTANCE)
+;+		(allowed-classes City)
+		(create-accessor read-write))
 	(single-slot TypeName
 		(type SYMBOL)
 		(allowed-values mediterranea rascacielos nordica superpoblada industrial maritima fria con_casco_historico asiatica verde)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot CityTypeCities
-		(type INSTANCE)
-;+		(allowed-classes City)
 		(create-accessor read-write)))
 
 (defclass Transport
@@ -333,12 +333,12 @@
 ;+		(allowed-classes Hotel)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(multislot StaySights
+		(type INSTANCE)
+;+		(allowed-classes Sight)
+		(create-accessor read-write))
 	(single-slot StayCity
 		(type INSTANCE)
 ;+		(allowed-classes City)
 ;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot StaySights
-		(type INSTANCE)
-;+		(allowed-classes Sight)
 		(create-accessor read-write)))

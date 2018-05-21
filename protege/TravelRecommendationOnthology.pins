@@ -1,7 +1,21 @@
-; Sun May 20 19:48:12 CEST 2018
+; Mon May 21 22:28:17 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
+
+([TravelRecommendationOnthology_Class0] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Fairfield Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10032])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class1] of  Hotel
+
+	(CostByNight 50.0)
+	(HotelName "Columbia Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10033])
+	(HotelStars 1))
 
 ([TravelRecommendationOnthology_Class10] of  Interest
 
@@ -32,6 +46,83 @@
 		[TravelRecommendationOnthology_Class10102]
 		[TravelRecommendationOnthology_Class10109])
 	(Kind cultural))
+
+([TravelRecommendationOnthology_Class10003] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Millenium Residence")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10036])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class10004] of  Hotel
+
+	(CostByNight 50.0)
+	(HotelName "Square Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10039])
+	(HotelStars 1))
+
+([TravelRecommendationOnthology_Class10005] of  Hotel
+
+	(CostByNight 50.0)
+	(HotelName "Immer Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10039])
+	(HotelStars 1))
+
+([TravelRecommendationOnthology_Class10006] of  Hotel
+
+	(CostByNight 100.0)
+	(HotelName "Queen's Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10068])
+	(HotelStars 2))
+
+([TravelRecommendationOnthology_Class10007] of  Hotel
+
+	(CostByNight 150.0)
+	(HotelName "The Castle Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10041])
+	(HotelStars 3))
+
+([TravelRecommendationOnthology_Class10008] of  Hotel
+
+	(CostByNight 200.0)
+	(HotelName "Hilton Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10042])
+	(HotelStars 4))
+
+([TravelRecommendationOnthology_Class10010] of  Hotel
+
+	(CostByNight 150.0)
+	(HotelName "Da House")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10043])
+	(HotelStars 3))
+
+([TravelRecommendationOnthology_Class10011] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "My Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10044])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class10012] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Lampard Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10045])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class10013] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Mary Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10046])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class10014] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Heritance Palace Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10047])
+	(HotelStars 5))
 
 ([TravelRecommendationOnthology_Class10015] of  Interest
 
@@ -216,7 +307,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10119]
 		[TravelRecommendationOnthology_Class10120]
-		[TravelRecommendationOnthology_Class10149])
+		[TravelRecommendationOnthology_Class10149]
+		[TravelRecommendationOnthology_Class0])
 	(HasSights
 		[TravelRecommendationOnthology_Class10055]
 		[TravelRecommendationOnthology_Class10056]
@@ -239,7 +331,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10121]
 		[TravelRecommendationOnthology_Class10127]
-		[TravelRecommendationOnthology_Class10150])
+		[TravelRecommendationOnthology_Class10150]
+		[TravelRecommendationOnthology_Class1])
 	(HasSights
 		[TravelRecommendationOnthology_Class10058]
 		[TravelRecommendationOnthology_Class10059]
@@ -276,7 +369,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10122]
 		[TravelRecommendationOnthology_Class10136]
-		[TravelRecommendationOnthology_Class10151])
+		[TravelRecommendationOnthology_Class10151]
+		[TravelRecommendationOnthology_Class2])
 	(HasSights
 		[TravelRecommendationOnthology_Class10061]
 		[TravelRecommendationOnthology_Class10062]
@@ -299,7 +393,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10123]
 		[TravelRecommendationOnthology_Class10138]
-		[TravelRecommendationOnthology_Class10153])
+		[TravelRecommendationOnthology_Class10153]
+		[TravelRecommendationOnthology_Class10003])
 	(HasSights
 		[TravelRecommendationOnthology_Class10064]
 		[TravelRecommendationOnthology_Class10065]
@@ -321,7 +416,9 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10124]
 		[TravelRecommendationOnthology_Class10139]
-		[TravelRecommendationOnthology_Class10157])
+		[TravelRecommendationOnthology_Class10157]
+		[TravelRecommendationOnthology_Class10004]
+		[TravelRecommendationOnthology_Class10005])
 	(HasSights
 		[TravelRecommendationOnthology_Class10067]
 		[TravelRecommendationOnthology_Class10069]
@@ -364,7 +461,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10129]
 		[TravelRecommendationOnthology_Class10145]
-		[TravelRecommendationOnthology_Class10160])
+		[TravelRecommendationOnthology_Class10160]
+		[TravelRecommendationOnthology_Class10007])
 	(HasSights
 		[TravelRecommendationOnthology_Class10077]
 		[TravelRecommendationOnthology_Class10078]
@@ -387,7 +485,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10130]
 		[TravelRecommendationOnthology_Class10146]
-		[TravelRecommendationOnthology_Class10161])
+		[TravelRecommendationOnthology_Class10161]
+		[TravelRecommendationOnthology_Class10008])
 	(HasSights
 		[TravelRecommendationOnthology_Class10080]
 		[TravelRecommendationOnthology_Class10081]
@@ -411,7 +510,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10131]
 		[TravelRecommendationOnthology_Class10152]
-		[TravelRecommendationOnthology_Class10162])
+		[TravelRecommendationOnthology_Class10162]
+		[TravelRecommendationOnthology_Class10010])
 	(HasSights
 		[TravelRecommendationOnthology_Class10083]
 		[TravelRecommendationOnthology_Class10084]
@@ -434,7 +534,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10132]
 		[TravelRecommendationOnthology_Class10154]
-		[TravelRecommendationOnthology_Class10164])
+		[TravelRecommendationOnthology_Class10164]
+		[TravelRecommendationOnthology_Class10011])
 	(HasSights
 		[TravelRecommendationOnthology_Class10086]
 		[TravelRecommendationOnthology_Class10087]
@@ -457,7 +558,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10133]
 		[TravelRecommendationOnthology_Class10155]
-		[TravelRecommendationOnthology_Class10167])
+		[TravelRecommendationOnthology_Class10167]
+		[TravelRecommendationOnthology_Class10012])
 	(HasSights
 		[TravelRecommendationOnthology_Class10089]
 		[TravelRecommendationOnthology_Class10090]
@@ -478,7 +580,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10134]
 		[TravelRecommendationOnthology_Class10156]
-		[TravelRecommendationOnthology_Class10168])
+		[TravelRecommendationOnthology_Class10168]
+		[TravelRecommendationOnthology_Class10013])
 	(HasSights
 		[TravelRecommendationOnthology_Class10092]
 		[TravelRecommendationOnthology_Class10093]
@@ -502,7 +605,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10135]
 		[TravelRecommendationOnthology_Class10163]
-		[TravelRecommendationOnthology_Class10170])
+		[TravelRecommendationOnthology_Class10170]
+		[TravelRecommendationOnthology_Class10014])
 	(HasSights
 		[TravelRecommendationOnthology_Class10095]
 		[TravelRecommendationOnthology_Class10096]
@@ -526,7 +630,8 @@
 		[TravelRecommendationOnthology_Class10137]
 		[TravelRecommendationOnthology_Class10165]
 		[TravelRecommendationOnthology_Class10171]
-		[TravelRecommendationOnthology_Class10173])
+		[TravelRecommendationOnthology_Class10173]
+		[TravelRecommendationOnthology_Class20015])
 	(HasSights
 		[TravelRecommendationOnthology_Class10098]
 		[TravelRecommendationOnthology_Class10099]
@@ -548,7 +653,8 @@
 	(DailyCost 30.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10140]
-		[TravelRecommendationOnthology_Class10166])
+		[TravelRecommendationOnthology_Class10166]
+		[TravelRecommendationOnthology_Class20016])
 	(HasSights
 		[TravelRecommendationOnthology_Class10101]
 		[TravelRecommendationOnthology_Class10102]
@@ -571,7 +677,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10141]
 		[TravelRecommendationOnthology_Class10169]
-		[TravelRecommendationOnthology_Class10172])
+		[TravelRecommendationOnthology_Class10172]
+		[TravelRecommendationOnthology_Class20017])
 	(HasSights
 		[TravelRecommendationOnthology_Class10105]
 		[TravelRecommendationOnthology_Class10106]
@@ -595,7 +702,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10143]
 		[TravelRecommendationOnthology_Class10174]
-		[TravelRecommendationOnthology_Class10177])
+		[TravelRecommendationOnthology_Class10177]
+		[TravelRecommendationOnthology_Class20018])
 	(HasSights
 		[TravelRecommendationOnthology_Class10108]
 		[TravelRecommendationOnthology_Class10109]
@@ -618,7 +726,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10147]
 		[TravelRecommendationOnthology_Class10175]
-		[TravelRecommendationOnthology_Class10178])
+		[TravelRecommendationOnthology_Class10178]
+		[TravelRecommendationOnthology_Class20019])
 	(HasSights
 		[TravelRecommendationOnthology_Class10111]
 		[TravelRecommendationOnthology_Class10112]
@@ -640,7 +749,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10148]
 		[TravelRecommendationOnthology_Class10176]
-		[TravelRecommendationOnthology_Class10179])
+		[TravelRecommendationOnthology_Class10179]
+		[TravelRecommendationOnthology_Class20020])
 	(HasSights
 		[TravelRecommendationOnthology_Class10116]
 		[TravelRecommendationOnthology_Class10117]
@@ -766,7 +876,8 @@
 	(HasHotel
 		[TravelRecommendationOnthology_Class10128]
 		[TravelRecommendationOnthology_Class10144]
-		[TravelRecommendationOnthology_Class10159])
+		[TravelRecommendationOnthology_Class10159]
+		[TravelRecommendationOnthology_Class10006])
 	(HasSights
 		[TravelRecommendationOnthology_Class10074]
 		[TravelRecommendationOnthology_Class10075]
@@ -1641,6 +1752,55 @@
 		[TravelRecommendationOnthology_Class10106]
 		[TravelRecommendationOnthology_Class10067])
 	(Kind infantil))
+
+([TravelRecommendationOnthology_Class2] of  Hotel
+
+	(CostByNight 100.0)
+	(HotelName "Prince Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10035])
+	(HotelStars 2))
+
+([TravelRecommendationOnthology_Class20015] of  Hotel
+
+	(CostByNight 200.0)
+	(HotelName "Legacy Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10048])
+	(HotelStars 4))
+
+([TravelRecommendationOnthology_Class20016] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Discovery Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10049])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class20017] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Lee Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10050])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class20018] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Dark Paradise Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10051])
+	(HotelStars 5))
+
+([TravelRecommendationOnthology_Class20019] of  Hotel
+
+	(CostByNight 200.0)
+	(HotelName "Centre Park Hotel")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10052])
+	(HotelStars 4))
+
+([TravelRecommendationOnthology_Class20020] of  Hotel
+
+	(CostByNight 250.0)
+	(HotelName "Future Resort")
+	(HotelSituatedIn [TravelRecommendationOnthology_Class10053])
+	(HotelStars 5))
 
 ([TravelRecommendationOnthology_Class3] of  Transport
 
