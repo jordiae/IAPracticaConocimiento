@@ -362,13 +362,7 @@
 	(printout t "Building travel 1..." crlf)
 	(focus construction)
 )
-(defrule construction::toPrint "Switches to printing"
-	(declare (salience -20))
-	=>
-	(printout t "Printing..." crlf)
-	(focus printmod)
-)
-; printmod should print solution, printout building travel 2, delete the assertion? and then re-switch to construction?
+
 
 (deffunction MAIN::maximum-score ($?lista)
 	(bind ?maximum -1)
@@ -395,7 +389,7 @@
 	(mindays ?mtd)
 	(monumentsPerDay ?mpd)
 	=>
-	;(printout t "TEST2")
+	(printout t "Construction START!" crlf)
 	(bind ?good TRUE)
 	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
 	(bind $?VisitFilter (create$ ))
@@ -630,11 +624,14 @@
 	(not (ImprovementFinished))
 	(mindaysincities ?mindc)
 	(maxdaysincities ?maxdc)
-	(maxday ?maxd)
+	(maxdays ?maxd)
 	(monumentsPerDay ?mpd)
 	(maxnumcities ?mc)
 	=>
-	
+	(bind ?notEnd TRUE)
+
+	(while ?notEnd do
+	(printout t "Improving answer" crlf)
 	(bind ?leftOverMoney (- ?budget (travelCost ?travel ?t)))
 
 	(bind ?maxScoreImprovement 0)
@@ -751,10 +748,14 @@
 	; if whatever assert ImprovementFinished
 	(if (eq ?bestOption nil) 
 	then
+		(printout t "No improvement found" crlf)
+		(bind ?notEnd FALSE)
 		(assert (ImprovementFinished))
 	else
+		(printout t "Improvement found: ") ;DEBUG
 		(if (eq (nth$ 1 ?bestOption) 1)
 		then
+			(printout t "Change Hotel in city: " (nth$ 2 ?bestOption) crlf) ;DEBUG
 			(bind ?stay (nth$ (nth$ 2 ?bestOption) (send ?travel get-Stays)))
 			(bind ?hotelList (send (send ?stay get-StayCity) get-HasHotel))
 			(bind ?newHotel (maximum-score ?hotelList))
@@ -762,6 +763,7 @@
 		)
 		(if (eq (nth$ 1 ?bestOption) 2)
 		then
+			(printout t "Add day in city: " (nth$ 2 ?bestOption) crlf) ;DEBUG
 			(bind ?stay (nth$ (nth$ 2 ?bestOption) (send ?travel get-Stays)))
 			(send ?stay put-Days (+ (send ?stay get-Days) 1))
 
@@ -769,23 +771,29 @@
 			(bind ?j 1)
 			(bind ?sightList (send (send ?stay get-StayCity) get-HasSights))
 			(bind ?finalSightList (create$ ))
+			(printout t ?SightsSeen " ") ;DEBUG
 			(while (and (<= ?j ?SightsSeen) (not (eq (length$ ?sightList) 0)) )
+				(printout t " . ")
 				(bind ?toErase (maximum-score $?sightList))
 				(bind $?sightList (delete-member$ $?sightList ?toErase))
 				(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?toErase))
 				(bind ?j (+ ?j 1))
 			)
+			(printout t crlf)
 			(bind ?j 1)
 			(while (and (<= ?j ?mpd) (not (eq (length$ ?sightList) 0)) )
+				(printout t " , " )
 				(bind ?newSightToVisit (maximum-score $?sightList))
 				(bind $?sightList (delete-member$ $?sightList ?toErase))
 				(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
 				(bind ?j (+ ?j 1))
 			)
+			(printout t crlf)
 			(send ?stay put-StaySights ?finalSightList)
 		)
 		(if (eq (nth$ 1 ?bestOption) 3)
 		then
+			(printout t "Add city" crlf)
 			(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0)))
 			(bind $?VisitFilter (create$ ))
 			(do-for-all-facts ((?f visited)) TRUE 
@@ -825,6 +833,8 @@
 			)
 		)
 	)
+
+	);endwhile
 )
 
 
@@ -904,7 +914,12 @@
 
 
 
-
+(defrule construction::toPrint "Switches to printing"
+	(declare (salience -20))
+	=>
+	(printout t "Printing..." crlf)
+	(focus printmod)
+)
 
 
 (deffunction printmod::Myprint (?travel ?travelers)
@@ -966,7 +981,7 @@
 	(travelers ?t)
 	(not (oneDone))
 	=>
-	;(printout t "TEst") ; DEBUG
+	(printout t "Test") ; DEBUG
 	(assert (oneDone))
 	(Myprint ?x ?t)
 	(printout t crlf "Building travel 2..." crlf)
@@ -981,6 +996,7 @@
 	(travelers ?t)
 	(oneDone)
 	=>
+	(printout t "Test2") ; DEBUG
 	(Myprint ?x ?t)
 )
 
