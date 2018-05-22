@@ -389,7 +389,6 @@
 	(mindays ?mtd)
 	(monumentsPerDay ?mpd)
 	=>
-	(printout t "Construction START!" crlf)
 	(bind ?good TRUE)
 	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
 	(bind $?VisitFilter (create$ ))
@@ -427,7 +426,7 @@
 		(bind $?stays (create$ ))
 		(loop-for-count (?i 1 (length$ $?result)) do
 			(bind ?curr-obj (nth$ ?i ?result))
-			(assert (visited (city ?curr-obj)))
+			(assert (visited (city ?curr-obj))) ;This city might not be truly visited, only proven that it has no good hotel. Works the same anyway
 			(bind $?hotelList (send ?curr-obj get-HasHotel))
 
 			; Now we get the cheapest hotel with positive score.
@@ -647,13 +646,12 @@
 	(bind ?notEnd TRUE)
 
 	(while ?notEnd do
-	(printout t "Improving answer" crlf)
 	(bind ?leftOverMoney (- ?budget (travelCost ?travel ?t)))
 
 	(bind ?maxScoreImprovement 0)
 	(bind ?bestOption nil)
 
-	; IMPROVING A HOTEL (IMPROVEMENT = DAYS* (NEWHOTEL - PREVHOTEL))
+	; IMPROVING A HOTEL (IMPROVEMENT = DAYS* (NEWHOTEL - PREVHOTEL)*travelers)
 	(bind ?i 1)
 	(progn$ (?stay (send ?travel get-Stays))
 		(bind ?prevHotel (send ?stay get-StayHotel))
@@ -662,9 +660,12 @@
 		(bind ?hotelList (send (send ?stay get-StayCity) get-HasHotel))
 		(bind ?newHotel (maximum-score ?hotelList))
 		(bind ?improvement (* ?days (- (send ?newHotel get-Score) (send ?prevHotel get-Score) )))
+		(bind ?extraCost (* (* ?days (- (send ?newHotel get-CostByNight) (send ?prevHotel get-CostByNight))) ?t))
+		(printout t "Debug " ?extraCost " "?i crlf)
+		;(printout t "EDebug " ?days " " ?t " " "hO"  " " "hN" crlf)
 		(if (and
 			(> ?improvement ?maxScoreImprovement)
-			(>= ?leftOverMoney (* (* ?days (- (send ?newHotel get-CostByNight) (send ?newHotel get-CostByNight))) ?t)) 
+			(>= ?leftOverMoney ?extraCost) 
 			)
 		then
 			(bind ?maxScoreImprovement ?improvement)
@@ -687,7 +688,7 @@
 			(if (> ?maxdc ?days)
 			then ;We can add a day to this stay, if we have the budget
 				(bind ?hotel (send ?stay get-StayHotel))
-				(bind ?extraCost (send ?hotel get-CostByNight))
+				(bind ?extraCost (* (send ?hotel get-CostByNight) ?t))
 				(if (>= ?leftOverMoney ?extraCost)
 				then ;We can add a day here for sure
 					;Calculating extra score:
@@ -704,7 +705,7 @@
 					(while (and (<= ?j ?mpd) (not (eq (length$ ?sightList) 0)) )
 						(bind ?newSightToVisit (maximum-score $?sightList))
 						(bind ?improvement (+ ?improvement (send ?newSightToVisit get-Score)))
-						(bind $?sightList (delete-member$ $?sightList ?toErase))
+						(bind $?sightList (delete-member$ $?sightList ?newSightToVisit))
 						(bind ?j (+ ?j 1))
 					)
 					(if (< ?maxScoreImprovement ?improvement)
@@ -780,14 +781,12 @@
 	; if whatever assert ImprovementFinished
 	(if (eq ?bestOption nil) 
 	then
-		(printout t "No improvement found" crlf)
 		(bind ?notEnd FALSE)
 		(assert (ImprovementFinished))
 	else
-		(printout t "Improvement found: ") ;DEBUG
+		(printout t ?leftOverMoney " " (nth$ 1 ?bestOption) " " (nth$ 2 ?bestOption) crlf)
 		(if (eq (nth$ 1 ?bestOption) 1)
 		then
-			(printout t "Change Hotel in city: " (nth$ 2 ?bestOption) crlf) ;DEBUG
 			(bind ?stay (nth$ (nth$ 2 ?bestOption) (send ?travel get-Stays)))
 			(bind ?hotelList (send (send ?stay get-StayCity) get-HasHotel))
 			(bind ?newHotel (maximum-score ?hotelList))
@@ -795,7 +794,6 @@
 		)
 		(if (eq (nth$ 1 ?bestOption) 2)
 		then
-			(printout t "Add day in city: " (nth$ 2 ?bestOption) crlf) ;DEBUG
 			(bind ?stay (nth$ (nth$ 2 ?bestOption) (send ?travel get-Stays)))
 			(send ?stay put-Days (+ (send ?stay get-Days) 1))
 
@@ -803,29 +801,23 @@
 			(bind ?j 1)
 			(bind ?sightList (send (send ?stay get-StayCity) get-HasSights))
 			(bind ?finalSightList (create$ ))
-			(printout t ?SightsSeen " ") ;DEBUG
 			(while (and (<= ?j ?SightsSeen) (not (eq (length$ ?sightList) 0)) )
-				(printout t " . ")
 				(bind ?toErase (maximum-score $?sightList))
 				(bind $?sightList (delete-member$ $?sightList ?toErase))
 				(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?toErase))
 				(bind ?j (+ ?j 1))
 			)
-			(printout t crlf)
 			(bind ?j 1)
 			(while (and (<= ?j ?mpd) (not (eq (length$ ?sightList) 0)) )
-				(printout t " , " )
 				(bind ?newSightToVisit (maximum-score $?sightList))
-				(bind $?sightList (delete-member$ $?sightList ?toErase))
+				(bind $?sightList (delete-member$ $?sightList ?newSightToVisit))
 				(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
 				(bind ?j (+ ?j 1))
 			)
-			(printout t crlf)
 			(send ?stay put-StaySights ?finalSightList)
 		)
 		(if (eq (nth$ 1 ?bestOption) 3)
 		then
-			(printout t "Add city" crlf)
 			(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0)))
 			(bind $?VisitFilter (create$ ))
 			(do-for-all-facts ((?f visited)) TRUE 
@@ -865,14 +857,25 @@
 						(bind ?minPrice ?curr-pr)
 					)
 				)
-				(if (not (eq ?finalHotel nil))
+				(if (not (eq ?finalHotel nil)) 
 				then
 					(bind ?newStay (make-instance (gensym) of Stay (Days ?mindc) (StayCity ?newCity) (StayHotel ?finalHotel)))
+					;Get the sights!
+					(bind ?numberOfSights (* ?mindc ?mpd))
+					(bind ?citySights (send ?newCity get-HasSights))
+					(bind ?finalSightList (create$ ))
+					(loop-for-count (?i 1 ?numberOfSights) do
+						(bind ?newSightToVisit (maximum-score $?citySights))
+						(bind $?citySights (delete-member$ $?citySights ?newSightToVisit))
+						(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
+					)
+					(send ?newStay put-StaySights ?finalSightList)
+
 					(bind ?stays (send ?travel get-Stays))
 					(bind ?stays (insert$ $?stays (+ (length$ $?stays) 1) ?newStay))
 					(send ?travel put-Stays ?stays)
 					(assert (visited (city ?newCity))) 
-				else
+				else ;Should never happen, already checked above
 					(printout t "Error if this happens something went kapoof")
 				)
 				
@@ -971,7 +974,7 @@
 
 
 (deffunction printmod::Myprint (?travel ?travelers)
-	(printout t "Travel:" crlf)
+	(printout t "Travel: (" (travelCost ?travel ?travelers) " $)"crlf)
 	(printout t "Cities: ")
 	(bind $?stays (send ?travel get-Stays))
 	(loop-for-count (?i 1 (length$ $?stays)) do
@@ -1029,7 +1032,6 @@
 	(travelers ?t)
 	(not (oneDone))
 	=>
-	(printout t "Test") ; DEBUG
 	(assert (oneDone))
 	(Myprint ?x ?t)
 	(printout t crlf "Building travel 2..." crlf)
@@ -1044,7 +1046,6 @@
 	(travelers ?t)
 	(oneDone)
 	=>
-	(printout t "Test2") ; DEBUG
 	(Myprint ?x ?t)
 )
 
