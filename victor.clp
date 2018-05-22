@@ -661,7 +661,7 @@
 		(bind ?newHotel (maximum-score ?hotelList))
 		(bind ?improvement (* ?days (- (send ?newHotel get-Score) (send ?prevHotel get-Score) )))
 		(bind ?extraCost (* (* ?days (- (send ?newHotel get-CostByNight) (send ?prevHotel get-CostByNight))) ?t))
-		(printout t "Debug " ?extraCost " "?i crlf)
+		;(printout t "Debug " ?extraCost " "?i crlf)
 		;(printout t "EDebug " ?days " " ?t " " "hO"  " " "hN" crlf)
 		(if (and
 			(> ?improvement ?maxScoreImprovement)
@@ -784,7 +784,7 @@
 		(bind ?notEnd FALSE)
 		(assert (ImprovementFinished))
 	else
-		(printout t ?leftOverMoney " " (nth$ 1 ?bestOption) " " (nth$ 2 ?bestOption) crlf)
+		;(printout t ?leftOverMoney " " (nth$ 1 ?bestOption) " " (nth$ 2 ?bestOption) crlf)
 		(if (eq (nth$ 1 ?bestOption) 1)
 		then
 			(bind ?stay (nth$ (nth$ 2 ?bestOption) (send ?travel get-Stays)))
@@ -1014,7 +1014,7 @@
 		)
 	)
 	(bind $?transports (send ?travel get-TravelTransports))
-	(printout t crlf "Transport: " (length$ $?transports))
+	(printout t crlf "Transport:")
 	(loop-for-count (?i 1 (length$ $?transports)) do
 		(bind ?city1 (send (send (nth$ ?i $?stays) get-StayCity) get-CityName ) )
 		(bind ?city2 (send (send (nth$ (+ ?i 1) $?stays) get-StayCity) get-CityName ) )
