@@ -2,60 +2,119 @@ nombre importancia interés coste ciudad(ref ciudades)
 Camp Nou; 2; deportivo; 100; Barcelona
 Sagrada Família; 5; cultural; 50; Barcelona
 Palau de la Música; 3; musical; 100; Barcelona
+
+Universitat de Barcelona; 3; cultural; _; Barceloma
+
 Torre Eiffel; 5; romántico; 50; París
 Louvre; 5; cultural; 75; París
 Parque de Belleville; 1; naturaleza; 0; París
+
+Campos Elíseos; 4; cultural; _; París
+
 Coliseo; 5; histórico; 100; Roma
 Roma subterránea; 2; aventura; 50; Roma
 Centro Roma; 4; romántico; 0; Roma
+
+Circo Máximo; 4; histórico; _; Roma
+
 Estadio Santiago Bernabéu; 2; deportivo; 100; Madrid
 Museo El Prado; 5; cultural; 80; Madrid
 Teleférico de Madrid; 1; infantil; 40; Madrid
+
+Plaza del Sol; 3; cultural; _; Madrid
+
 Tranvía de Lisboa; 2; infantil; 10; Lisboa
 Castillo de San Jorge; 4; histórico; 40; Lisboa
 Barrio Alto; 3; relax; 0; Lisboa
+
+Centro de Lisboa; 3; relax; _; Lisboa
+
 Museo al Holocausto; 5; histórico; 30; Berlín
 Puerta de Brandeburgo; 4; histórico; 0; Berlín
 Bus turístico de Berlín; 2; relax; 30; Berlín
+
+Bundestag; 4; histórico; _; Berlín
+
 Museo Británico; 5; cultural; 100; Londres
 London Eye; 3; romántico; 40; Londres
 Puente de la Torre; 3; cultural; 60; Londres
+
+Big Ben; 4; cultural; _; Londres
+
 Jardín Inglés de Múnich; 2; naturaleza; 20; Múnich;
 Marienplatz (centro); 3; histórico; 0; Múnich
 Cervecería Hofbrauhaus; 3; relax; 70; Múnich
+
+Jardín Botánico de Múnich; 1; naturaleza; _; Múnich
+
 Gamla Stan (Casco histórico); 3; histórico; 0; Estocolmo
 Museo marítimo Vasa; 1; cultural; 70; Estocolmo
 Museo de ABBA; 2; musical; 90; Estocolmo
+
+Museo Nórdico; 3; histórico; _; Estocolmo
+
 Trans-siberian adventure; 4; aventura; 60; Moscú
 Catedral de San Basilio; 4; cultural; 40; Moscú
 Plaza Roja; 4; relax; 0; Moscú
+
+Mausoleo de Lenín; 5; cultural; _; Moscú
+
 Paseo en barco por el Río Nevá; 2; relax; 20; San Petersburgo
 Hermitage; 5; cultural; 60; San Petersburgo
 Teatro Mariinski; 5; musical; 100; San Petersburgo
+
+Museo Faberge; 2; cultural; _; San Petersburgo
+
 Partenón; 5; histórico; 40; Atenas
 Estadio del Panathinaikos; 2; deportivo; 50; Atenas
 Museo de la Acrópolis; 4; cultural; 30; Atenas
+
+Templo de Zeus; 3; histórico; _; Atenas
+
 Basílica de Santa Sofía; 4; cultural; 20; Estambul
 Hipódromo; 2; histórico; 10; Estambul
 Museo de las Artes Turcas e Islámicas; 3; cultural; 30; Estambul
+
+Mezquita Azul; 4; cultural; _; Estambul
+
 Parque de atracciones Odaiba; 4; aventura; 140; Tokyo
 Torre Tokyo Skytree; 2; tecnológico; 90; Tokyo
 Tokyo DisneySea; 5; infantil; 180; Tokyo
+
+Tokyo Tower; 3; tecnoloógico; _; Tokyo
+
 China Zun Tower; 5; tecnológico; 40; Pequín
 Sede de CCTV; 2; tecnológico; 20; Pequín
 Estadio Olímpico de Pequín; 2; deportivo; 60; Pequín
+
+Plaza de Tian'anmen; 4; cultural; _; Pequín => afegir cultural
+
 Shanghai World Financial Center; 3; tecnológico; 0; Shangái
 Jardín Yuyuan; 4; cultural; 60; Shangái
 Torre Perla Oriental; 4; tecnológico; 50; Shangái
+
+China Art Museum; 3; cultural; _; Shangái
+
 Hong Kong Disneyland; 3; infantil, 150; Hong Kong
 Ocean Park de Hong Kong; 3; infantil; 80; Hong Kong
 Cumbre Victoria; 4; aventura; 0; Hong Kong
+
+Kowloon Island; 3; aventura;_; Hong Kong
+
 Estadio Olímpico de Seúl; 2; deportivo; 50; Seúl
 Palacio de Gyeongbokgung; 4; cultural; 80; Seúl
 N Seoul Tower; 2; romántico; 50; Seúl
+
+Museo Nacional de Corea; 3; cultural; _; Seúl
+
 Monumento a Jan Sobieski III; 2; histórico; 0; Gdansk
 Universidad Tecnológica de Gdansk; 3; tecnológico; 0; Gdansk
 Park Oliwski; 2; naturaleza; 30; Gdansk
+
+Museo de la Liga Hanseática; 3; histórico; _; Gdansk
+
 Rascacielos Burj Khalifa; 5; relax; 60; Dubái
 Dubai Mall; 2; relax; 0; Dubái
 Kite Beach; 1; deportivo; 40; Dubái
+
+Ski Dubai; 3; relax; _; Dubái

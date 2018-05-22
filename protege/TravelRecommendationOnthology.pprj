@@ -1,4 +1,4 @@
-; Mon May 21 22:28:17 CEST 2018
+; Tue May 22 19:44:24 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -21,15 +21,15 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[TravelRecommendationOnthology_ProjectKB_Class20121]
-		[TravelRecommendationOnthology_ProjectKB_Class20122]
-		[TravelRecommendationOnthology_ProjectKB_Class20123]
-		[TravelRecommendationOnthology_ProjectKB_Class20124]
-		[TravelRecommendationOnthology_ProjectKB_Class20125]
-		[TravelRecommendationOnthology_ProjectKB_Class20126]
-		[TravelRecommendationOnthology_ProjectKB_Class20127]
-		[TravelRecommendationOnthology_ProjectKB_Class20128]
-		[TravelRecommendationOnthology_ProjectKB_Class20129]))
+		[TravelRecommendationOnthology_ProjectKB_Class10125]
+		[TravelRecommendationOnthology_ProjectKB_Class10126]
+		[TravelRecommendationOnthology_ProjectKB_Class10127]
+		[TravelRecommendationOnthology_ProjectKB_Class10128]
+		[TravelRecommendationOnthology_ProjectKB_Class10129]
+		[TravelRecommendationOnthology_ProjectKB_Class10130]
+		[TravelRecommendationOnthology_ProjectKB_Class10131]
+		[TravelRecommendationOnthology_ProjectKB_Class10132]
+		[TravelRecommendationOnthology_ProjectKB_Class10133]))
 
 ([CLSES_TAB] of  Widget
 
@@ -71,7 +71,7 @@
 
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_183250_Class2] of  Map
+([KB_207397_Class2] of  Map
 )
 
 ([KB_535572_Class0] of  String
@@ -81,8 +81,8 @@
 
 ([KB_535572_Class1] of  Map
 
-	(entries [TravelRecommendationOnthology_ProjectKB_Class20131])
-	(referenced_maps [TravelRecommendationOnthology_ProjectKB_Class20130]))
+	(entries [TravelRecommendationOnthology_ProjectKB_Class10135])
+	(referenced_maps [TravelRecommendationOnthology_ProjectKB_Class10134]))
 
 ([KB_535572_Class100] of  String
 
@@ -264,8 +264,8 @@
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
 		[INSTANCE_ANNOTATION_FORM_WIDGET]
-		[STANDARD_SLOT_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
+		[STANDARD_SLOT_FORM_WIDGET]
 		[PAL_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
@@ -619,6 +619,61 @@
 
 	(name "SearchTab_Query"))
 
+([TravelRecommendationOnthology_ProjectKB_Class10125] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10126] of  String
+
+	(name "Sight")
+	(string_value "SightName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10127] of  String
+
+	(name "Hotel")
+	(string_value "HotelName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10128] of  String
+
+	(name "City")
+	(string_value "CityName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10129] of  String
+
+	(name "Interest")
+	(string_value "Kind"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10130] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10131] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10132] of  String
+
+	(name "CityType")
+	(string_value "TypeName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10133] of  String
+
+	(name "Transport")
+	(string_value "TransportName"))
+
+([TravelRecommendationOnthology_ProjectKB_Class10134] of  Map
+)
+
+([TravelRecommendationOnthology_ProjectKB_Class10135] of  Map_Entry
+
+	(key "InstanceDisplay.yellow_stickies")
+	(key_class "java.lang.String")
+	(value "TravelRecommendationOnthology_ProjectKB_Class10134")
+	(value_class "java.util.Map"))
+
 ([TravelRecommendationOnthology_ProjectKB_Class10154] of  Property_List
 
 	(name "layout properties"))
@@ -670,61 +725,6 @@
 
 ([TravelRecommendationOnthology_ProjectKB_Class20] of  Property_List
 )
-
-([TravelRecommendationOnthology_ProjectKB_Class20121] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20122] of  String
-
-	(name "Hotel")
-	(string_value "HotelName"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20123] of  String
-
-	(name "Sight")
-	(string_value "SightName"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20124] of  String
-
-	(name "City")
-	(string_value "CityName"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20125] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20126] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20127] of  String
-
-	(name "Interest")
-	(string_value "Kind"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20128] of  String
-
-	(name "CityType")
-	(string_value "TypeName"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20129] of  String
-
-	(name "Transport")
-	(string_value "TransportName"))
-
-([TravelRecommendationOnthology_ProjectKB_Class20130] of  Map
-)
-
-([TravelRecommendationOnthology_ProjectKB_Class20131] of  Map_Entry
-
-	(key "InstanceDisplay.yellow_stickies")
-	(key_class "java.lang.String")
-	(value "TravelRecommendationOnthology_ProjectKB_Class20130")
-	(value_class "java.util.Map"))
 
 ([TravelRecommendationOnthology_ProjectKB_Class21] of  Widget
 

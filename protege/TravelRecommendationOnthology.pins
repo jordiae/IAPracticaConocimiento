@@ -1,4 +1,4 @@
-; Mon May 21 22:28:17 CEST 2018
+; Tue May 22 19:44:24 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -30,7 +30,8 @@
 		[TravelRecommendationOnthology_Class10046]
 		[TravelRecommendationOnthology_Class10049]
 		[TravelRecommendationOnthology_Class10051]
-		[TravelRecommendationOnthology_Class10068])
+		[TravelRecommendationOnthology_Class10068]
+		[TravelRecommendationOnthology_Class10048])
 	(InterestSight
 		[TravelRecommendationOnthology_Class10056]
 		[TravelRecommendationOnthology_Class10059]
@@ -44,8 +45,39 @@
 		[TravelRecommendationOnthology_Class10092]
 		[TravelRecommendationOnthology_Class10094]
 		[TravelRecommendationOnthology_Class10102]
-		[TravelRecommendationOnthology_Class10109])
+		[TravelRecommendationOnthology_Class10109]
+		[TravelRecommendationOnthology_Class10000]
+		[TravelRecommendationOnthology_Class10001]
+		[TravelRecommendationOnthology_Class20003]
+		[TravelRecommendationOnthology_Class20006]
+		[TravelRecommendationOnthology_Class20009]
+		[TravelRecommendationOnthology_Class20010]
+		[TravelRecommendationOnthology_Class20012]
+		[TravelRecommendationOnthology_Class20014]
+		[TravelRecommendationOnthology_Class30015]
+		[TravelRecommendationOnthology_Class30017])
 	(Kind cultural))
+
+([TravelRecommendationOnthology_Class10000] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Universitat de Barcelona")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10032]))
+
+([TravelRecommendationOnthology_Class10001] of  Sight
+
+	(Importance 4)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Campos Eliseos")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10033]))
+
+([TravelRecommendationOnthology_Class10002] of  Sight
+
+	(Importance 4)
+	(SightInterest [TravelRecommendationOnthology_Class13])
+	(SightName "Circo Maximo")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10035]))
 
 ([TravelRecommendationOnthology_Class10003] of  Hotel
 
@@ -133,7 +165,8 @@
 	(InterestSight
 		[TravelRecommendationOnthology_Class10060]
 		[TravelRecommendationOnthology_Class10077]
-		[TravelRecommendationOnthology_Class10115])
+		[TravelRecommendationOnthology_Class10115]
+		[TravelRecommendationOnthology_Class20007])
 	(Kind naturaleza))
 
 ([TravelRecommendationOnthology_Class10016] of  Interest
@@ -152,7 +185,9 @@
 		[TravelRecommendationOnthology_Class10085]
 		[TravelRecommendationOnthology_Class10086]
 		[TravelRecommendationOnthology_Class10116]
-		[TravelRecommendationOnthology_Class10117])
+		[TravelRecommendationOnthology_Class10117]
+		[TravelRecommendationOnthology_Class20004]
+		[TravelRecommendationOnthology_Class30018])
 	(Kind relax))
 
 ([TravelRecommendationOnthology_Class10017] of  Interest
@@ -166,23 +201,25 @@
 		[TravelRecommendationOnthology_Class10062]
 		[TravelRecommendationOnthology_Class10083]
 		[TravelRecommendationOnthology_Class10095]
-		[TravelRecommendationOnthology_Class10107])
+		[TravelRecommendationOnthology_Class10107]
+		[TravelRecommendationOnthology_Class30016])
 	(Kind aventura))
 
 ([TravelRecommendationOnthology_Class10018] of  Interest
 
 	(InterestCity
 		[TravelRecommendationOnthology_Class10047]
-		[TravelRecommendationOnthology_Class10048]
 		[TravelRecommendationOnthology_Class10049]
-		[TravelRecommendationOnthology_Class10052])
+		[TravelRecommendationOnthology_Class10052]
+		[TravelRecommendationOnthology_Class10048])
 	(InterestSight
 		[TravelRecommendationOnthology_Class10096]
 		[TravelRecommendationOnthology_Class10098]
 		[TravelRecommendationOnthology_Class10099]
 		[TravelRecommendationOnthology_Class10101]
 		[TravelRecommendationOnthology_Class10103]
-		[TravelRecommendationOnthology_Class10112])
+		[TravelRecommendationOnthology_Class10112]
+		[TravelRecommendationOnthology_Class20013])
 	(Kind tecnologico))
 
 ([TravelRecommendationOnthology_Class10020] of  CityType
@@ -312,7 +349,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10055]
 		[TravelRecommendationOnthology_Class10056]
-		[TravelRecommendationOnthology_Class10057])
+		[TravelRecommendationOnthology_Class10057]
+		[TravelRecommendationOnthology_Class10000])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10028]
 		[TravelRecommendationOnthology_Class10020]
@@ -336,7 +374,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10058]
 		[TravelRecommendationOnthology_Class10059]
-		[TravelRecommendationOnthology_Class10060])
+		[TravelRecommendationOnthology_Class10060]
+		[TravelRecommendationOnthology_Class10001])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10023]
 		[TravelRecommendationOnthology_Class10020]
@@ -374,7 +413,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10061]
 		[TravelRecommendationOnthology_Class10062]
-		[TravelRecommendationOnthology_Class10063])
+		[TravelRecommendationOnthology_Class10063]
+		[TravelRecommendationOnthology_Class10002])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10028]
 		[TravelRecommendationOnthology_Class10020]
@@ -398,7 +438,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10064]
 		[TravelRecommendationOnthology_Class10065]
-		[TravelRecommendationOnthology_Class10066])
+		[TravelRecommendationOnthology_Class10066]
+		[TravelRecommendationOnthology_Class20003])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10020]
 		[TravelRecommendationOnthology_Class10030])
@@ -422,7 +463,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10067]
 		[TravelRecommendationOnthology_Class10069]
-		[TravelRecommendationOnthology_Class10070])
+		[TravelRecommendationOnthology_Class10070]
+		[TravelRecommendationOnthology_Class20004])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10020]
 		[TravelRecommendationOnthology_Class10030])
@@ -443,7 +485,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10071]
 		[TravelRecommendationOnthology_Class10072]
-		[TravelRecommendationOnthology_Class10073])
+		[TravelRecommendationOnthology_Class10073]
+		[TravelRecommendationOnthology_Class20005])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10022]
 		[TravelRecommendationOnthology_Class10023])
@@ -466,7 +509,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10077]
 		[TravelRecommendationOnthology_Class10078]
-		[TravelRecommendationOnthology_Class10079])
+		[TravelRecommendationOnthology_Class10079]
+		[TravelRecommendationOnthology_Class20007])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10023]
 		[TravelRecommendationOnthology_Class10022]
@@ -490,7 +534,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10080]
 		[TravelRecommendationOnthology_Class10081]
-		[TravelRecommendationOnthology_Class10082])
+		[TravelRecommendationOnthology_Class10082]
+		[TravelRecommendationOnthology_Class20008])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10022]
 		[TravelRecommendationOnthology_Class10029]
@@ -515,7 +560,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10083]
 		[TravelRecommendationOnthology_Class10084]
-		[TravelRecommendationOnthology_Class10085])
+		[TravelRecommendationOnthology_Class10085]
+		[TravelRecommendationOnthology_Class20009])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10029]
 		[TravelRecommendationOnthology_Class10026]
@@ -539,7 +585,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10086]
 		[TravelRecommendationOnthology_Class10087]
-		[TravelRecommendationOnthology_Class10088])
+		[TravelRecommendationOnthology_Class10088]
+		[TravelRecommendationOnthology_Class20010])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10029]
 		[TravelRecommendationOnthology_Class10028]
@@ -563,7 +610,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10089]
 		[TravelRecommendationOnthology_Class10090]
-		[TravelRecommendationOnthology_Class10091])
+		[TravelRecommendationOnthology_Class10091]
+		[TravelRecommendationOnthology_Class20011])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10020]
 		[TravelRecommendationOnthology_Class10030])
@@ -585,7 +633,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10092]
 		[TravelRecommendationOnthology_Class10093]
-		[TravelRecommendationOnthology_Class10094])
+		[TravelRecommendationOnthology_Class10094]
+		[TravelRecommendationOnthology_Class20012])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10026]
 		[TravelRecommendationOnthology_Class10028]
@@ -610,7 +659,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10095]
 		[TravelRecommendationOnthology_Class10096]
-		[TravelRecommendationOnthology_Class10097])
+		[TravelRecommendationOnthology_Class10097]
+		[TravelRecommendationOnthology_Class20013])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10031]
 		[TravelRecommendationOnthology_Class10026]
@@ -623,7 +673,8 @@
 
 	(CityInterests
 		[TravelRecommendationOnthology_Class10018]
-		[TravelRecommendationOnthology_Class11])
+		[TravelRecommendationOnthology_Class11]
+		[TravelRecommendationOnthology_Class10])
 	(CityName "Pequin")
 	(DailyCost 40.0)
 	(HasHotel
@@ -635,7 +686,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10098]
 		[TravelRecommendationOnthology_Class10099]
-		[TravelRecommendationOnthology_Class10100])
+		[TravelRecommendationOnthology_Class10100]
+		[TravelRecommendationOnthology_Class20014])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10031]
 		[TravelRecommendationOnthology_Class10026]
@@ -658,7 +710,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10101]
 		[TravelRecommendationOnthology_Class10102]
-		[TravelRecommendationOnthology_Class10103])
+		[TravelRecommendationOnthology_Class10103]
+		[TravelRecommendationOnthology_Class30015])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10028]
 		[TravelRecommendationOnthology_Class10031]
@@ -682,7 +735,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10105]
 		[TravelRecommendationOnthology_Class10106]
-		[TravelRecommendationOnthology_Class10107])
+		[TravelRecommendationOnthology_Class10107]
+		[TravelRecommendationOnthology_Class30016])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10031]
 		[TravelRecommendationOnthology_Class10026]
@@ -707,7 +761,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10108]
 		[TravelRecommendationOnthology_Class10109]
-		[TravelRecommendationOnthology_Class10110])
+		[TravelRecommendationOnthology_Class10110]
+		[TravelRecommendationOnthology_Class30017])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10031]
 		[TravelRecommendationOnthology_Class10026]
@@ -731,7 +786,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10111]
 		[TravelRecommendationOnthology_Class10112]
-		[TravelRecommendationOnthology_Class10115])
+		[TravelRecommendationOnthology_Class10115]
+		[TravelRecommendationOnthology_Class30019])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10028]
 		[TravelRecommendationOnthology_Class10028]
@@ -754,7 +810,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10116]
 		[TravelRecommendationOnthology_Class10117]
-		[TravelRecommendationOnthology_Class10118])
+		[TravelRecommendationOnthology_Class10118]
+		[TravelRecommendationOnthology_Class30018])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10021]
 		[TravelRecommendationOnthology_Class10026]
@@ -881,7 +938,8 @@
 	(HasSights
 		[TravelRecommendationOnthology_Class10074]
 		[TravelRecommendationOnthology_Class10075]
-		[TravelRecommendationOnthology_Class10076])
+		[TravelRecommendationOnthology_Class10076]
+		[TravelRecommendationOnthology_Class20006])
 	(TypeOfCity
 		[TravelRecommendationOnthology_Class10022]
 		[TravelRecommendationOnthology_Class10026]
@@ -1691,9 +1749,9 @@
 		[TravelRecommendationOnthology_Class10032]
 		[TravelRecommendationOnthology_Class10036]
 		[TravelRecommendationOnthology_Class10045]
-		[TravelRecommendationOnthology_Class10048]
 		[TravelRecommendationOnthology_Class10051]
-		[TravelRecommendationOnthology_Class10053])
+		[TravelRecommendationOnthology_Class10053]
+		[TravelRecommendationOnthology_Class10048])
 	(InterestSight
 		[TravelRecommendationOnthology_Class10055]
 		[TravelRecommendationOnthology_Class10064]
@@ -1735,7 +1793,12 @@
 		[TravelRecommendationOnthology_Class10080]
 		[TravelRecommendationOnthology_Class10089]
 		[TravelRecommendationOnthology_Class10093]
-		[TravelRecommendationOnthology_Class10111])
+		[TravelRecommendationOnthology_Class10111]
+		[TravelRecommendationOnthology_Class10002]
+		[TravelRecommendationOnthology_Class20005]
+		[TravelRecommendationOnthology_Class20008]
+		[TravelRecommendationOnthology_Class20011]
+		[TravelRecommendationOnthology_Class30019])
 	(Kind historico))
 
 ([TravelRecommendationOnthology_Class14] of  Interest
@@ -1759,6 +1822,90 @@
 	(HotelName "Prince Hotel")
 	(HotelSituatedIn [TravelRecommendationOnthology_Class10035])
 	(HotelStars 2))
+
+([TravelRecommendationOnthology_Class20003] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Plaza del Sol")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10036]))
+
+([TravelRecommendationOnthology_Class20004] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10016])
+	(SightName "Centro de Lisboa")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10039]))
+
+([TravelRecommendationOnthology_Class20005] of  Sight
+
+	(Importance 4)
+	(SightInterest [TravelRecommendationOnthology_Class13])
+	(SightName "Bundestag")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10040]))
+
+([TravelRecommendationOnthology_Class20006] of  Sight
+
+	(Importance 4)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Big Ben")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10068]))
+
+([TravelRecommendationOnthology_Class20007] of  Sight
+
+	(Importance 1)
+	(SightInterest [TravelRecommendationOnthology_Class10015])
+	(SightName "Jardin Botanico de Munich")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10041]))
+
+([TravelRecommendationOnthology_Class20008] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class13])
+	(SightName "Museo Nordico")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10042]))
+
+([TravelRecommendationOnthology_Class20009] of  Sight
+
+	(Importance 5)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Mausoleo de Lenin")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10043]))
+
+([TravelRecommendationOnthology_Class20010] of  Sight
+
+	(Importance 2)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Museo Faberge")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10044]))
+
+([TravelRecommendationOnthology_Class20011] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class13])
+	(SightName "Templo de Zeus")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10045]))
+
+([TravelRecommendationOnthology_Class20012] of  Sight
+
+	(Importance 4)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Mezquita Azul")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10046]))
+
+([TravelRecommendationOnthology_Class20013] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10018])
+	(SightName "Tokyo Tower")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10047]))
+
+([TravelRecommendationOnthology_Class20014] of  Sight
+
+	(Importance 4)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Plaza de Tiananmen")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10048]))
 
 ([TravelRecommendationOnthology_Class20015] of  Hotel
 
@@ -1806,6 +1953,41 @@
 
 	(Distance corta)
 	(TransportName coche))
+
+([TravelRecommendationOnthology_Class30015] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "China Art Museum")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10049]))
+
+([TravelRecommendationOnthology_Class30016] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10017])
+	(SightName "Kowloon Island")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10050]))
+
+([TravelRecommendationOnthology_Class30017] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10])
+	(SightName "Museo Nacional de Corea")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10051]))
+
+([TravelRecommendationOnthology_Class30018] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class10016])
+	(SightName "Ski Dubai")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10053]))
+
+([TravelRecommendationOnthology_Class30019] of  Sight
+
+	(Importance 3)
+	(SightInterest [TravelRecommendationOnthology_Class13])
+	(SightName "Museo de la Liga Hanseatica")
+	(SightSituatedIn [TravelRecommendationOnthology_Class10052]))
 
 ([TravelRecommendationOnthology_Class4] of  Transport
 
