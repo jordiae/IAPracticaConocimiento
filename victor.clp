@@ -347,7 +347,33 @@
 	(focus processing)
 )
 
-
+(defrule characterisation::DayChecker "makes sure user is not asking impossible restrictions on days"
+	(declare(salience 20))
+	?f1<-(minnumcities ?minc)
+	?f2<-(maxnumcities ?maxc)
+	?f3<-(mindaysincities ?mindc)
+	?f4<-(maxdaysincities ?maxdc)
+	?f5<-(mindays ?mind)
+	?f6<-(maxdays ?maxd)
+	=>
+	(bind ?good TRUE)
+	(bind ?calcMinDays (* ?minc ?mindc))
+	(if (< ?maxd ?calcMinDays)
+	then
+		(bind ?good FALSE)
+		(printout t "No se puede construir un viaje con maximo " ?maxd " dias visitando " ?minc " ciudades y haciendo " ?mindc " noches en ellas!" crlf)
+	)
+	(bind ?calcMaxDays (* ?maxc ?maxdc))
+	(if (< ?calcMaxDays ?mind)
+	then
+		(bind ?good FALSE)
+		(printout t "No se puede construir un viaje con minimo " ?mind " dias visitando maximo " ?maxc " ciudades y haciendo maximo " ?maxdc " noches en ellas!" crlf)
+	)
+	(if (not ?good)
+	then
+		(retract ?f1 ?f2 ?f3 ?f4 ?f5 ?f6)
+	)
+)
 
 
 
@@ -380,6 +406,17 @@
 (deftemplate construction::visited 
 	(slot city (type INSTANCE))
 )
+
+(deffunction construction::travelCost (?travel ?travelers)
+	(bind $?stays (send ?travel get-Stays))
+	(bind ?total 0)
+	(progn$ (?stay ?stays)
+		(bind ?hotelCost (* (send (send ?stay get-StayHotel) get-CostByNight) (* (send ?stay get-Days) ?travelers)))
+		(bind ?total (+ ?total ?hotelCost))
+	)
+	(return ?total)
+)
+
 (defrule construction::Start "Initializes the solution with minimum requirements"
 	(not (travelRecomendation ?))
 	(not (BadTravel))
@@ -388,6 +425,8 @@
 	(maxdaysincities ?maxdc)
 	(mindays ?mtd)
 	(monumentsPerDay ?mpd)
+	(budget ?budget)
+	(travelers ?t)
 	=>
 	(bind ?good TRUE)
 	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
@@ -412,6 +451,17 @@
             (bind $?Unorderedlist (delete-member$ $?Unorderedlist ?curr-city))
         )
     )
+
+    ;PROBLEM: if we need minimum ?mtd days in total, but ?maxdc * ?mc is less than that, we need to visit more cities!
+    ;SOLUTION: we change ?mc to accomodate the minimum number of cities
+    (if (> ?mtd (* ?maxdc ?mc))
+    then
+    	(bind ?newcities (div ?mtd ?maxdc))
+    	(if (not (eq ?mtd (* ?newcities ?maxdc)))
+    	then (bind ?newcities (+ ?newcities 1)))
+    	(bind ?mc ?newcities)
+    )
+
 	(bind $?result (create$ ))
 	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?mc))  do ;; pairing it with comment below, should get more cities!
 		(bind ?curr-rec (maximum-score $?Unorderedlist))
@@ -476,6 +526,7 @@
 		then
 			(printout t "Impossible travel: Day restrictions make it impossible" crlf)
 			(bind ?good FALSE)
+			;
 		)
 
 
@@ -501,11 +552,16 @@
 			(bind ?i (+ ?i 1))
 		)
 
-
+		(bind ?travel (make-instance (gensym) of Travel (Stays ?stays)))
 		; TODO: check budget!
+		(if (and (> (travelCost ?travel ?t) ?budget) ?good)
+		then
+			(printout t "Con las actuales restricciones no podemos ofrecerle un viaje con presupuesto " ?budget "$" crlf)
+			(printout t "Le proponemos esta alternativa mas cara (reduzca los requisitos de hoteles y minimo de ciudades y dias para una experiencia mas asequible)" crlf)
+		)
 		(if ?good
 		then
-			(assert (travelRecomendation (make-instance (gensym) of Travel (Stays ?stays))))
+			(assert (travelRecomendation ?travel))
 			;(printout t "Test3")
 		else
 			(assert (BadTravel))
@@ -622,15 +678,6 @@
     
 )
 
-(deffunction construction::travelCost (?travel ?travelers)
-	(bind $?stays (send ?travel get-Stays))
-	(bind ?total 0)
-	(progn$ (?stay ?stays)
-		(bind ?hotelCost (* (send (send ?stay get-StayHotel) get-CostByNight) (* (send ?stay get-Days) ?travelers)))
-		(bind ?total (+ ?total ?hotelCost))
-	)
-	(return ?total)
-)
 
 (defrule construction::ProposeAndApply "Improves the travel if possible"
 	(travelRecomendation ?travel)
@@ -1074,24 +1121,3 @@
 
 
 
-(deffacts testing-data "just a random set of input"
-    (event amigos)
-    (objective aventura)
-    (budget 6000)
-    (mindays 1)
-    (maxdays 30)
-    (sacrificetimeforbudget TRUE)
-    (minnumcities 3)
-    (maxnumcities 10)
-    (mindaysincities 1)
-    (maxdaysincities 10)
-    (minhotelquality 4)
-    (sacrificequalityforbudget FALSE)
-    (visitrare TRUE)
-    (age 100)
-    (kids TRUE)
-    (travelers 3)
-    (avoidtransport (trans coche))
-    (prefertransport (trans avion))
-    (transportPreferencesSet)
-)
