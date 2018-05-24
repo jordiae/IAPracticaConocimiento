@@ -1,4 +1,4 @@
-; Tue May 22 19:44:24 CEST 2018
+; Thu May 24 18:48:51 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -340,7 +340,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class12])
 	(CityName "Barcelona")
-	(DailyCost 40.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10119]
 		[TravelRecommendationOnthology_Class10120]
@@ -365,7 +364,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class10015])
 	(CityName "Paris")
-	(DailyCost 80.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10121]
 		[TravelRecommendationOnthology_Class10127]
@@ -404,7 +402,6 @@
 		[TravelRecommendationOnthology_Class10017]
 		[TravelRecommendationOnthology_Class10034])
 	(CityName "Roma")
-	(DailyCost 60.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10122]
 		[TravelRecommendationOnthology_Class10136]
@@ -429,7 +426,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class14])
 	(CityName "Madrid")
-	(DailyCost 50.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10123]
 		[TravelRecommendationOnthology_Class10138]
@@ -453,7 +449,6 @@
 		[TravelRecommendationOnthology_Class13]
 		[TravelRecommendationOnthology_Class10016])
 	(CityName "Lisboa")
-	(DailyCost 40.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10124]
 		[TravelRecommendationOnthology_Class10139]
@@ -477,7 +472,6 @@
 		[TravelRecommendationOnthology_Class13]
 		[TravelRecommendationOnthology_Class10016])
 	(CityName "Berlin")
-	(DailyCost 50.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10126]
 		[TravelRecommendationOnthology_Class10142]
@@ -500,7 +494,6 @@
 		[TravelRecommendationOnthology_Class13]
 		[TravelRecommendationOnthology_Class10016])
 	(CityName "Munich")
-	(DailyCost 80.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10129]
 		[TravelRecommendationOnthology_Class10145]
@@ -525,7 +518,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class12])
 	(CityName "Estocolmo")
-	(DailyCost 80.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10130]
 		[TravelRecommendationOnthology_Class10146]
@@ -551,7 +543,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class10016])
 	(CityName "Moscu")
-	(DailyCost 40.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10131]
 		[TravelRecommendationOnthology_Class10152]
@@ -576,7 +567,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class12])
 	(CityName "San Petersburgo")
-	(DailyCost 40.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10132]
 		[TravelRecommendationOnthology_Class10154]
@@ -601,7 +591,6 @@
 		[TravelRecommendationOnthology_Class11]
 		[TravelRecommendationOnthology_Class10])
 	(CityName "Atenas")
-	(DailyCost 30.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10133]
 		[TravelRecommendationOnthology_Class10155]
@@ -624,7 +613,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class13])
 	(CityName "Estambul")
-	(DailyCost 20.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10134]
 		[TravelRecommendationOnthology_Class10156]
@@ -650,7 +638,6 @@
 		[TravelRecommendationOnthology_Class10018]
 		[TravelRecommendationOnthology_Class14])
 	(CityName "Tokyo")
-	(DailyCost 80.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10135]
 		[TravelRecommendationOnthology_Class10163]
@@ -676,7 +663,6 @@
 		[TravelRecommendationOnthology_Class11]
 		[TravelRecommendationOnthology_Class10])
 	(CityName "Pequin")
-	(DailyCost 40.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10137]
 		[TravelRecommendationOnthology_Class10165]
@@ -702,7 +688,6 @@
 		[TravelRecommendationOnthology_Class10018]
 		[TravelRecommendationOnthology_Class10])
 	(CityName "Shangai")
-	(DailyCost 30.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10140]
 		[TravelRecommendationOnthology_Class10166]
@@ -726,7 +711,6 @@
 		[TravelRecommendationOnthology_Class14]
 		[TravelRecommendationOnthology_Class10017])
 	(CityName "Hong Kong")
-	(DailyCost 80.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10141]
 		[TravelRecommendationOnthology_Class10169]
@@ -752,7 +736,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class10034])
 	(CityName "Seul")
-	(DailyCost 60.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10143]
 		[TravelRecommendationOnthology_Class10174]
@@ -777,7 +760,6 @@
 		[TravelRecommendationOnthology_Class10018]
 		[TravelRecommendationOnthology_Class10015])
 	(CityName "Gdansk")
-	(DailyCost 50.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10147]
 		[TravelRecommendationOnthology_Class10175]
@@ -801,7 +783,6 @@
 		[TravelRecommendationOnthology_Class10016]
 		[TravelRecommendationOnthology_Class11])
 	(CityName "Dubai")
-	(DailyCost 100.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10148]
 		[TravelRecommendationOnthology_Class10176]
@@ -929,7 +910,6 @@
 		[TravelRecommendationOnthology_Class10]
 		[TravelRecommendationOnthology_Class10034])
 	(CityName "Londres")
-	(DailyCost 100.0)
 	(HasHotel
 		[TravelRecommendationOnthology_Class10128]
 		[TravelRecommendationOnthology_Class10144]
@@ -1951,6 +1931,7 @@
 
 ([TravelRecommendationOnthology_Class3] of  Transport
 
+	(BaseCost 20)
 	(Distance corta)
 	(TransportName coche))
 
@@ -1991,15 +1972,18 @@
 
 ([TravelRecommendationOnthology_Class4] of  Transport
 
+	(BaseCost 50)
 	(Distance media)
 	(TransportName tren))
 
 ([TravelRecommendationOnthology_Class5] of  Transport
 
+	(BaseCost 100)
 	(Distance larga)
 	(TransportName avion))
 
 ([TravelRecommendationOnthology_Class6] of  Transport
 
+	(BaseCost 90)
 	(Distance larga)
 	(TransportName barco))
