@@ -157,13 +157,13 @@
 	=>
 	(assert (visitrare (yes-no-question "¿Quiere visitar lugares menos conocidos?")))
 )
-(defrule characterisation::sacrificeTimeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
-	(not (sacrificetimeforbudget ?))
-	(mindays ?)
-	(budget ?)
-	=>
-	(assert (sacrificetimeforbudget (yes-no-question "¿Esta dispuesto a pasar menos o mas dias de los especificados con tal de adecuarse al presupuesto?")))
-) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
+;(defrule characterisation::sacrificeTimeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
+;	(not (sacrificetimeforbudget ?))
+;	(mindays ?)
+;	(budget ?)
+;	=>
+;	(assert (sacrificetimeforbudget (yes-no-question "¿Esta dispuesto a pasar menos o mas dias de los especificados con tal de adecuarse al presupuesto?")))
+;) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
 ;; Ignoring should mean punishing those solutions but not discard them
 (defrule characterisation::sacrificeQualityForBudgetAuto ""
 	(declare (salience 10))
@@ -407,6 +407,16 @@
 	(slot city (type INSTANCE))
 )
 
+(deffunction construction::transportCost (?transport ?city1 ?city2)
+	(bind ?base (send ?transport get-BaseCost))
+	(bind ?xdist (- (send ?city2 get-XCoord) (send ?city1 get-XCoord) ))
+    (bind ?ydist (- (send ?city2 get-YCoord) (send ?city1 get-YCoord) ))
+    (bind ?dist (sqrt (+ (* ?xdist ?xdist) (* ?ydist ?ydist) )))
+    (bind ?result (+ ?base (* 0.01 ?base ?dist)))
+    (return (/ ( round (* 100 ?result) ) 100))
+)
+
+
 (deffunction construction::travelCost (?travel ?travelers)
 	(bind $?stays (send ?travel get-Stays))
 	(bind ?total 0)
@@ -414,6 +424,15 @@
 		(bind ?hotelCost (* (send (send ?stay get-StayHotel) get-CostByNight) (* (send ?stay get-Days) ?travelers)))
 		(bind ?total (+ ?total ?hotelCost))
 	)
+	(bind $?transports (send ?travel get-TravelTransports))
+	(loop-for-count (?i 1 (length$ $?transports)) do
+		(bind ?city1 (send (nth$ ?i $?stays) get-StayCity))
+		(bind ?city2 (send (nth$ (+ ?i 1) $?stays) get-StayCity))
+		(bind ?curr-transport (nth$ ?i $?transports))
+		(bind ?total (+ ?total (transportCost ?curr-transport ?city1 ?city2)))
+		;(printout t crlf ?city1 " - " ?curr-transport " - " ?city2  "[" (transportCost (nth$ ?i $?transports) (send (nth$ ?i $?stays) get-StayCity) (send (nth$ (+ ?i 1) $?stays) get-StayCity)) "$]")
+	)
+
 	(return ?total)
 )
 
@@ -542,12 +561,17 @@
 			(while (and 
 				(not (eq (length$ $?sightList) 0)) 
 				(not (eq ?totalSights 0))) do 
-
 				(bind ?curr-rec (maximum-score $?sightList))
 				(bind ?totalSights (- ?totalSights 1))
 				(bind $?sightList (delete-member$ $?sightList ?curr-rec))
 				(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
+				;(printout t "DEBUG: " ?curr-rec crlf)
 			)
+			;(printout t crlf "Intro" crlf)
+			;(progn$ (?curr $?result)
+			;	(printout t "DEBUG: " ?curr-rec crlf)
+			;)
+			;(printout t crlf)
 			(send ?curr-stay put-StaySights ?result)
 			(bind ?i (+ ?i 1))
 		)
@@ -694,7 +718,7 @@
 
 	(while ?notEnd do
 	(bind ?leftOverMoney (- ?budget (travelCost ?travel ?t)))
-
+	(bind ?leftOverMoney (- ?leftOverMoney (* (- (length$ (send ?travel get-Stays)) 1) 125) ) ) ; APPROXIMATE OF TRANSPORT COST, 125 is a magic number
 	(bind ?maxScoreImprovement 0)
 	(bind ?bestOption nil)
 
@@ -861,6 +885,9 @@
 				(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
 				(bind ?j (+ ?j 1))
 			)
+			;(progn$ (?curr ?finalSightList)
+			;	(printout t ?curr crlf)
+			;)
 			(send ?stay put-StaySights ?finalSightList)
 		)
 		(if (eq (nth$ 1 ?bestOption) 3)
@@ -911,13 +938,25 @@
 					(bind ?numberOfSights (* ?mindc ?mpd))
 					(bind ?citySights (send ?newCity get-HasSights))
 					(bind ?finalSightList (create$ ))
-					(loop-for-count (?i 1 ?numberOfSights) do
+					;(loop-for-count (?i 1 ?numberOfSights) do
+					;	(bind ?newSightToVisit (maximum-score $?citySights))
+					;	(bind $?citySights (delete-member$ $?citySights ?newSightToVisit))
+					;	(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
+					;)
+
+					(bind ?finalSightList (create$ ))
+					(bind ?j 1)
+					(while (and (<= ?j ?numberOfSights) (not (eq (length$ ?citySights) 0)) )
 						(bind ?newSightToVisit (maximum-score $?citySights))
 						(bind $?citySights (delete-member$ $?citySights ?newSightToVisit))
 						(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
+						(bind ?j (+ ?j 1))
 					)
-					(send ?newStay put-StaySights ?finalSightList)
 
+					(send ?newStay put-StaySights ?finalSightList)
+					;(progn$ (?curr ?finalSightList)
+					;	(printout t ?curr crlf)
+					;)
 					(bind ?stays (send ?travel get-Stays))
 					(bind ?stays (insert$ $?stays (+ (length$ $?stays) 1) ?newStay))
 					(send ?travel put-Stays ?stays)
@@ -1057,7 +1096,8 @@
 				then (printout t ", ")
 			)
 			(bind ?sight (nth$ ?j ?sights))
-			(format t "%s" (send ?sight get-SightName))	
+			(format t "%s" (send ?sight get-SightName))
+			;(printout t ?sight )		
 		)
 	)
 	(bind $?transports (send ?travel get-TravelTransports))
@@ -1066,7 +1106,8 @@
 		(bind ?city1 (send (send (nth$ ?i $?stays) get-StayCity) get-CityName ) )
 		(bind ?city2 (send (send (nth$ (+ ?i 1) $?stays) get-StayCity) get-CityName ) )
 		(bind ?curr-transport (send (nth$ ?i $?transports) get-TransportName))
-		(printout t crlf ?city1 " - " ?curr-transport " - " ?city2 )
+		;(printout t crlf ?curr-transport)
+		(printout t crlf ?city1 " - " ?curr-transport " - " ?city2  "[" (transportCost (nth$ ?i $?transports) (send (nth$ ?i $?stays) get-StayCity) (send (nth$ (+ ?i 1) $?stays) get-StayCity)) "$]")
 	)
 	(printout t crlf crlf)
 )
@@ -1121,3 +1162,24 @@
 
 
 
+
+
+
+(deffacts testing-data "just a random set of input"
+    (event bodas)
+    (budget 6000)
+    (mindays 4)
+    (maxdays 20)
+    (sacrificetimeforbudget TRUE) ; NOT USED!
+    (minnumcities 2)
+    (maxnumcities 5)
+    (mindaysincities 2)
+    (maxdaysincities 9)
+    (minhotelquality 4)
+    (sacrificequalityforbudget FALSE)
+    (visitrare FALSE)
+    (age 20)
+    (kids FALSE)
+    (travelers 2)
+    (transportPreferencesSet)
+)
