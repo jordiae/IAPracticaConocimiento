@@ -1,79 +1,32 @@
 
-; processing a bit less temporal
+; Processing code
 
-
-(defrule characterisation::TempTestFunc
-    (declare (salience 20))
-    (impossible fact)
-    =>
-    (bind ?instances (find-all-instances ( (?i Hotel)) TRUE))
-    ;(bind ?instances (sort id-sort ?instances))
-    ;(progn$ (?i ?instances)
-    ;    (printout t (send ?i get-id) " " (send ?i get-full-name) crlf)))
-    (progn$ (?curr-hot ?instances)
-		(printout t (send ?curr-hot get-HotelName) crlf)
-	)
-)
-
+; template for the list of hotels
 (deftemplate processing::hotelList
 	(multislot hotels (type INSTANCE))
 )
 
+; template for the list of cities
 (deftemplate processing::cityList
 	(multislot cities (type INSTANCE))
 )
 
+; template for the list of sights
 (deftemplate processing::sightList
 	(multislot sights (type INSTANCE))
 )
 
-;(deftemplate processing::hotelListFiltered
-;	(multislot hotelsFiltered (type INSTANCE))
-;)
-
-;(defclass processing::cityRecommendation ;;;template or class? will leave as class for now
-;    (multislot hotels  
-;        (type INSTANCE)
-;        (create-accessor read-write)
-;    )  
-;)
-
-;(defclass processing::trip ;;;template or class? will leave as class for now
-;    (multislot cityRecommendations  ;;;all cityRecommendations with the objective from the user
-;        (type INSTANCE)
-;        (create-accessor read-write)
-;    )  
-;)
-
-
-
-;(defclass stay ;;; might not use it, very temp
-;	(is-a USER)
-;	(role concrete)
-;	(multislot recomendaciones
-;		(type INSTANCE)
-;		(create-accessor read-write))
-;    (slot hotel
-;		(type INSTANCE)
-;		(create-accessor read-write))
-;    (slot days
-;        (type INTEGER)
-;        (create-accessor read-write))
-;	(multislot sights    ;;; either all the sights for the stay (filtered) or all the possible sights in that city
-;		(type INSTANCE)
-;		(create-accessor read-write))
-;)
-
-(defrule processing::initial-asserts "Just for testing"
+; initial assert to create lists we'll use later
+(defrule processing::initial-asserts "Creating the lists used in processing"
     (declare (salience 20))
     (not (hotelList))
     =>
     (assert (hotelList))
     (assert (cityList))
     (assert (sightList))
-    ;(assert (hotelListFiltered))
 )
 
+; Adding all the hotels to their list and initializing the score to 0
 (defrule processing::addHotels "Add all hotels, score afterwards"
     (declare (salience 10))
     ?hot <- (object (is-a Hotel))
@@ -85,6 +38,7 @@
     (send ?hot put-Score 0)
 )
 
+; Adding all the cities to their list and initializing the score to 0
 (defrule processing::addCities "Add all cities, score afterwards"
     (declare (salience 10))
     ?hot <- (object (is-a City))
@@ -96,6 +50,7 @@
     (send ?hot put-Score 0)
 )
 
+; Adding all the sights to their list and initializing the score to 0
 (defrule processing::addSights "Add all hotels, score afterwards"
     (declare (salience 10))
     ?hot <- (object (is-a Sight))
@@ -108,39 +63,39 @@
 )
 
 (defrule processing::scoreCities "modify the score of each city"
-    (declare (salience 9)) ;putting this here because this rule sets the initial score
-    (objective ?obj)
+    (declare (salience 9)) ; higher salience as this sets their base score
+    (objective ?obj) ; this is the what the user is interested in
     ?fact <- (cityList (cities $?list))
     =>
     (progn$ (?curr-city $?list)
         (bind $?list2 (send ?curr-city get-CityInterests))
         (progn$ (?curr-interest $?list2)
-            (if (eq (send ?curr-interest get-Kind) ?obj)
+            ; if an interest in a city is of the same kind as what the user is interested in, the base score of the city is higher
+            (if (eq (send ?curr-interest get-Kind) ?obj) 
                 then
-                ;(send ?curr-city put-Score (+ (send ?curr-city get-Score) 100))
-                (send ?curr-city put-Score 100)  ;;;have to do it like this because the instances have no score
-                ;; might want to change later the 100 for a function that gives a score depending on the combination of user obj + city interest
+                (send ?curr-city put-Score 100) 
             )
         )
 	)
 )
 
-(defrule processing::scoreCitiesByTheirSights "What would you know, people go places to see things"
-    ?scoredsights <- (SightsScored) ;; we need to know that this has been done to score the cities better
+(defrule processing::scoreCitiesByTheirSights "Cities with better sights should have a better score"
+    ?scoredsights <- (SightsScored) ; since we are giving better score to cities depending on their sights, all sights have to be scored before we do this
     ?fact <- (cityList (cities $?list))
     =>
     (progn$ (?curr-city $?list)
         (bind $?list2 (send ?curr-city get-HasSights))
         (progn$ (?curr-sight $?list2)
+            ; for each sight a city has, we sum the score of the sight to the score of the city
             (send ?curr-city put-Score (+ (send ?curr-city get-Score) (send ?curr-sight get-Score)))
         )
 	)
-    (retract ?scoredsights) ;; to mark that it's done
+    (retract ?scoredsights) ; we retract this fact to mark that we're done with this scoring
 )
 
 (defrule processing::scoreSights "modify the score of each sight"
-    (declare (salience 9)) ;putting this here because this rule sets the initial score
-    (objective ?obj)
+    (declare (salience 9)) ; higher salience as this sets their base score
+    (objective ?obj) ; this is the what the user is interested in
     ?fact <- (sightList (sights $?list))
     =>
     (progn$ (?curr-sight $?list)
@@ -148,131 +103,70 @@
         (progn$ (?curr-interest $?list2)
             (if (eq (send ?curr-interest get-Kind) ?obj)
                 then
-                ;(send ?curr-sight put-Score (+ (send ?curr-sight get-Score) 100))
-                (send ?curr-sight put-Score 100)  ;;;have to do it like this because the instances have no score
-                ;; might want to change later the 100 for a function that gives a score depending on the combination of user obj + city interest
+                ; same as the cities, if a sight has the same kind of interest the user wants, give it a higher score
+                (send ?curr-sight put-Score 100) 
             )
         )
 	)
 )
 
-(defrule processing::scoreSightsNotRare "The user likes not being able to see what he is visiting and bumping into selfie sticks"
-    (visitrare FALSE)
+(defrule processing::scoreSightsNotRare "As the user likes important, well known sights, we'll give those a better score"
+    (visitrare FALSE) ; this means the user prefers more important sights
     ?fact <- (sightList (sights $?list))
     =>
     (progn$ (?curr-sight $?list)
         (send ?curr-sight put-Score (+ (send ?curr-sight get-Score) (* (send ?curr-sight get-Importance) 10) ))
-        ;; just regular scoring
+        ; we add score to each sight proportionally to their importance
 	)
-    (assert (SightsScored)) ;; we need to know that this has been done to score the cities better
+    (assert (SightsScored)) ; We use this fact to mark that the sights are done being scored
 )
 
-(defrule processing::scoreSightsRare "The user doesn't like to see people when visiting things, may I recommend VR?"
-    (visitrare TRUE)
+(defrule processing::scoreSightsRare "As the user likes less important, less known sights, we'll give those a better score"
+    (visitrare TRUE) ; this means the user prefers less important sights
     ?fact <- (sightList (sights $?list))
     =>
     (progn$ (?curr-sight $?list)
         (send ?curr-sight put-Score (+ (send ?curr-sight get-Score) (* (- 6 (send ?curr-sight get-Importance) ) 10) ))
-        ;; just inverse scoring
+        ; we add score to each sight proportionally inverse to their importance
 	)
-    (assert (SightsScored)) ;; we need to know that this has been done to score the cities better
+    (assert (SightsScored)) ; We use this fact to mark that the sights are done being scored
 )
 
 (defrule processing::scoreHotel "modify the score of each hotel"
-    (declare (salience 9)) ;putting this here because this rule sets the initial score
+    (declare (salience 9)) ; higher salience as this sets their base score
     ?fact <- (hotelList (hotels $?list))
     =>
     (progn$ (?curr-hot $?list)
+        ; we add score to each hotel proportionally to its stars
         (send ?curr-hot put-Score (* (send ?curr-hot get-HotelStars) 10))
 	)
 )
 
 (defrule processing::scoreHotelSacrifice "modify the score of each hotel if the user is willing to sacrifice comfort"
-    (sacrificequalityforbudget TRUE)
-    (minhotelquality ?quality)
+    (sacrificequalityforbudget TRUE) ; this tells us the user is willing to sacrifice comfort
+    (minhotelquality ?quality) ; this tells us how many stars the user wants for hotels
     ?fact <- (hotelList (hotels $?list))
     =>
     (progn$ (?curr-hot $?list)
         (if (< (send ?curr-hot get-HotelStars) ?quality)
             then
             (send ?curr-hot put-Score (- (send ?curr-hot get-Score) (* (- ?quality (send ?curr-hot get-HotelStars)) 5)))
-            ; small punishment for having less stars than asked
+            ; we remove a small amount of score from hotels for having less stars than asked, though not enough to drive the score into the negatives
         )
 	)
 )
 
 (defrule processing::scoreHotelNoSacrifice "modify the score of each hotel if the user is not willing to sacrifice comfort"
-    (sacrificequalityforbudget FALSE)
-    (minhotelquality ?quality)
+    (sacrificequalityforbudget FALSE) ; this tells us the user is not willing to sacrifice comfort
+    (minhotelquality ?quality) ; this tells us how many stars the user demands for hotels
     ?fact <- (hotelList (hotels $?list))
     =>
     (progn$ (?curr-hot $?list)
         (if (< (send ?curr-hot get-HotelStars) ?quality)
             then
             (send ?curr-hot put-Score (- (send ?curr-hot get-Score) 1000))
-            ; divine smite to the unworthy hotels with below asked stars
+            ; we remove a big amount of score from hotels if they have less stars than demanded, putting it into the negatives
         )
 	)
 )
 
-;(defrule processing::printCityScore "testforScoring"
-;    (declare (salience -10))
-;    ?fact <- (cityList (cities $?list))
-;    =>
-;    (progn$ (?curr-city $?list)
-;		(printout t (send ?curr-city get-CityName) "    " (send ?curr-city get-Score) crlf)
-;	)
-;)
-
-
-;(defrule processing::removeHotelsByStars "Remove hotels with less stars than asked for"
-;    (declare (salience 5))
-;    (not (hotelsAreFiltered))
-;    ?factTMP <- (minhotelquality ?quality)
-;	?fact1 <- (hotelList (hotels $?list))
-;    ?fact2 <- (hotelListFiltered (hotelsFiltered $?list2))
-;    ;?h2 <- (sacrificequalityforbudget FALSE)
-;	=>
-;    (progn$ (?curr-hot $?list)
-;        (if (>= (send ?curr-hot get-HotelStars) ?quality)
-;            then 
-;            (bind $?list2 (insert$ $?list2 (+ (length$ $?list2) 1) ?curr-hot))
-;        )
-;	)
-;	(modify ?fact2 (hotelsFiltered $?list2))
-;    (assert (hotelsAreFiltered))
-;)
-
-;(defrule processing::printSavedHotels "print saved hotels in list"
-;    (declare (salience -10))
-;    ?fact <- (hotelListFiltered (hotelsFiltered $?list))
-;    =>
-;    (progn$ (?curr-hot $?list)
-;		(printout t (send ?curr-hot get-HotelName) crlf)
-;	)
-;)
-
-
-
-
-;(deffacts testing-data "just a random set of input"
-;    (event amigos)
-;    (objective aventura)
-;    (budget 6000)
-;    (mindays 1)
-;    (maxdays 30)
-;    (sacrificetimeforbudget TRUE)
-;    (minnumcities 1)
-;    (maxnumcities 10)
-;    (mindaysincities 1)
-;    (maxdaysincities 10)
-;    (minhotelquality 4)
-;    (sacrificequalityforbudget FALSE)
-;    (visitrare TRUE)
-;    (age 100)
-;    (kids TRUE)
-;    (travelers 3)
-;    (avoidtransport coche)
-;    (prefertransport avion)
-;    (transportPreferencesSet)
-;)
