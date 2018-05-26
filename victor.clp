@@ -109,12 +109,12 @@
 	(not (mindays ?))
 	(not (maxdays ?))
 	=>
-	(bind ?min (num-question "¿Cual es el requisito de minimo de dias del viaje?" 0 30))
-	(bind ?max (num-question "¿Cual es el requisito de maximo de dias del viaje?" 0 30)) ;; TODO:Check this, could be troublesome
+	(bind ?min (num-question "¿Cual es el requisito de minimo de dias del viaje?" 1 30))
+	(bind ?max (num-question "¿Cual es el requisito de maximo de dias del viaje?" 1 30)) ;; TODO:Check this, could be troublesome
 	(while (> ?min ?max) do
 		(printout t "El maximo debe ser mayor que el minimo" crlf)
-		(bind ?min (num-question "¿Cual es el requisito de minimo de dias del viaje?" 0 30))
-		(bind ?max (num-question "¿Cual es el requisito de maximo de dias del viaje?" 0 30)) ;; TODO:Check this, could be troublesome
+		(bind ?min (num-question "¿Cual es el requisito de minimo de dias del viaje?" 1 30))
+		(bind ?max (num-question "¿Cual es el requisito de maximo de dias del viaje?" 1 30)) ;; TODO:Check this, could be troublesome
 	)
 	(assert (mindays ?min))
 	(assert (maxdays ?max))
@@ -123,12 +123,12 @@
 	(not (minnumcities ?))
 	(not (maxnumcities ?))
 	=>
-	(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 0 10))
-	(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 0 10))
+	(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 1 10))
+	(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 1 10))
 	(while (> ?min ?max) do
 		(printout t "El maximo debe ser mayor que el minimo" crlf)
-		(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 0 10))
-		(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 0 10))
+		(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 1 10))
+		(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 1 10))
 	)
 	(assert (minnumcities ?min))
 	(assert (maxnumcities ?max))
@@ -137,12 +137,12 @@
 	(not (mindaysincities ?))
 	(not (maxdaysincities ?))
 	=>
-	(bind ?min (num-question "¿Cual es el numero minimo de dias a pasar en una ciudad?" 0 10))
-	(bind ?max (num-question "¿Cual es el numero maximo de dias a pasar en una ciudad?" 0 10))
+	(bind ?min (num-question "¿Cual es el numero minimo de dias a pasar en una ciudad?" 1 10))
+	(bind ?max (num-question "¿Cual es el numero maximo de dias a pasar en una ciudad?" 1 10))
 	(while (> ?min ?max) do
 		(printout t "El maximo debe ser mayor que el minimo" crlf)
-		(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 0 10))
-		(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 0 10))
+		(bind ?min (num-question "¿Cual es el numero minimo de ciudades a visitar?" 1 10))
+		(bind ?max (num-question "¿Cual es el numero maximo de ciudades a visitar?" 1 10))
 	)
 	(assert (mindaysincities ?min))
 	(assert (maxdaysincities ?max))
