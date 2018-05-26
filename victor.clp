@@ -1165,21 +1165,3 @@
 
 
 
-(deffacts testing-data "just a random set of input"
-    (event bodas)
-    (budget 6000)
-    (mindays 4)
-    (maxdays 20)
-    (sacrificetimeforbudget TRUE) ; NOT USED!
-    (minnumcities 2)
-    (maxnumcities 5)
-    (mindaysincities 2)
-    (maxdaysincities 9)
-    (minhotelquality 4)
-    (sacrificequalityforbudget FALSE)
-    (visitrare FALSE)
-    (age 20)
-    (kids FALSE)
-    (travelers 2)
-    (transportPreferencesSet)
-)
