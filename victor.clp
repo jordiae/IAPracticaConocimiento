@@ -1,10 +1,3 @@
-;;; Victor parte de Clips. No tocar! Solo copiar
-;;;
-
-
-
-
-
 ;;; Preliminary Modules, by subproblem detection:
 
 (defmodule MAIN (export ?ALL))
@@ -33,12 +26,12 @@
 	(import characterisation ?ALL)
 	(export ?ALL)
 )
-;; TODO: ERASE THIS!
 
 
 
 
 ;;; Useful functions for characterisation:
+;;; Each of these define a question input, with allowed kinds of values.
 (deffunction MAIN::general-question (?question)
     (format t "%s " ?question)
 	(bind ?answer (read))
@@ -75,7 +68,6 @@
        else FALSE)
 )
 
-
 (deffunction MAIN::num-question (?question ?min ?max)
 	(format t "%s [entre %d y %d] " ?question ?min ?max)
 	(bind ?answer (read))
@@ -86,10 +78,23 @@
 	?answer
 )
 
-;;; Questions with index seem unnecesary
-
+;This function is useful for getting the best option from a list.
+(deffunction MAIN::maximum-score ($?lista)
+	(bind ?maximum -1)
+	(bind ?element nil)
+	(progn$ (?curr-element $?lista)
+		(bind ?curr-sc (send ?curr-element get-Score))
+		(if (> ?curr-sc ?maximum)
+			then 
+			(bind ?maximum ?curr-sc)
+			(bind ?element ?curr-element)
+		)
+	)
+	?element
+)
 
 ;;; Rules for main and characterisation
+
 (defrule MAIN::system-banner "First rule of program"
 	(declare (salience 10))
 	=>
@@ -99,6 +104,8 @@
 	(printout t "Por favor, responda a las siguientes preguntas:" crlf)
 	(focus characterisation)
 )
+
+;;; Here go all the rules for question asking:
 
 (defrule characterisation::budget "Asks for travel budget"
 	(not (budget ?))
@@ -157,15 +164,7 @@
 	=>
 	(assert (visitrare (yes-no-question "¿Quiere visitar lugares menos conocidos?")))
 )
-;(defrule characterisation::sacrificeTimeForBudget "Checks whether the user wants to sacrifice time/quality for the sake of budget"
-;	(not (sacrificetimeforbudget ?))
-;	(mindays ?)
-;	(budget ?)
-;	=>
-;	(assert (sacrificetimeforbudget (yes-no-question "¿Esta dispuesto a pasar menos o mas dias de los especificados con tal de adecuarse al presupuesto?")))
-;) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
-;; Ignoring should mean punishing those solutions but not discard them
-(defrule characterisation::sacrificeQualityForBudgetAuto ""
+(defrule characterisation::sacrificeQualityForBudgetAuto "If we want minimum 1 star hotels, we don't need to ask the user if he agrees to reducing the hotel quality"
 	(declare (salience 10))
 	(not (sacrificequalityforbudget ?))
 	(minhotelquality 1)
@@ -178,8 +177,9 @@
 	(minhotelquality ?)
 	=>
 	(assert (sacrificequalityforbudget (yes-no-question "¿Esta dispuesto a pasar noches en un hotel de menos calidad a la preferida?")))
-) ;; sacrificeforbudget should work like this: if it is true, we can 'ignore' the restrictions on days or quality of hotel, depending on the type of sacrifice
-;; Ignoring should mean punishing those solutions but not discard them
+) 
+;; sacrificeforbudget should work like this: if it is true, we can 'unrestrict' the restrictions on quality of hotel, depending on the type of sacrifice
+;; unrestrict should mean punishing those solutions but not discard them
 
 
 ;; Restrictions set above, now further characterisation
@@ -188,19 +188,8 @@
 	(not (age ?))
 	=>
 	(assert (age (num-question "¿Que edad tiene?" 1 110)))
-)
+); This question is not really useful, but we could infer if he wants an imserso travel from this.
 
-;(defrule characterisation::culturalLevel "Ask for cultural level"
-;	(not (culture ?))
-;	=>
-;	(assert (culture (num-question "¿?")))
-;) I'd rather avoid this question. 
-
-;(defrule characterisation::kids "Ask if kids are coming"
-;	(not (kids ?))
-;	=>
-;	(assert (kids (yes-no-question "¿Viajaran con niños?")))
-;)
 (defrule characterisation::NumTravelers "Ask number of travelers"
 	(not (travelers ?))
 	=>
@@ -212,7 +201,8 @@
 	(not (event ?))
 	=>
 	(assert (event (multioption "El viaje se debe a algun tipo de evento concreto?" bodas fin-de-curso amigos imserso aniversario-de-niño escapada ruta-natural estudiantes-Upc melomania deportista otro)))
-)
+) ;This rule is not useful for processing/construction, but we can deduce things for caracterisation from here
+
 (defrule characterisation::eventBodas "Si son bodas, viaje romantico"
 	(declare (salience 10))
 	(event bodas)
@@ -277,7 +267,7 @@
 	(objective relax)
 	=>
 	(assert (monumentsPerDay 1))
-)
+) ; We deduce that a relax travel implies not visiting many monuments.
 
 (defrule characterisation::NumSightsPerDay "Ask number of sights a day"
 	(declare (salience -4))
@@ -297,7 +287,7 @@
 		(bind $?name-kinds(insert$ $?name-kinds (+ (length$ $?name-kinds) 1) ?curr-name))
 	)
 	(assert (objective (multioption "¿Cual es el interes principal del viaje?" ?name-kinds)))
-)
+) ; We specifically ask the objective of the travel if we still don't know by now.
 
 (deftemplate characterisation::prefertransport 
 	(slot trans (type SYMBOL))
@@ -338,16 +328,7 @@
 	(assert (transportPreferencesSet))
 )
 
-; TODO: tipo ciudad
-
-(defrule characterisation::toProcessing "Switches focus to processing after nothing else to do"
-	(declare(salience -20))
-	=>
-	(printout t "Processing..." crlf)
-	(focus processing)
-)
-
-(defrule characterisation::DayChecker "makes sure user is not asking impossible restrictions on days"
+(defrule characterisation::DayChecker "Makes sure user is not asking impossible restrictions on days"
 	(declare(salience 20))
 	?f1<-(minnumcities ?minc)
 	?f2<-(maxnumcities ?maxc)
@@ -375,12 +356,18 @@
 	)
 )
 
+(defrule characterisation::toProcessing "Switches focus to processing after nothing else to do"
+	(declare(salience -20))
+	=>
+	(printout t "Processing..." crlf)
+	(focus processing)
+)
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule processing::toConstruction "Switches to construction"
 	(declare (salience -20))
@@ -390,23 +377,12 @@
 )
 
 
-(deffunction MAIN::maximum-score ($?lista)
-	(bind ?maximum -1)
-	(bind ?element nil)
-	(progn$ (?curr-element $?lista)
-		(bind ?curr-sc (send ?curr-element get-Score))
-		(if (> ?curr-sc ?maximum)
-			then 
-			(bind ?maximum ?curr-sc)
-			(bind ?element ?curr-element)
-		)
-	)
-	?element
-)
+
 (deftemplate construction::visited 
 	(slot city (type INSTANCE))
 )
 
+;Function for computing monetary cost of moving with a certain transport
 (deffunction construction::transportCost (?transport ?city1 ?city2)
 	(bind ?base (send ?transport get-BaseCost))
 	(bind ?xdist (- (send ?city2 get-XCoord) (send ?city1 get-XCoord) ))
@@ -416,7 +392,7 @@
     (return (/ ( round (* 100 ?result) ) 100))
 )
 
-
+;Function that computes the tota cost of a travel.
 (deffunction construction::travelCost (?travel ?travelers)
 	(bind $?stays (send ?travel get-Stays))
 	(bind ?total 0)
@@ -430,12 +406,13 @@
 		(bind ?city2 (send (nth$ (+ ?i 1) $?stays) get-StayCity))
 		(bind ?curr-transport (nth$ ?i $?transports))
 		(bind ?total (+ ?total (transportCost ?curr-transport ?city1 ?city2)))
-		;(printout t crlf ?city1 " - " ?curr-transport " - " ?city2  "[" (transportCost (nth$ ?i $?transports) (send (nth$ ?i $?stays) get-StayCity) (send (nth$ (+ ?i 1) $?stays) get-StayCity)) "$]")
 	)
 
 	(return ?total)
 )
 
+
+; First solution generation, minimal cost with all other restrictions.
 (defrule construction::Start "Initializes the solution with minimum requirements"
 	(not (travelRecomendation ?))
 	(not (BadTravel))
@@ -448,12 +425,14 @@
 	(travelers ?t)
 	=>
 	(bind ?good TRUE)
-	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0))) ;; do-for-all-facts might prove useful to discard already 'visited' cities
+	(bind $?Unorderedlist (find-all-instances ((?inst City)) (> ?inst:Score 0)))
 	(bind $?VisitFilter (create$ ))
+	;Filter by not visited
 	(do-for-all-facts ((?f visited)) TRUE 
 		;(printout t ?f)
 		(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
 	)
+	;Filter by valid hotel (positive score)
     (progn$ (?curr-city $?Unorderedlist)
         (bind $?cityHotels (send ?curr-city get-HasHotel))
         (bind ?somePositiveHotel FALSE)
@@ -481,6 +460,7 @@
     	(bind ?mc ?newcities)
     )
 
+    ;Preliminar selection of cities
 	(bind $?result (create$ ))
 	(while (and (not (eq (length$ $?Unorderedlist) 0)) (< (length$ $?result) ?mc))  do ;; pairing it with comment below, should get more cities!
 		(bind ?curr-rec (maximum-score $?Unorderedlist))
@@ -495,10 +475,10 @@
 		(bind $?stays (create$ ))
 		(loop-for-count (?i 1 (length$ $?result)) do
 			(bind ?curr-obj (nth$ ?i ?result))
-			(assert (visited (city ?curr-obj))) ;This city might not be truly visited, only proven that it has no good hotel. Works the same anyway
+			(assert (visited (city ?curr-obj)))
 			(bind $?hotelList (send ?curr-obj get-HasHotel))
 
-			; Now we get the cheapest hotel with positive score.
+			; Now we get the cheapest hotel with positive score. We know it exists from before.
 			(bind ?minPrice 10000) ; Consider this number +infinity, there's no hotel that pricey
 			(bind ?finalHotel nil)
 			(loop-for-count (?i 1 (length$ $?hotelList)) do ; find cheapest hotel with positive score? (avoid <stars), give it to instance
@@ -510,21 +490,19 @@
 					(bind ?finalHotel ?curr-jbo)
 					(bind ?minPrice ?curr-pr)
 				)
-				;(printout t crlf)
 			)
 			(if (eq ?finalHotel nil)
-			then
+			then ;This should be unreachable code, as it has been checked before.
 				(printout t "Impossible travel: Could not find a Hotel in ")
 				(format t "%s " (send ?curr-obj get-CityName))
 				(bind ?good FALSE)
 			else
 				(bind $?stays (insert$ $?stays (+ (length$ $?stays) 1)  
 					(make-instance (gensym) of Stay (Days ?dc) (StayCity ?curr-obj) (StayHotel ?finalHotel))  
-				));push new instance!
+				))
 			)
 		)
-		; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities
-		; for now no sights ?
+		; Here we should add a couple days to first city to get enough mindays, put in the next one if we exceed maxdaysincities, etc.
 		(bind ?leftmindays (- ?mtd (* ?mc ?dc)))
 		(bind ?i 1)
 		(bind ?maximumAddition (- ?maxdc ?dc))
@@ -541,8 +519,9 @@
 			)
 			(bind ?i (+ ?i 1))
 		)
-		(if (> ?leftmindays 0) ; TODO: check for > maxdays too!
+		(if (> ?leftmindays 0)
 		then
+			; Take into account this code should be unreachable, since a function in characterisation checks this already + the previous increment in minimum cities here also prevents this from happening.
 			(printout t "Impossible travel: Day restrictions make it impossible" crlf)
 			(bind ?good FALSE)
 			;
@@ -565,19 +544,13 @@
 				(bind ?totalSights (- ?totalSights 1))
 				(bind $?sightList (delete-member$ $?sightList ?curr-rec))
 				(bind $?result (insert$ $?result (+ (length$ $?result) 1) ?curr-rec))
-				;(printout t "DEBUG: " ?curr-rec crlf)
 			)
-			;(printout t crlf "Intro" crlf)
-			;(progn$ (?curr $?result)
-			;	(printout t "DEBUG: " ?curr-rec crlf)
-			;)
-			;(printout t crlf)
 			(send ?curr-stay put-StaySights ?result)
 			(bind ?i (+ ?i 1))
 		)
 
 		(bind ?travel (make-instance (gensym) of Travel (Stays ?stays)))
-		; TODO: check budget!
+		; Here we check the budget, in case we went overboard with the cheapest solution, and warn the user.
 		(if (and (> (travelCost ?travel ?t) ?budget) ?good)
 		then
 			(printout t "Con las actuales restricciones no podemos ofrecerle un viaje con presupuesto " ?budget "$" crlf)
@@ -586,9 +559,8 @@
 		(if ?good
 		then
 			(assert (travelRecomendation ?travel))
-			;(printout t "Test3")
 		else
-			(assert (BadTravel))
+			(assert (BadTravel)) ;Travel unbuildable, probably due to lack of instances in onthology, but it should never happen.
 		)
 	)
 )
@@ -603,8 +575,9 @@
 		(type INTEGER)
 		(create-accessor read-write))
 )
-
-(deffunction construction::recTransport (?city1 ?city2) ;;; given two cities returns the list of transports and their scores
+; Function that recomends heuristically the transport to use in a concrete move, more formally:
+; given two cities returns the list of transports and their scores
+(deffunction construction::recTransport (?city1 ?city2) 
     
     (bind $?scoredTransports (create$ ))
     (bind $?allTransports (find-all-instances ((?inst Transport)) TRUE))
@@ -617,8 +590,7 @@
         )
     )
     
-    (do-for-all-facts ((?f prefertransport)) TRUE 
-		;(printout t ?f crlf ?trans crlf "-----------")
+    (do-for-all-facts ((?f prefertransport)) TRUE ;Reward for prefered
         (bind ?trans ?f:trans)
         (progn$ (?curr $?scoredTransports)
             (if
@@ -630,8 +602,7 @@
 		;(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
 	)
     
-    (do-for-all-facts ((?f avoidtransport)) TRUE 
-		;(printout t ?f crlf ?trans crlf "-----------")
+    (do-for-all-facts ((?f avoidtransport)) TRUE ;Punishment for avoided (overwrites prefered)
         (bind ?trans ?f:trans)
         (progn$ (?curr $?scoredTransports)
             (if
@@ -640,13 +611,13 @@
                 (send ?curr put-Score -10)
             )
         )
-		;(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
 	)
     
     (bind ?xdist (- (send ?city2 get-XCoord) (send ?city1 get-XCoord) ))
     (bind ?ydist (- (send ?city2 get-YCoord) (send ?city1 get-YCoord) ))
     (bind ?dist (sqrt (+ (* ?xdist ?xdist) (* ?ydist ?ydist) )))
-    
+
+    ; Calculation of modifier of adequacy (if transport is good for the distance)
     (progn$ (?curr $?scoredTransports)
         (bind ?tr-type (send (send ?curr get-Transport) get-Distance))
         (if
@@ -689,20 +660,12 @@
             )
         )
     )
-    
-    ;(bind $?scoredTransports (insert$ $?scoredTransports 1 $?allTransports))
-    
-    ;(do-for-all-facts ((?f (prefertransport ?trans))) TRUE 
-	;	(printout t ?f crlf ?trans crlf "-----------")
-    ;    (progn$ )
-	;	(bind $?Unorderedlist (delete-member$ $?Unorderedlist ?f:city))
-	;)
-    
+        
     (return $?scoredTransports)
     
 )
 
-
+;Rule for solution improvement
 (defrule construction::ProposeAndApply "Improves the travel if possible"
 	(travelRecomendation ?travel)
 	(budget ?budget)
@@ -718,11 +681,13 @@
 
 	(while ?notEnd do
 	(bind ?leftOverMoney (- ?budget (travelCost ?travel ?t)))
-	(bind ?leftOverMoney (- ?leftOverMoney (* (- (length$ (send ?travel get-Stays)) 1) 125) ) ) ; APPROXIMATE OF TRANSPORT COST, 125 is a magic number
+	; APPROXIMATE OF TRANSPORT COST, 125 is a 'magic number' that more or less helps the solution settle on an aproximated transport budget
+	(bind ?leftOverMoney (- ?leftOverMoney (* (- (length$ (send ?travel get-Stays)) 1) 125) ) ) 
 	(bind ?maxScoreImprovement 0)
 	(bind ?bestOption nil)
 
 	; IMPROVING A HOTEL (IMPROVEMENT = DAYS* (NEWHOTEL - PREVHOTEL)*travelers)
+	; Only considers best hotel in the city. Checks if the change overflows the budget
 	(bind ?i 1)
 	(progn$ (?stay (send ?travel get-Stays))
 		(bind ?prevHotel (send ?stay get-StayHotel))
@@ -732,8 +697,6 @@
 		(bind ?newHotel (maximum-score ?hotelList))
 		(bind ?improvement (* ?days (- (send ?newHotel get-Score) (send ?prevHotel get-Score) )))
 		(bind ?extraCost (* (* ?days (- (send ?newHotel get-CostByNight) (send ?prevHotel get-CostByNight))) ?t))
-		;(printout t "Debug " ?extraCost " "?i crlf)
-		;(printout t "EDebug " ?days " " ?t " " "hO"  " " "hN" crlf)
 		(if (and
 			(> ?improvement ?maxScoreImprovement)
 			(>= ?leftOverMoney ?extraCost) 
@@ -746,6 +709,7 @@
 	)
 
 	; ADDING A DAY (IMPROVEMENT = HOTELDAY + EXTRASIGHTS)
+	; Checks if we still have days available both in the travel and in the concrete stay, and if we can afford another night at the hotel.
 	(bind ?travelDays 0)
 	(progn$ (?stay (send ?travel get-Stays))
 		(bind ?travelDays (+ ?travelDays (send ?stay get-Days)))
@@ -791,6 +755,7 @@
 	)
 
 	; ADDING A CITY (IMPROVEMENT = CityScore)
+	; Only considers next best city (with good hotel). Checks if we overflow the maximum days of the travel and the number of cities, and if the city has an 'adequate' hotel, and the budget.
 	(if (and 
 		(<= (+ ?travelDays ?mindc) ?maxd)
 		(< (length$ (send ?travel get-Stays)) ?mc)
@@ -849,7 +814,7 @@
 		)
 	)
 	
-	; if whatever assert ImprovementFinished
+	; After all the code above, we now have a 'reference' of the bestOption to apply. We will apply it if it exists
 	(if (eq ?bestOption nil) 
 	then
 		(bind ?notEnd FALSE)
@@ -885,9 +850,6 @@
 				(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
 				(bind ?j (+ ?j 1))
 			)
-			;(progn$ (?curr ?finalSightList)
-			;	(printout t ?curr crlf)
-			;)
 			(send ?stay put-StaySights ?finalSightList)
 		)
 		(if (eq (nth$ 1 ?bestOption) 3)
@@ -938,11 +900,6 @@
 					(bind ?numberOfSights (* ?mindc ?mpd))
 					(bind ?citySights (send ?newCity get-HasSights))
 					(bind ?finalSightList (create$ ))
-					;(loop-for-count (?i 1 ?numberOfSights) do
-					;	(bind ?newSightToVisit (maximum-score $?citySights))
-					;	(bind $?citySights (delete-member$ $?citySights ?newSightToVisit))
-					;	(bind $?finalSightList (insert$ $?finalSightList (+ (length$ $?finalSightList) 1) ?newSightToVisit))
-					;)
 
 					(bind ?finalSightList (create$ ))
 					(bind ?j 1)
@@ -954,9 +911,6 @@
 					)
 
 					(send ?newStay put-StaySights ?finalSightList)
-					;(progn$ (?curr ?finalSightList)
-					;	(printout t ?curr crlf)
-					;)
 					(bind ?stays (send ?travel get-Stays))
 					(bind ?stays (insert$ $?stays (+ (length$ $?stays) 1) ?newStay))
 					(send ?travel put-Stays ?stays)
@@ -971,62 +925,8 @@
 		)
 	)
 
-	);endwhile
+	)
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 (defrule construction::AssignTransports "Assigns the travel transports"
@@ -1035,7 +935,7 @@
 	(travelRecomendation ?travel)
 	=>
 	(bind ?stays (send ?travel get-Stays))
-	(bind ?city1 (send (nth$ 1 ?stays) get-StayCity)) ; TODO: FIX THIS!
+	(bind ?city1 (send (nth$ 1 ?stays) get-StayCity))
 	(bind ?result (create$ ))
 	(loop-for-count (?i 2 (length$ $?stays)) do
 
@@ -1136,32 +1036,5 @@
 	=>
 	(Myprint ?x ?t)
 )
-
-
-;num-question
-;yes-no-question
-;multioption
-
-;; TODO: could add rule here to check constraints on number of days in city, cities to visit and days in travel.
-;facts: budget, mindays, maxdays, minnumcities, maxnumcities, mindaysincities, maxdaysincities, avoidtransport, prefertransport, minhotelquality, visitrare, sacrificetimeforbudget, sacrificequalityforbudget, age, culture??, kids, travelers, event, objective
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
