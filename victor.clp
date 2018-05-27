@@ -510,11 +510,10 @@
 			(bind ?curr-obj (nth$ ?i ?stays))
 			(if (< ?leftmindays ?maximumAddition)
 			then
-				(send ?curr-obj put-Days ?leftmindays)
+				(send ?curr-obj put-Days (+ ?dc ?leftmindays))
 				(bind ?leftmindays 0)
 			else
 				(send ?curr-obj put-Days ?maxdc)
-				;(bind ?curr-obj:)
 				(bind ?leftmindays (- ?leftmindays ?maximumAddition))
 			)
 			(bind ?i (+ ?i 1))
