@@ -1,4 +1,4 @@
-; Sat May 26 11:18:05 CEST 2018
+; Sun May 27 00:06:39 CEST 2018
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -413,7 +413,7 @@
 		[TravelRecommendationOnthology_Class10085]
 		[TravelRecommendationOnthology_Class20009])
 	(XCoord 56)
-	(YCoord 8))
+	(YCoord 38))
 
 ([TravelRecommendationOnthology_Class10044] of  City
 
@@ -452,8 +452,8 @@
 		[TravelRecommendationOnthology_Class10090]
 		[TravelRecommendationOnthology_Class10091]
 		[TravelRecommendationOnthology_Class20011])
-	(XCoord 24)
-	(YCoord 38))
+	(XCoord 38)
+	(YCoord 24))
 
 ([TravelRecommendationOnthology_Class10046] of  City
 
